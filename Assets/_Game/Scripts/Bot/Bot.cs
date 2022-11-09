@@ -1,0 +1,25 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
+
+public class Bot : MonoBehaviour
+{
+    [SerializeField] private NavMeshAgent agent;
+    [SerializeField] private Transform target;
+    void Awake()
+    {
+        target = FindObjectOfType<Player>().TF;
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        agent.SetDestination(target.position);
+    }
+}
