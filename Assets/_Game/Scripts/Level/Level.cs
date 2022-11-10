@@ -6,21 +6,25 @@ public class Level : MonoBehaviour
 {
     [SerializeField] Transform groudTF;
     [SerializeField] Transform obstacleTF;
-    [SerializeField] Bot BotPrefab;
-    private List<Bot> bots;
+    [SerializeField] Character BotPrefab;
+    [SerializeField] Player player;
+    public List<Character> listCharacters;
     public bool isWin;
     Vector3 sizeGround;
     float sizeObstacle;
-    float currentAmount=> bots.Count;
+    float currentAmount=> listCharacters.Count;
     float targetAmount=5;
     float totalAmount;
+    public float scaleRadius=10f;
 
     void Awake()
     {
-        // groudTF = FindObjectOfType<Level>().transform;
         sizeGround = groudTF.localScale;
         sizeObstacle = obstacleTF.localScale.x > obstacleTF.localScale.z? obstacleTF.localScale.x : obstacleTF.localScale.z; 
-        bots = new List<Bot>();
+        listCharacters = new List<Character>();
+        player= FindObjectOfType<Player>();
+        player.level= this;
+        listCharacters.Add(player);
 
     }
     // Start is called before the first frame update
@@ -33,13 +37,14 @@ public class Level : MonoBehaviour
     void Update()
     {   
         
-            SpawnAmountBot();
+        SpawnAmountBot();
         
-        
-        if(Input.GetKeyDown(KeyCode.D))
-        {
-            DespawnBot();
-        }
+        // if(Input.GetKeyDown(KeyCode.D))
+        // {
+        //     int random = Random.Range(0, listCharacters.Count);
+        //     DespawnChar(listCharacters[random]);
+            
+        // }
     }
 
     public void OnInit()
@@ -60,25 +65,24 @@ public class Level : MonoBehaviour
         // Instantiate(BotPrefab, position, Quaternion.identity);
         if(!isObjectHere(position, sizeObstacle))
         {
-            Bot bot = Instantiate(BotPrefab, position, Quaternion.identity);
-            bots.Add(bot);
+            Character bot = Instantiate(BotPrefab, position, Quaternion.identity);
+            bot.level = this;
+            listCharacters.Add(bot);
         }
         
     }
 
     public void SpawnAmountBot()
     {
-       if(currentAmount< targetAmount)
+       if(currentAmount< targetAmount + 1)
        {
         SpawnABot();
        }
     }
-    public void DespawnBot()
+    public void DespawnChar(Character character)
     {
-        Bot bot = bots[0];
-        bots.Remove(bot);
-        Destroy(bot.gameObject);
-    
+        character.OnDespawn();
+        listCharacters.Remove(character);
     }
     public void Despawn()
     {

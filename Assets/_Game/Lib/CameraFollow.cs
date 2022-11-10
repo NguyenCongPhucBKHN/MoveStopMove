@@ -26,7 +26,11 @@ public class CameraFollow : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Follow();
+        if(player!= null)
+        {
+            Follow();
+        }
+        
         // if( !GameManagerr.Instance.IsState(EGameState.Finish)  )
         // {
         //     Follow();

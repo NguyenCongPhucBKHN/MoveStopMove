@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour
+public class Obstacle : MonoBehaviour, IHit
 {
     // Start is called before the first frame update
     void Start()
@@ -12,6 +12,15 @@ public class Obstacle : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        
+    }
+
+    public void OnHit(Bullet bullet, Character character)
+    {
+
+    }
+    public void OnHitExit(Bullet bullet, Character character)
     {
         
     }
