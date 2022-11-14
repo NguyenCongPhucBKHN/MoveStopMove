@@ -68,8 +68,16 @@ public class Level : MonoBehaviour
             Character bot = Instantiate(BotPrefab, position, Quaternion.identity);
             bot.level = this;
             listCharacters.Add(bot);
-        }
-        
+        }  
+    }
+
+    public Vector3 GenPointTarget()
+    {
+        float x = groudTF.position.x-sizeGround.x/2+ Random.Range(0, sizeGround.x);
+        float z = groudTF.position.z-sizeGround.z/2+ Random.Range(0, sizeGround.z);
+        float y = groudTF.position.y + sizeGround.y/2 + BotPrefab.transform.localScale.y/2+0.5f;
+        Vector3 position = new Vector3(x, y, z);
+        return position;
     }
 
     public void SpawnAmountBot()

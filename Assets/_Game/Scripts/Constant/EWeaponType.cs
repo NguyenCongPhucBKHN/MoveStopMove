@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EBulletType 
+public enum EWeaponType 
 {
-    
-    
+    Knife,
+    Hammer,
+    Boomerang
+
 }

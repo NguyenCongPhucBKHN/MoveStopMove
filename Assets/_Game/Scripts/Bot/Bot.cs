@@ -7,7 +7,7 @@ public class Bot : Character
 {
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Transform target;
-    [SerializeField] private float speedBot=10;
+    [SerializeField] private float speedBot=15;
     List<Character> chars => level.listCharacters;
     public Character Target => SelectCharTarget();
     public IState<Bot> currentState;
@@ -21,57 +21,44 @@ public class Bot : Character
     // Update is called once per frame
     void Update()
     {
-        //  if(weapon!=null)
-        // {
-        //     OnInit();
-        // }
-        // if(Input.GetKeyDown(KeyCode.Q))
-        // {
-        //     Move();
-        // }
-        // if(Input.GetKeyDown(KeyCode.W))
-        // {
-        //     StopMoving();
-        // }
-        // if(Input.GetKeyDown(KeyCode.E))
-        // {
-        //     Attack();
-        // }
 
         if (currentState != null && !IsDead)
         {
             currentState.OnExecute(this);
-            Attack();
+            // Attack();
         }
-
-
     }
 
     public override void Move()
     {   
         agent.speed=speedBot;
-        Character target = SelectCharTarget();
-        if(target!=null)
-        {
-            distanceToTarget = Vector3.Distance(target.TF.position, TF.position);
+        // Character target = SelectCharTarget();
+        // if(target!=null)
+        // {
+        //     distanceToTarget = Vector3.Distance(target.TF.position, TF.position);
+        //     if(distanceToTarget > 1f)
+        //     {
+        //         agent.SetDestination(target.TF.position);
+        //     }
+        // } 
+        Vector3 position = level.GenPointTarget();
+              distanceToTarget = Vector3.Distance(position, TF.position);
             if(distanceToTarget > 1f)
             {
-                agent.SetDestination(target.TF.position);
+                agent.SetDestination(position);
             }
-        } 
+
     }
 
     public void StopMoving()
     {
         agent.speed= 0;
     }
-    private void Attack()
+    public void Attack()
     {
-        Debug.Log("listCharInAttact.Count bot: "+ listCharInAttact.Count);
-        if(listCharInAttact.Count>0)
+        if(listCharInAttact.Count>0&& level.listCharacters.Contains(listCharInAttact[0]))
         {
             FaceTarget(listCharInAttact[0]);
-
             Invoke(nameof(SpawnBullet), 2f);
         }
        

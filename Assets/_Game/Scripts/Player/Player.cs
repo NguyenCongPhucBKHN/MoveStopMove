@@ -11,11 +11,16 @@ public class Player : Character
         Move();
         if(Input.GetKeyDown(KeyCode.A))
         {
-            if(listCharInAttact.Count>0)
+            if(listCharInAttact.Count>0 )
             {
                 FaceTarget(listCharInAttact[0]);
                 weapon.Attack();
             }
+        }
+
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log("Number character in range attact: "+ listCharInAttact.Count);
         }
         
     }

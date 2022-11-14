@@ -2,28 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
-public class Bullet : MonoBehaviour, IHit
+public class Bullet : MonoBehaviour
 {
-    [SerializeField] Rigidbody rb;
-    [SerializeField] float speedBullet;
+    [SerializeField] public Transform TF;
+    [SerializeField]public  Rigidbody rb;
+    [SerializeField]public float speedBullet;
+    public bool IsDead;
     public Character character; //Nhan vat ban dan
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        OnInit();
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        if(character!=null)
+        if(!character.IsDead)
         {
-            Move();
+            Destroy(this.gameObject);
         }
-        
     }
 
-    void Move()
+    public void OnInit()
+    {
+        TF= transform;
+        rb = GetComponent<Rigidbody>();
+        rb.useGravity= false;
+        IsDead = false;
+    }
+    public virtual void Move(Vector3 dirAttact)
     {
         rb.velocity = character.dirAttact * speedBullet;
     }
@@ -39,6 +47,7 @@ public class Bullet : MonoBehaviour, IHit
 
     void OnTriggerExit(Collider other)
     {
+        
         IHit hit = other.GetComponent<IHit>();
         if(hit != null)
         {
@@ -47,12 +56,19 @@ public class Bullet : MonoBehaviour, IHit
     }
 
     void OnTriggerEnter(Collider other)
-    {
+    {   
         IHit hit = other.GetComponent<IHit>();
-        // Debug.Log("hit enter: "+ hit);
-        if(hit != null)
+      
+        if(hit != null && character!=null)
         {
             hit.OnHit(this, character);
         }
+    }
+
+    public virtual void OnDespawn()
+    {
+        Debug.Log("destroy");
+        IsDead=true;
+        Destroy(this.gameObject);
     }
 }

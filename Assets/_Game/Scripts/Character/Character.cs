@@ -7,15 +7,21 @@ public class Character : MonoBehaviour, IHit
     // [SerializeField] public float chaseRange => Cylinder.transform.lossyScale.x;
     public Transform TF;
     public Level level;
+    [SerializeField] public WeaponDatas weaponDatas;
     [SerializeField] public AttackArea attackArea;
     [SerializeField] public Weapon weaponPrefab;
+    [SerializeField] public Transform weaponGenTF;
     [SerializeField] float turnSpeed =10;
+    
     public List<Character> listCharInAttact = new List<Character>();
     public Weapon weapon;
     public float distanceToTarget = Mathf.Infinity;
     public Vector3 dirAttact;
-    public bool IsDead;
+    public bool IsDead => !level.listCharacters.Contains(this);
+    public bool isBullet= false;
     public bool IsAttack => listCharInAttact.Count>0;
+    public EWeaponType currentWeaponType;
+
     
     void Awake()
     {
@@ -25,14 +31,17 @@ public class Character : MonoBehaviour, IHit
     void Start()
     {
        OnInit();
+       
     }
     
     
     public virtual  void OnInit()
     {
+        currentWeaponType= EWeaponType.Knife;
         SpawnWeapon();
         attackArea.character= this;
         dirAttact= TF.forward;
+        
     }
 
     public void OnStart()
@@ -53,13 +62,11 @@ public class Character : MonoBehaviour, IHit
     {
         if(bullet.character!= this)
         {
-            Destroy(bullet.gameObject);
+            bullet.OnDespawn();
             character.listCharInAttact.Remove(this);
             level.DespawnChar(this);
-            this.IsDead = true;
             character.Scale();
-        }
-       
+        }  
     }
     public void OnHitExit(Bullet bullet, Character character)
     {
@@ -71,20 +78,15 @@ public class Character : MonoBehaviour, IHit
 
     }
     
-
-    public void Attack()
-    {
-
-    }
-
     public void SpawnWeapon()
     {
-        Vector3 postion = TF.position;
-        postion.y = TF.position.y;
-        weapon = Instantiate(weaponPrefab, postion, TF.rotation);
+        weaponPrefab = weaponDatas.GetWeaponPrefab(currentWeaponType);
+        Vector3 postion = weaponGenTF.position;
+        postion.y = weaponGenTF.position.y;
+        weapon = Instantiate(weaponPrefab, weaponGenTF);
+        weapon.transform.position= postion; 
         weapon.character = this;
-        weapon.gameObject.transform.SetParent(TF);
-        
+        isBullet = true;
     }
     public void Death()
     {
@@ -94,7 +96,6 @@ public class Character : MonoBehaviour, IHit
     public void Scale()
     {
         Vector3 scale = TF.localScale;
-        
         scale *= 1.1f;
         TF.localScale = scale;
         
@@ -110,13 +111,16 @@ public class Character : MonoBehaviour, IHit
 
    public void FaceTarget(Character target)
     {
+        if(this.level.listCharacters.Contains(target))
+        {
             Vector3 position = target.TF.position;
             position.y = TF.position.y;
             Vector3 direction = (position - TF.position).normalized;
             TF.forward = direction;
             dirAttact= direction;
+        }
         
-        
+            
     }
     
 }
