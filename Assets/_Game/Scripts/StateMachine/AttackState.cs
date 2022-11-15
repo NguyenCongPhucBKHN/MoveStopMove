@@ -7,12 +7,18 @@ public class AttackState : IState<Bot>
      float timer;
     public void OnEnter(Bot bot)
     {
-        bot.Attack();
+        if(bot.Target!=null)
+        {
+            bot.FaceTarget(bot.Target);
+            bot.StopMoving();
+            bot.Attack();
+        }
+        timer=0;
     }
     public void OnExecute(Bot bot)
     {
         timer += Time.deltaTime;
-        if(timer>=0.5f)
+        if(timer>= Constant.TIMER_ATTACK)
         {
             bot.ChangeState( new PartrolState());
         }

@@ -14,6 +14,7 @@ public class Player : Character
             if(listCharInAttact.Count>0 )
             {
                 FaceTarget(listCharInAttact[0]);
+                ChangeAnim(Constant.ANIM_ATTACK);
                 weapon.Attack();
             }
         }
@@ -25,10 +26,7 @@ public class Player : Character
         
     }
 
-    public override void Move()
-    {
-        JoystickInput.Instance.Move();
-    }
+    
     public override void OnInit()
     {
         base.OnInit();
@@ -36,7 +34,18 @@ public class Player : Character
 
     public override void OnDespawn()
     {
+        base.OnDespawn();
         Destroy(this.gameObject);
+    }
+
+    public override void OnDeath()
+    {
+        base.OnDeath();
+    }
+    public override void Move()
+    {
+        base.Move();
+        JoystickInput.Instance.Move();
     }
 
 

@@ -12,7 +12,7 @@ public class Character : MonoBehaviour, IHit
     [SerializeField] public Weapon weaponPrefab;
     [SerializeField] public Transform weaponGenTF;
     [SerializeField] float turnSpeed =10;
-    
+    [SerializeField] private Animator anim;
     public List<Character> listCharInAttact = new List<Character>();
     public Weapon weapon;
     public float distanceToTarget = Mathf.Infinity;
@@ -21,6 +21,7 @@ public class Character : MonoBehaviour, IHit
     public bool isBullet= false;
     public bool IsAttack => listCharInAttact.Count>0;
     public EWeaponType currentWeaponType;
+    private string currentAnimName;
 
     
     void Awake()
@@ -44,11 +45,6 @@ public class Character : MonoBehaviour, IHit
         
     }
 
-    public void OnStart()
-    {
-
-    }
-
     public void OnSpawn()
     {
 
@@ -56,8 +52,17 @@ public class Character : MonoBehaviour, IHit
 
     public virtual void OnDespawn()
     {
-        
+        ChangeAnim(Constant.ANIM_DEAD);
+
     }
+
+    public virtual void OnDeath()
+    {
+        StopMoving();
+        ChangeAnim(Constant.ANIM_DEAD);
+        Invoke(nameof(OnDespawn), Constant.TIMER_DEATH);
+    }
+    
     public void OnHit(Bullet bullet, Character character)
     {
         if(bullet.character!= this)
@@ -73,11 +78,23 @@ public class Character : MonoBehaviour, IHit
         
     }
 
+    public void ChangeAnim(string animName)
+    {
+        if(currentAnimName != animName)
+        {
+            anim.SetBool(currentAnimName, false);
+            currentAnimName = animName;
+            anim.SetBool(currentAnimName, true);
+        }
+    }
     public virtual void Move()
+    {
+        ChangeAnim(Constant.ANIM_RUN);
+    }
+    public virtual void StopMoving()
     {
 
     }
-    
     public void SpawnWeapon()
     {
         weaponPrefab = weaponDatas.GetWeaponPrefab(currentWeaponType);
@@ -88,15 +105,12 @@ public class Character : MonoBehaviour, IHit
         weapon.character = this;
         isBullet = true;
     }
-    public void Death()
-    {
-
-    }
+    
 
     public void Scale()
     {
         Vector3 scale = TF.localScale;
-        scale *= 1.1f;
+        scale *= 1.05f;
         TF.localScale = scale;
         
     }
@@ -118,9 +132,9 @@ public class Character : MonoBehaviour, IHit
             Vector3 direction = (position - TF.position).normalized;
             TF.forward = direction;
             dirAttact= direction;
-        }
-        
-            
+        }      
     }
+
+    
     
 }

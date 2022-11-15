@@ -12,7 +12,7 @@ public class Knife : Bullet
      public override void OnDespawn()
     {
         IsDead= true;
-        // Destroy(this.gameObject);
+        Destroy(this.gameObject);
     }
 
     

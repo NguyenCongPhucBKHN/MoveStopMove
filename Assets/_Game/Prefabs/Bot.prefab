@@ -440,6 +440,7 @@ MonoBehaviour:
   weaponPrefab: {fileID: 6677129870329120223, guid: 4629a796f5a456f4289c2a3c678613a6, type: 3}
   weaponGenTF: {fileID: 7690204217093911406}
   turnSpeed: 10
+  anim: {fileID: 6684901851177428637}
   listCharInAttact: []
   weapon: {fileID: 0}
   distanceToTarget: Infinity
@@ -498,6 +499,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a92485ac99713dc45902de7c3b21df28, type: 2}
+    - target: {fileID: -6057140222963153312, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: af2cf7787f062f4428a4e2c6abf049b2, type: 2}
     - target: {fileID: -4216859302048453862, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -555,6 +560,11 @@ PrefabInstance:
 --- !u!4 &3625266932973603815 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
+  m_PrefabInstance: {fileID: 8589839896196489469}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6684901851177428637 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: -6057140222963153312, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
   m_PrefabInstance: {fileID: 8589839896196489469}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &4338300092427232778 stripped

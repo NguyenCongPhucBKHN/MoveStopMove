@@ -9,21 +9,25 @@ public class IdleState : IState<Bot>
     public void OnEnter(Bot bot)
     {
        bot.StopMoving();
+       bot.ChangeAnim(Constant.ANIM_IDLE);
        timer =0;
-       randomTime = Random.Range(0.5f, 2f);
-
+       randomTime = Random.Range(Constant.TIMER_MIN_IDLE, Constant.TIMER_MAX_IDLE);
     }
     public void OnExecute(Bot bot)
     {
         timer+= Time.deltaTime;
-        if(bot.IsAttack)
-        {
-            bot.ChangeState(new AttackState());
-        }
-        if(timer>randomTime)
+        if(timer> randomTime)
         {
             bot.ChangeState(new PartrolState());
         }
+        // if(bot.IsAttack)
+        // {
+        //     bot.ChangeState(new AttackState());
+        // }
+        // if(timer>randomTime)
+        // {
+        //     bot.ChangeState(new PartrolState());
+        // }
 
     }
     public void OnExit(Bot bot)

@@ -89,7 +89,7 @@ public class Level : MonoBehaviour
     }
     public void DespawnChar(Character character)
     {
-        character.OnDespawn();
+        character.OnDeath();
         listCharacters.Remove(character);
     }
     public void Despawn()
