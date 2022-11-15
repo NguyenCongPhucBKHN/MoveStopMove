@@ -14,7 +14,14 @@ public class Constant
 
 
     public static float TIMER_ATTACK= 1.5f;
-    public static float TIMER_MIN_IDLE = 3f;
-    public static float TIMER_MAX_IDLE = 5f;
+    public static float TIMER_MIN_WAIT = 1f;
+    public static float TIMER_MAX_WAIT = 2f;
+    public static float TIMER_MIN_IDLE = 1f;
+    public static float TIMER_MAX_IDLE = 2f;
+    public static float TIMER_MIN_MOVE = 3f;
+    public static float TIMER_MAX_MOVE = 6f;
     public static float TIMER_DEATH= 2f;
+
+    public static float DISTANCE_DESTINATION = 1f;
+   
 }

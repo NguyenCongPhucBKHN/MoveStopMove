@@ -15,7 +15,7 @@ public class Character : MonoBehaviour, IHit
     [SerializeField] private Animator anim;
     public List<Character> listCharInAttact = new List<Character>();
     public Weapon weapon;
-    public float distanceToTarget = Mathf.Infinity;
+   
     public Vector3 dirAttact;
     public bool IsDead => !level.listCharacters.Contains(this);
     public bool isBullet= false;
@@ -35,10 +35,10 @@ public class Character : MonoBehaviour, IHit
        
     }
     
-    
     public virtual  void OnInit()
     {
-        currentWeaponType= EWeaponType.Knife;
+        
+        currentWeaponType= EWeaponType.Boomerang;
         SpawnWeapon();
         attackArea.character= this;
         dirAttact= TF.forward;
@@ -78,22 +78,23 @@ public class Character : MonoBehaviour, IHit
         
     }
 
+    
     public void ChangeAnim(string animName)
     {
         if(currentAnimName != animName)
         {
-            anim.SetBool(currentAnimName, false);
+            anim.ResetTrigger(currentAnimName);
             currentAnimName = animName;
-            anim.SetBool(currentAnimName, true);
+            anim.SetTrigger(currentAnimName);
         }
     }
     public virtual void Move()
     {
-        ChangeAnim(Constant.ANIM_RUN);
+        // ChangeAnim(Constant.ANIM_RUN);
     }
     public virtual void StopMoving()
     {
-
+        
     }
     public void SpawnWeapon()
     {
@@ -133,7 +134,30 @@ public class Character : MonoBehaviour, IHit
             TF.forward = direction;
             dirAttact= direction;
         }      
+        else
+        {
+            TF.forward= attackArea.transform.forward;
+        }
     }
+
+    public Character FindCharacterClosed()
+    {
+        Character closedChar = null;
+        float distance = Mathf.Infinity;
+        for(int i =0; i<listCharInAttact.Count; i++)
+        {
+            if(this.level.listCharacters.Contains(listCharInAttact[i]))
+            {
+                if(Vector3.Distance(TF.position, listCharInAttact[i].TF.position)< distance)
+                {
+                    closedChar = listCharInAttact[i];
+                }
+            }
+        }
+        return closedChar;
+    }
+
+    
 
     
     

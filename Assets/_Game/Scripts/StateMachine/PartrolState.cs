@@ -5,51 +5,51 @@ using UnityEngine;
 public class PartrolState : IState<Bot>
 {
     float randomTime;
+    float waitTime;
     float timer;
     public void OnEnter(Bot bot)
     {
        timer = 0;
-       randomTime = Random.Range(3f, 6f);
+       randomTime = Random.Range(Constant.TIMER_MIN_MOVE, Constant.TIMER_MAX_MOVE);
+       waitTime = Random.Range(Constant.TIMER_MIN_WAIT, Constant.TIMER_MAX_WAIT);
 
     }
     public void OnExecute(Bot bot)
     {
         timer += Time.deltaTime;
-        if(timer<randomTime)
-        {
-            bot.Move();
-        }
-        else
-        {
-            bot.ChangeState(new IdleState());
-        }
+        
+
+        if(bot.IsAttack && timer > waitTime)
+            {
+                bot.ChangeState(new AttackState());
+            }
+        
 
 
-        //  if(bot.Target!= null)
-        //  {
-        //     // bot.FaceTarget(bot.Target);
-        //     if(bot.IsAttack)
-        //     {
-        //         bot.Attack();
-        //     }
-        //     else
-        //     {
-        //         bot.Move();
-        //     }
-        //  }
-        //  else
-        // {
-        //     if (timer < randomTime)
-        //     {
-        //         bot.Move();
-        //     }
-        //     else
-        //     {
-        //         bot.ChangeState(new IdleState());
-        //     }
-        // }
+         if(bot.Target!= null)
+         {
+            // bot.FaceTarget(bot.Target);
+            if(bot.IsAttack && timer > waitTime)
+            {
+                bot.ChangeState(new AttackState());
+            }
+            else
+            {
+                bot.Move();
+            }
+         }
+         else
+        {
+            if (timer < randomTime)
+            {
+                bot.Move();
+            }
+            else
+            {
+                bot.ChangeState(new IdleState());
+            }
+        }
          
-
     }
     public void OnExit(Bot bot)
     {

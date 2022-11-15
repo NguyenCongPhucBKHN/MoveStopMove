@@ -9,18 +9,18 @@ public class Lose : UICanvas
 
     private void Update()
     {
-         level.text="Level: "+ Data.Instance.GetLevel().ToString();
+        level.text="Level: "+ Data.Instance.GetLevel().ToString();
     }
 
     public void MainMenuButton()
     {
-        UIManager.Instance.OpenUI<MianMenu>();
+        UIManager.Instance.OpenUI<MainMenu>();
         Close();
     }
 
     public void ReLoadLevel()
     {
-        UIManager.Instance.OpenUI<MianMenu>();
+        UIManager.Instance.OpenUI<MainMenu>();
         GameManagerr.Instance.ChangeState(EGameState.MainMenu);
         LevelManager.Instance.LoadLevel(Data.Instance.GetLevel());
         Close();
@@ -28,7 +28,7 @@ public class Lose : UICanvas
 
     public void RePlayButton()
     {
-        UIManager.Instance.OpenUI<MianMenu>();
+        UIManager.Instance.OpenUI<MainMenu>();
         GameManagerr.Instance.ChangeState(EGameState.MainMenu);
         Data.Instance.SetLevel(1);
         LevelManager.Instance.LoadLevel(1);

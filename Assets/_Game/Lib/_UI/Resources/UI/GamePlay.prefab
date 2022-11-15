@@ -338,11 +338,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7798469590968235374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84af83cab639c5c4bbd074574f28a571, type: 3}
+  m_Script: {fileID: 11500000, guid: f5f86f580b5dad54ab37df6d12a9a056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joystick: {fileID: 2076655602001104663}
-  _moveSpeed: 4
+  _joystick: {fileID: 7025035236778560625}
+  _moveSpeed: 15
   tfCenterJoystick: {fileID: 2076655600266292257}
   playerTF: {fileID: 0}
 --- !u!1001 &7798469591117360464
@@ -495,9 +495,9 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8135886326569738822, guid: 56fae09712773584fb63896d473a98ee, type: 3}
   m_PrefabInstance: {fileID: 7798469591117360464}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2076655602001104663 stripped
+--- !u!114 &7025035236778560625 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8135886326569738823, guid: 56fae09712773584fb63896d473a98ee, type: 3}
+  m_CorrespondingSourceObject: {fileID: 955971027755966753, guid: 56fae09712773584fb63896d473a98ee, type: 3}
   m_PrefabInstance: {fileID: 7798469591117360464}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

@@ -29,7 +29,7 @@ public class GamePlay : UICanvas
 
     // public void RePlayButton()
     // {
-    //     UIManager.Instance.OpenUI<MianMenu>();
+    //     UIManager.Instance.OpenUI<MainMenu>();
     //     GameManagerr.Instance.ChangeState(EGameState.MainMenu);
     //     LevelManager.Instance.LoadLevel(1);
     //     Close();
@@ -38,7 +38,7 @@ public class GamePlay : UICanvas
 
     // public void LoadNextLevel()
     // {
-    //     UIManager.Instance.OpenUI<MianMenu>();
+    //     UIManager.Instance.OpenUI<MainMenu>();
     //     GameManagerr.Instance.ChangeState(EGameState.MainMenu);
     //     LevelManager.Instance.LoadLevel(Data.Instance.GetNextLevel());
     //     Close();

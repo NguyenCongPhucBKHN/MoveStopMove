@@ -11,7 +11,7 @@ public class GameManagerr : Singleton< GameManagerr>
         ChangeState(EGameState.MainMenu);
     }
     void Start() {
-        UIManager.Instance.OpenUI<MianMenu>();
+        UIManager.Instance.OpenUI<MainMenu>();
     }
     public void ChangeState(EGameState state)
     {

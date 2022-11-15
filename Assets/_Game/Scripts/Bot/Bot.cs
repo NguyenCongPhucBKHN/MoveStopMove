@@ -9,9 +9,23 @@ public class Bot : Character
     [SerializeField] private Transform target;
     [SerializeField] private float speedBot=15;
     List<Character> chars => level.listCharacters;
-    public Character Target => SelectCharTarget();
+    public Character Target => FindCharacterClosed();
+    bool isDis= false;
+    Vector3 destination;
     public IState<Bot> currentState;
-    
+    Vector3 point;
+    public bool IsDestination
+    {
+        get
+        {
+            point = TF.position;
+            point.y = destination.y;
+            return Vector3.Distance(destination, point) < Constant.DISTANCE_DESTINATION;
+        }
+    }
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +46,7 @@ public class Bot : Character
     public override void OnInit()
     {
         base.OnInit();
+        destination = TF.position;
         ChangeState(new IdleState());
     }
 
@@ -88,49 +103,46 @@ public class Bot : Character
         // return target;
     }
 
+
+
     public override void Move()
     {   
-        ChangeAnim(Constant.ANIM_RUN);
-        base.Move();
-        agent.speed=speedBot;
-        // Character target = SelectCharTarget();
-        // if(target!=null)
-        // {
-        //     distanceToTarget = Vector3.Distance(target.TF.position, TF.position);
-        //     if(distanceToTarget > 1f)
-        //     {
-        //         agent.SetDestination(target.TF.position);
-        //     }
-        // } 
-        Vector3 position = level.GenPointTarget();
-              distanceToTarget = Vector3.Distance(position, TF.position);
-            if(distanceToTarget > 1f)
-            {
-                agent.SetDestination(position);
-            }
+        
+        // base.Move();
+        isDis = true;
+        if(isDis)
+        {
 
+            agent.speed=speedBot;
+
+            if(!IsDestination)
+            {
+                ChangeAnim(Constant.ANIM_RUN);
+                agent.SetDestination(destination);   
+            }
+            else
+            {
+                ChangeState(new IdleState());
+                destination = level.GenPointTarget();
+                destination.y = TF.position.y;
+            }
+        }
+        
     }
 
     public override void StopMoving()
     {
-        // ChangeAnim(Constant.ANIM_IDLE);
+        
         agent.speed= 0;
     }
     public void Attack()
     {
-        if(listCharInAttact.Count>0&& level.listCharacters.Contains(listCharInAttact[0]))
+        if(listCharInAttact.Count>0&& level.listCharacters.Contains(FindCharacterClosed()))
         {
-            FaceTarget(listCharInAttact[0]);
+            FaceTarget(FindCharacterClosed());
             ChangeAnim(Constant.ANIM_ATTACK);
-            SpawnBullet();
-            // Invoke(nameof(SpawnBullet), 2f);
+            weapon.Attack();
         }
-    }
-
-    public void SpawnBullet()
-    {
-        ChangeAnim(Constant.ANIM_ATTACK);
-        weapon.Attack();
     }
    
 }

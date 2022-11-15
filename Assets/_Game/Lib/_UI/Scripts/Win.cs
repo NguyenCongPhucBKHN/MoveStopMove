@@ -16,13 +16,13 @@ public class Win : UICanvas
     }
     public void MainMenuButton()
     {
-        UIManager.Instance.OpenUI<MianMenu>();
+        UIManager.Instance.OpenUI<MainMenu>();
         Close();
     }
 
     public void RePlayButton()
     {
-        UIManager.Instance.OpenUI<MianMenu>();
+        UIManager.Instance.OpenUI<MainMenu>();
         GameManagerr.Instance.ChangeState(EGameState.MainMenu);
         LevelManager.Instance.LoadLevel(1);
         Data.Instance.SetLevel(1);
@@ -32,7 +32,7 @@ public class Win : UICanvas
 
     public void LoadNextLevel()
     {
-        UIManager.Instance.OpenUI<MianMenu>();
+        UIManager.Instance.OpenUI<MainMenu>();
         GameManagerr.Instance.ChangeState(EGameState.MainMenu);
         LevelManager.Instance.LoadLevel(Data.Instance.GetNextLevel());
         Close();

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-    [SerializeField] Transform groudTF;
+    [SerializeField]public Transform groudTF;
     [SerializeField] Transform obstacleTF;
     [SerializeField] Character BotPrefab;
     [SerializeField] Player player;
     public List<Character> listCharacters;
     public bool isWin;
-    Vector3 sizeGround;
+    public Vector3 sizeGround;
     float sizeObstacle;
     float currentAmount=> listCharacters.Count;
     float targetAmount=5;
@@ -77,7 +77,11 @@ public class Level : MonoBehaviour
         float z = groudTF.position.z-sizeGround.z/2+ Random.Range(0, sizeGround.z);
         float y = groudTF.position.y + sizeGround.y/2 + BotPrefab.transform.localScale.y/2+0.5f;
         Vector3 position = new Vector3(x, y, z);
-        return position;
+        if(!isObjectHere(position, sizeObstacle))
+        {
+            return position;
+        }
+        return Vector3.zero;
     }
 
     public void SpawnAmountBot()

@@ -9,7 +9,7 @@ public class AttackState : IState<Bot>
     {
         if(bot.Target!=null)
         {
-            bot.FaceTarget(bot.Target);
+            // bot.FaceTarget(bot.Target);
             bot.StopMoving();
             bot.Attack();
         }
@@ -20,7 +20,7 @@ public class AttackState : IState<Bot>
         timer += Time.deltaTime;
         if(timer>= Constant.TIMER_ATTACK)
         {
-            bot.ChangeState( new PartrolState());
+            bot.ChangeState( new IdleState());
         }
     }
     public void OnExit(Bot bot)
