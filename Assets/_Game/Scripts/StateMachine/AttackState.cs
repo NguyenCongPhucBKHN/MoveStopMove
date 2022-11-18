@@ -9,8 +9,8 @@ public class AttackState : IState<Bot>
     {
         if(bot.Target!=null)
         {
-            // bot.FaceTarget(bot.Target);
             bot.StopMoving();
+            bot.ChangeAnim(Constant.ANIM_ATTACK);
             bot.Attack();
         }
         timer=0;

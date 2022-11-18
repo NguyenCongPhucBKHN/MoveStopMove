@@ -7,7 +7,7 @@ public class Bot : Character
 {
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Transform target;
-    [SerializeField] private float speedBot=15;
+    [SerializeField] private float speedBot=8;
     List<Character> chars => level.listCharacters;
     public Character Target => FindCharacterClosed();
     bool isDis= false;
@@ -30,6 +30,8 @@ public class Bot : Character
     void Start()
     {
         OnInit();
+        Rigidbody rd = GetComponent<Rigidbody>();
+        rd.velocity =Vector3.zero;
     }
 
     // Update is called once per frame
@@ -113,7 +115,7 @@ public class Bot : Character
         if(isDis)
         {
 
-            agent.speed=speedBot;
+            agent.speed= speedBot;
 
             if(!IsDestination)
             {
@@ -132,17 +134,8 @@ public class Bot : Character
 
     public override void StopMoving()
     {
-        
-        agent.speed= 0;
+        agent.SetDestination(TF.position);
     }
-    public void Attack()
-    {
-        if(listCharInAttact.Count>0&& level.listCharacters.Contains(FindCharacterClosed()))
-        {
-            FaceTarget(FindCharacterClosed());
-            ChangeAnim(Constant.ANIM_ATTACK);
-            weapon.Attack();
-        }
-    }
+    
    
 }

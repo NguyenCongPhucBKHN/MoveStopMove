@@ -15,13 +15,14 @@ public class Character : MonoBehaviour, IHit
     [SerializeField] private Animator anim;
     public List<Character> listCharInAttact = new List<Character>();
     public Weapon weapon;
-   
+    
     public Vector3 dirAttact;
     public bool IsDead => !level.listCharacters.Contains(this);
     public bool isBullet= false;
     public bool IsAttack => listCharInAttact.Count>0;
     public EWeaponType currentWeaponType;
     private string currentAnimName;
+    public bool isDie;
 
     
     void Awake()
@@ -37,12 +38,11 @@ public class Character : MonoBehaviour, IHit
     
     public virtual  void OnInit()
     {
-        
-        currentWeaponType= EWeaponType.Boomerang;
+
+        currentWeaponType= EWeaponType.Knife /*(EWeaponType) Random.Range(0, System.Enum.GetValues(typeof(EWeaponType)).Length)*/;
         SpawnWeapon();
         attackArea.character= this;
         dirAttact= TF.forward;
-        
     }
 
     public void OnSpawn()
@@ -58,6 +58,7 @@ public class Character : MonoBehaviour, IHit
 
     public virtual void OnDeath()
     {
+        isDie= true;
         StopMoving();
         ChangeAnim(Constant.ANIM_DEAD);
         Invoke(nameof(OnDespawn), Constant.TIMER_DEATH);
@@ -90,7 +91,7 @@ public class Character : MonoBehaviour, IHit
     }
     public virtual void Move()
     {
-        // ChangeAnim(Constant.ANIM_RUN);
+       
     }
     public virtual void StopMoving()
     {
@@ -111,7 +112,7 @@ public class Character : MonoBehaviour, IHit
     public void Scale()
     {
         Vector3 scale = TF.localScale;
-        scale *= 1.05f;
+        scale *= 1.07f;
         TF.localScale = scale;
         
     }
@@ -157,6 +158,22 @@ public class Character : MonoBehaviour, IHit
         return closedChar;
     }
 
+    public bool AnimatorIsPlaying(){
+     return anim.GetCurrentAnimatorStateInfo(0).length >
+            anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
+  }
+
+    public void Attack()
+    {
+        if(listCharInAttact.Count>0 && level.IsExistChar(FindCharacterClosed()))
+        {
+            FaceTarget(FindCharacterClosed());
+            ChangeAnim(Constant.ANIM_ATTACK);
+            weapon.gameObject.SetActive(false);
+            weapon.Attack();
+
+        }
+    }
     
 
     

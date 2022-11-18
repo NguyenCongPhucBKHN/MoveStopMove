@@ -23,7 +23,6 @@ public class AttackArea : MonoBehaviour, IHit
         if(charInArea != null && character!=null &&  charInArea.gameObject != character.gameObject )
         {
             character.listCharInAttact.Remove(charInArea);
-            // character.IsInRangeAttack= false;
         }
     }
    void OnDrawGizmosSelected()

@@ -5,12 +5,14 @@ using UnityEngine;
 public class JoystickInput : Singleton<JoystickInput>
 {
      private Rigidbody _rigidbody;
+     private float playerSpeed = 8;
     
     // [SerializeField] public FixedJoystick _joystick;
     [SerializeField] public DynamicJoystick _joystick;
-    [SerializeField] private float _moveSpeed =15;
+    [SerializeField] private float _moveSpeed =8;
     [SerializeField] Transform tfCenterJoystick;
     [SerializeField] Transform playerTF;
+    public bool isMouse;
 
     
     public bool isControl => Vector3.Distance(tfCenterJoystick.localPosition, Vector3.zero)>0.1;
@@ -26,13 +28,19 @@ public class JoystickInput : Singleton<JoystickInput>
         Debug.Log("rb: "+ _rigidbody);
         playerTF =  _rigidbody.transform;
     }
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    private void FixedUpdate()
+    {
+        isMouse = Input.GetMouseButtonDown(0);
+        isMouse = !Input.GetMouseButtonUp(0);
+    }
 
     public void Move()
     {
-        _moveSpeed = isControl ? 15:0;
-        Debug.Log("joystick: "+ _joystick);
-        _rigidbody.velocity = new Vector3(_joystick.Horizontal *_moveSpeed, _rigidbody.velocity.y, _joystick.Vertical*_moveSpeed);
-        Debug.Log("velocity: "+ _rigidbody.velocity);
+        _moveSpeed = playerSpeed ;
+        _rigidbody.velocity = isControl ? new Vector3(_joystick.Horizontal *_moveSpeed, _rigidbody.velocity.y, _joystick.Vertical*_moveSpeed): Vector3.zero;
         if(_joystick.Horizontal != 0 || _joystick.Vertical != 0)
         {
            playerTF.rotation = Quaternion.LookRotation(_rigidbody.velocity);

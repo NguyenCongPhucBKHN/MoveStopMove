@@ -7,6 +7,10 @@ public class Boomerang : Bullet
     [SerializeField] private Transform BoomerangImgTF;
     bool isHit= false;
 
+    public override void OnInit()
+    {
+        speedBullet= 10;
+    }
     private void Update()
     {
         BoomerangImgTF.Rotate(0, 0, 10, Space.Self);

@@ -12,12 +12,12 @@ public class IdleState : IState<Bot>
         bot.StopMoving();
         bot.ChangeAnim(Constant.ANIM_IDLE);
         timer =0;
-        waitTime = Random.Range(1f, 3f);
+        waitTime = Random.Range(0.5f, 1.5f);
         randomTime = Random.Range(Constant.TIMER_MIN_IDLE, Constant.TIMER_MAX_IDLE);
     }
     public void OnExecute(Bot bot)
     {
-        timer+= Time.deltaTime;
+        timer += Time.deltaTime;
         if(timer> randomTime)
         {
             bot.ChangeState(new PartrolState());

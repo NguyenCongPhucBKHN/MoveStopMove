@@ -6,13 +6,14 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] public Transform TF;
     [SerializeField]public  Rigidbody rb;
-    [SerializeField]public float speedBullet;
+    [SerializeField]public float speedBullet ;
     public bool IsDead;
     public Character character; //Nhan vat ban dan
     // Start is called before the first frame update
     void Start()
     {
         OnInit();
+        TF= transform;
     }
 
     
@@ -24,7 +25,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void OnInit()
+    public virtual void OnInit()
     {
         TF= transform;
         rb = GetComponent<Rigidbody>();
@@ -67,7 +68,7 @@ public class Bullet : MonoBehaviour
 
     public virtual void OnDespawn()
     {
-        Debug.Log("destroy");
+        character.weapon.gameObject.SetActive(true);
         IsDead=true;
         Destroy(this.gameObject);
     }

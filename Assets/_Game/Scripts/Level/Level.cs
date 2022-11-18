@@ -38,13 +38,6 @@ public class Level : MonoBehaviour
     {   
         
         SpawnAmountBot();
-        
-        // if(Input.GetKeyDown(KeyCode.D))
-        // {
-        //     int random = Random.Range(0, listCharacters.Count);
-        //     DespawnChar(listCharacters[random]);
-            
-        // }
     }
 
     public void OnInit()
@@ -62,7 +55,7 @@ public class Level : MonoBehaviour
         float z = groudTF.position.z-sizeGround.z/2+ Random.Range(0, sizeGround.z);
         float y = groudTF.position.y + sizeGround.y/2 + BotPrefab.transform.localScale.y/2+0.5f;
         Vector3 position = new Vector3(x, y, z);
-        // Instantiate(BotPrefab, position, Quaternion.identity);
+
         if(!isObjectHere(position, sizeObstacle))
         {
             Character bot = Instantiate(BotPrefab, position, Quaternion.identity);
@@ -102,7 +95,10 @@ public class Level : MonoBehaviour
     }
 
       
-
+    public bool IsExistChar(Character charr)
+    {
+        return this.listCharacters.Contains(charr);
+    }
     bool isObjectHere(Vector3 position, float distance)
     {
         Collider[] intersecting = Physics.OverlapSphere(position, distance);
