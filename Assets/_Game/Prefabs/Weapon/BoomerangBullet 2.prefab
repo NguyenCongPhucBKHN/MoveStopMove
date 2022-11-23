@@ -126,9 +126,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9f8b62045676ca4c83342b83b50fedb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TF: {fileID: 0}
+  TF: {fileID: 4399644279839031619}
   Img: {fileID: 1181115765664860447}
   rb: {fileID: 5300473720993820492}
+  offsetRotation: {x: 0, y: 0, z: 0}
+  offsetQuaternion: {x: 0, y: 0, z: 0}
+  meshRenderer: {fileID: 4468597034019295184}
   speedBullet: 10
   IsDead: 0
   character: {fileID: 0}
@@ -213,5 +216,10 @@ PrefabInstance:
 --- !u!4 &1181115765664860447 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: f6ba6acc744d0ff46af0b4623f8862f4, type: 3}
+  m_PrefabInstance: {fileID: 6133513780816568837}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &4468597034019295184 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -1504981713932161579, guid: f6ba6acc744d0ff46af0b4623f8862f4, type: 3}
   m_PrefabInstance: {fileID: 6133513780816568837}
   m_PrefabAsset: {fileID: 0}

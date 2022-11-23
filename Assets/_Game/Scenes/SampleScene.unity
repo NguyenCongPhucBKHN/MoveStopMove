@@ -2244,13 +2244,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8513976419224877250, guid: a8209984803d1164a82d115143da8bac, type: 3}
     - target: {fileID: 1409808987846466963, guid: c41519ec7589a1b4cb5458c90e86db10, type: 3}
+      propertyPath: listWeaponMaterials
+      value: 
+      objectReference: {fileID: 11400000, guid: 6ad2cd23ee9dc6d4f831246333680cbb, type: 2}
+    - target: {fileID: 1409808987846466963, guid: c41519ec7589a1b4cb5458c90e86db10, type: 3}
       propertyPath: skinnedMeshRenderer
       value: 
       objectReference: {fileID: 1062117706}
     - target: {fileID: 1409808987846466963, guid: c41519ec7589a1b4cb5458c90e86db10, type: 3}
       propertyPath: data.bodyMaterialDatas
       value: 
-      objectReference: {fileID: 11400000, guid: e5015a39c704b3f498fba6f293fc3990, type: 2}
+      objectReference: {fileID: 11400000, guid: fe91af189e32f544f956ae00babc858f, type: 2}
     - target: {fileID: 1409808987846466968, guid: c41519ec7589a1b4cb5458c90e86db10, type: 3}
       propertyPath: m_Name
       value: Player

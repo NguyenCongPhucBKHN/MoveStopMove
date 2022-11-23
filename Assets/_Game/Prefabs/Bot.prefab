@@ -426,11 +426,12 @@ MonoBehaviour:
   weaponPrefab: {fileID: 6677129870329120223, guid: 4629a796f5a456f4289c2a3c678613a6, type: 3}
   weaponGenTF: {fileID: 7690204217093911406}
   skinnedMeshRenderer: {fileID: 8103061914575386135}
+  listWeaponMaterials: {fileID: 11400000, guid: 6ad2cd23ee9dc6d4f831246333680cbb, type: 2}
   anim: {fileID: 6684901851177428637}
   listCharInAttact: []
   weapon: {fileID: 0}
   data:
-    bodyMaterialDatas: {fileID: 11400000, guid: e5015a39c704b3f498fba6f293fc3990, type: 2}
+    bodyMaterialDatas: {fileID: 11400000, guid: fe91af189e32f544f956ae00babc858f, type: 2}
   indicatorprefab: {fileID: 8513976419224877250, guid: a8209984803d1164a82d115143da8bac, type: 3}
   dirAttact: {x: 0, y: 0, z: 0}
   isBullet: 0

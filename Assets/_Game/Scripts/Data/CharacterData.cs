@@ -12,14 +12,6 @@ public class CharacterData
 
     float scale;
     
-
-    public CharacterData(string name, float vscore, EBodyMaterialType vname)
-    {
-        this.name= name;
-        this.score = vscore;
-        this.eBodyMaterialType = vname;
-        // this.bodyMaterial = bodyMaterialDatas.GetMaterial(vname);
-    }
     public void SetName(string vname)
     {
         this.name = vname;

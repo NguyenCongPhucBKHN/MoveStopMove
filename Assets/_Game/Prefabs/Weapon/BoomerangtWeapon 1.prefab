@@ -112,6 +112,10 @@ MonoBehaviour:
   TF: {fileID: 6677129870329120195}
   bulletPrefab: {fileID: 0}
   weaponDatas: {fileID: 11400000, guid: 3343ac2a8f5502741a5bac9bc28c62ff, type: 2}
+  offsetRotation: {x: 0, y: 0, z: 0}
+  meshRenderer: {fileID: 3174880479801548623}
+  weaponDataa:
+    listWeaponMaterials: {fileID: 11400000, guid: 6ad2cd23ee9dc6d4f831246333680cbb, type: 2}
   character: {fileID: 0}
 --- !u!1001 &5121239166641369754
 PrefabInstance:
@@ -185,5 +189,10 @@ PrefabInstance:
 --- !u!4 &173669158567827840 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: f6ba6acc744d0ff46af0b4623f8862f4, type: 3}
+  m_PrefabInstance: {fileID: 5121239166641369754}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3174880479801548623 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -1504981713932161579, guid: f6ba6acc744d0ff46af0b4623f8862f4, type: 3}
   m_PrefabInstance: {fileID: 5121239166641369754}
   m_PrefabAsset: {fileID: 0}

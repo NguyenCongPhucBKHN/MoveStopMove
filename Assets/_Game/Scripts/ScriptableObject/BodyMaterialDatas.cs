@@ -4,8 +4,8 @@ using UnityEngine;
 
 
 
-
-public class BodyMaterialDatas 
+[CreateAssetMenu(menuName = "MoveStopMove/BodyMaterialDatas")]
+public class BodyMaterialDatas : ScriptableObject
 {
     [SerializeField] List<BodyMaterialData> bodyMaterialDatas;
 

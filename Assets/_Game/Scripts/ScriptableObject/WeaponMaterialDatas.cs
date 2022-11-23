@@ -6,17 +6,18 @@ using UnityEngine;
 [System.Serializable]
 public class WeaponMaterialDatas 
 {
-    [SerializeField] List<WeaponMaterialData> weaponMaterialDatas;
-     int numberMaterial;
+    public int numberMaterial;
     [SerializeField] EWeaponType weaponType;
+    [SerializeField] List<WeaponMaterialData> weaponMaterialDatas;
+    
 
-    public Material GetMaterial(int index)
+    public List<Material> GetMaterial(int index)
     {
         numberMaterial = weaponMaterialDatas.Count;
         for(int i =0; i< numberMaterial; i++)
         {
             if(index ==i) {
-                return weaponMaterialDatas[i].material;
+                return weaponMaterialDatas[i].materials;
                 
             }
         }

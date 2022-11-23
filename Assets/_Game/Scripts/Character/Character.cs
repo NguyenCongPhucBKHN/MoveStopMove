@@ -12,7 +12,7 @@ public class Character : MonoBehaviour, IHit
     [SerializeField] public Weapon weaponPrefab;
     [SerializeField] public Transform weaponGenTF;
     [SerializeField] public SkinnedMeshRenderer skinnedMeshRenderer;
-    
+    [SerializeField] public ListWeaponMaterials listWeaponMaterials;
     float turnSpeed =8;
     [SerializeField] private Animator anim;
     public List<Character> listCharInAttact = new List<Character>();
@@ -56,10 +56,20 @@ public class Character : MonoBehaviour, IHit
   
     public virtual  void OnInit()
     {
-        InitData();
+        int index = Random.Range(0, BotDatasIns.BotName.Count);
+        string name = BotDatasIns.BotName[index];
+        float score = Random.Range(0,5);
+        EBodyMaterialType body = RandomBodyMat();
+        // data = new CharacterData(name, score, body);
+        data?.SetBodyMaterial(body);
+        skinnedMeshRenderer.material = data?.GetBodyMaterial();
+        data?.SetName(name);
+        data?.SetScore(score);
         Indicator indicator = Instantiate(indicatorprefab);
         indicator.SetOwnCharacter(this);
-        currentWeaponType= EWeaponType.Hammer /*(EWeaponType) Random.Range(0, Constant.NUMBER_WEAPONS)*/;
+        currentWeaponType=  (EWeaponType) Random.Range(0, Constant.NUMBER_WEAPONS);
+        
+        
         SpawnWeapon();
         attackArea.character= this;
         dirAttact= TF.forward;

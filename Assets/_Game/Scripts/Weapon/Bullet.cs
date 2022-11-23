@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] public Vector3 offsetRotation;
 
     [SerializeField] public Vector3 offsetQuaternion;
+    [SerializeField] public MeshRenderer meshRenderer;
     protected Quaternion bulletOffsetQuaternion;
     public float speedBullet ;
     public bool IsDead;

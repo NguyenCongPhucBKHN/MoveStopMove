@@ -22,9 +22,10 @@ public class Boomerang : Bullet
             TF.position= Vector3.MoveTowards(TF.position, character.weaponGenTF.position, speed);
         }
 
-        if(isHit && Vector3.Distance(TF.position, character.weaponGenTF.position)<0.01)
+        if(isHit && Vector3.Distance(TF.position, character.weaponGenTF.position)<0.0001)
         {
             IsDead= true;
+            
             //TODO: fix late
             Destroy(this.gameObject);
         }
@@ -32,6 +33,6 @@ public class Boomerang : Bullet
     public override void OnDespawn()
     {
         isHit=true;
-        base.OnDespawn();
+        // base.OnDespawn();
     }
 }

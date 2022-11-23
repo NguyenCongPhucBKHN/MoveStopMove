@@ -4,8 +4,10 @@ using UnityEngine;
 
 public enum EWeaponType 
 {
-    Knife,
+    Boomerang,
     Hammer,
-    Boomerang
+    Knife
+    
+    
 
 }

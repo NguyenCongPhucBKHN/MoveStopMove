@@ -5,5 +5,5 @@ using UnityEngine;
 public class WeaponMaterialData 
 {
     public int typeMaterial;
-    public Material material;
+    public List<Material> materials;
 }
