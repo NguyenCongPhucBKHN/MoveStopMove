@@ -12,7 +12,6 @@ public static class DataPlayer  //static: Coi nhu 1 Instance
    {
     //Chuyen doi du lieu sang kieu AllData;
     allData = JsonUtility.FromJson<AllData>(PlayerPrefs.GetString(ALL_DATA));
-
     if(allData ==null)
     {
         int itemDefault =1;
