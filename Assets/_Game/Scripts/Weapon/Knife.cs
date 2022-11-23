@@ -11,13 +11,13 @@ public class Knife : Bullet
     }
     public override void OnInit()
     {
-        speedBullet= 7;
+        // base.OnInit();
+        speedBullet= 6;
     }
 
      public override void OnDespawn()
     {
-        IsDead= true;
-        Destroy(this.gameObject);
+        base.OnDespawn();
     }
 
     

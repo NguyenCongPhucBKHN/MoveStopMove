@@ -8,7 +8,7 @@ public class WeaponDatas : ScriptableObject
 
     public Weapon GetWeaponPrefab(EWeaponType eWeaponType)
     {
-        Debug.Log("weapons.Count: "+ weapons.Count);
+        
         for(int i =0; i< weapons.Count; i++)
         {
             if(weapons[i].weaponType == eWeaponType)

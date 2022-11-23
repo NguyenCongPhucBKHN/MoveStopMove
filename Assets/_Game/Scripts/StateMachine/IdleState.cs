@@ -12,7 +12,7 @@ public class IdleState : IState<Bot>
         bot.StopMoving();
         bot.ChangeAnim(Constant.ANIM_IDLE);
         timer =0;
-        waitTime = Random.Range(0.5f, 1.5f);
+        waitTime = Random.Range(Constant.TIMER_MIN_WAIT, Constant.TIMER_MAX_WAIT);
         randomTime = Random.Range(Constant.TIMER_MIN_IDLE, Constant.TIMER_MAX_IDLE);
     }
     public void OnExecute(Bot bot)
@@ -27,11 +27,6 @@ public class IdleState : IState<Bot>
         {
             bot.ChangeState(new AttackState());
         }
-        // if(timer>randomTime)
-        // {
-        //     bot.ChangeState(new PartrolState());
-        // }
-
     }
     public void OnExit(Bot bot)
     {

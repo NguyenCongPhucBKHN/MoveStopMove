@@ -8,7 +8,9 @@ public class Level : MonoBehaviour
     [SerializeField] Transform obstacleTF;
     [SerializeField] Character BotPrefab;
     [SerializeField] Player player;
+     [SerializeField] Player playerPrefab;
     public List<Character> listCharacters;
+    public List<EBodyMaterialType> listBodyMaterialType = new List<EBodyMaterialType>();
     public bool isWin;
     public Vector3 sizeGround;
     float sizeObstacle;
@@ -19,12 +21,22 @@ public class Level : MonoBehaviour
 
     void Awake()
     {
-        sizeGround = groudTF.localScale;
-        sizeObstacle = obstacleTF.localScale.x > obstacleTF.localScale.z? obstacleTF.localScale.x : obstacleTF.localScale.z; 
-        listCharacters = new List<Character>();
-        player= FindObjectOfType<Player>();
-        player.level= this;
-        listCharacters.Add(player);
+        if(sizeGround!=null)
+        {
+            OnInit();
+            sizeGround = groudTF.localScale;
+            sizeObstacle = obstacleTF.localScale.x > obstacleTF.localScale.z? obstacleTF.localScale.x : obstacleTF.localScale.z; 
+            listCharacters = new List<Character>();
+            player= FindObjectOfType<Player>();
+            // if(player!= null)
+            // {
+            //     player = Instantiate(playerPrefab);
+            // }
+            player.level= this;
+            listCharacters.Add(player);
+        }
+       
+        
 
     }
     // Start is called before the first frame update
@@ -41,8 +53,8 @@ public class Level : MonoBehaviour
     }
 
     public void OnInit()
-    {
-
+    {   
+        InitDataSO();
     }
 
     public void OnStart()
@@ -51,30 +63,37 @@ public class Level : MonoBehaviour
     }
     public void SpawnABot()
     {
-        float x = groudTF.position.x-sizeGround.x/2+ Random.Range(0, sizeGround.x);
-        float z = groudTF.position.z-sizeGround.z/2+ Random.Range(0, sizeGround.z);
-        float y = groudTF.position.y + sizeGround.y/2 + BotPrefab.transform.localScale.y/2+0.5f;
-        Vector3 position = new Vector3(x, y, z);
-
-        if(!isObjectHere(position, sizeObstacle))
+        if(groudTF!=null)
         {
-            Character bot = Instantiate(BotPrefab, position, Quaternion.identity);
-            bot.level = this;
-            listCharacters.Add(bot);
-        }  
+            float x = groudTF.position.x-sizeGround.x/2+ Random.Range(0, sizeGround.x);
+            float z = groudTF.position.z-sizeGround.z/2+ Random.Range(0, sizeGround.z);
+            float y = groudTF.position.y + sizeGround.y/2 + BotPrefab.transform.localScale.y/2+0.5f;
+            Vector3 position = new Vector3(x, y, z);
+
+            if(!isObjectHere(position, sizeObstacle))
+            {
+                Character bot = Instantiate(BotPrefab, position, Quaternion.identity);
+                bot.level = this;
+                listCharacters.Add(bot);
+            }
+        }
+          
     }
 
     public Vector3 GenPointTarget()
     {
-        float x = groudTF.position.x-sizeGround.x/2+ Random.Range(0, sizeGround.x);
-        float z = groudTF.position.z-sizeGround.z/2+ Random.Range(0, sizeGround.z);
-        float y = groudTF.position.y + sizeGround.y/2 + BotPrefab.transform.localScale.y/2+0.5f;
-        Vector3 position = new Vector3(x, y, z);
-        if(!isObjectHere(position, sizeObstacle))
+        if(groudTF!=null)
         {
-            return position;
-        }
-        return Vector3.zero;
+            float x = groudTF.position.x-sizeGround.x/2+ Random.Range(0, sizeGround.x);
+            float z = groudTF.position.z-sizeGround.z/2+ Random.Range(0, sizeGround.z);
+            float y = groudTF.position.y + sizeGround.y/2 + BotPrefab.transform.localScale.y/2+0.5f;
+            Vector3 position = new Vector3(x, y, z);
+            if(!isObjectHere(position, sizeObstacle))
+            {
+                return position;
+            }
+            }
+            return Vector3.zero;
     }
 
     public void SpawnAmountBot()
@@ -109,6 +128,15 @@ public class Level : MonoBehaviour
         else
         {
             return true;
+        }
+    }
+
+    public void InitDataSO()
+    {
+        listBodyMaterialType.Clear();
+        for(int i =0; i<Constant.NUMBER_BODY_MATERIAL; i++)
+        {
+            listBodyMaterialType.Add((EBodyMaterialType) i);
         }
     }
 }

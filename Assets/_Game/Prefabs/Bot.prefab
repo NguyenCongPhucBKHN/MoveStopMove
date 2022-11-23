@@ -205,7 +205,6 @@ GameObject:
   - component: {fileID: 7690204217093911406}
   - component: {fileID: 7555891035180068011}
   - component: {fileID: 4274925978789256704}
-  - component: {fileID: 137385099470053799}
   m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
@@ -220,13 +219,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1214100427883974203}
-  m_LocalRotation: {x: 0, y: 0.006544932, z: 0, w: 0.9999786}
-  m_LocalPosition: {x: -0.004, y: -0.174, z: 0.005}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4338300092427232778}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0.75, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7555891035180068011
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -276,19 +275,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &137385099470053799
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1214100427883974203}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1891930176009029668
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,18 +425,19 @@ MonoBehaviour:
   attackArea: {fileID: 575050759627170061}
   weaponPrefab: {fileID: 6677129870329120223, guid: 4629a796f5a456f4289c2a3c678613a6, type: 3}
   weaponGenTF: {fileID: 7690204217093911406}
-  turnSpeed: 10
+  skinnedMeshRenderer: {fileID: 8103061914575386135}
   anim: {fileID: 6684901851177428637}
-  collider: {fileID: 0}
   listCharInAttact: []
   weapon: {fileID: 0}
+  data:
+    bodyMaterialDatas: {fileID: 11400000, guid: e5015a39c704b3f498fba6f293fc3990, type: 2}
+  indicatorprefab: {fileID: 8513976419224877250, guid: a8209984803d1164a82d115143da8bac, type: 3}
   dirAttact: {x: 0, y: 0, z: 0}
   isBullet: 0
   currentWeaponType: 0
   isDie: 0
   agent: {fileID: 652621676}
   target: {fileID: 0}
-  speedBot: 5
 --- !u!195 &652621676
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -571,5 +558,10 @@ Animator:
 --- !u!4 &4338300092427232778 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -3818628978618513673, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
+  m_PrefabInstance: {fileID: 8589839896196489469}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &8103061914575386135 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -8699012472884554006, guid: 38f9296dc39c27647a0119314baf12a2, type: 3}
   m_PrefabInstance: {fileID: 8589839896196489469}
   m_PrefabAsset: {fileID: 0}

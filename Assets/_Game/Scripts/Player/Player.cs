@@ -6,7 +6,7 @@ public class Player : Character
 {
 
     private bool isStop => !JoystickInput.Instance.isControl;
-    private bool canAttack => !JoystickInput.Instance.isMouse;
+    private bool canAttack => !JoystickInput.Instance.isMouse && weapon.isActiveAndEnabled;
     private void Start() {
         OnInit();
     }
@@ -14,26 +14,30 @@ public class Player : Character
     {
         if(level!=null)
         {
+
             if(GameManagerr.Instance.IsState(EGameState.GamePlay))
             {
                 
-                if(isStop && canAttack && listCharInAttact.Count>0 &&  level.IsExistChar(FindCharacterClosed()))
+                if(Input.GetKeyDown(KeyCode.C))
+                {
+                    Debug.Log("area: "+ IsAttack +" number "+ listCharInAttact.Count);
+                }
+               if(isStop && !(IsAttack) )
+                {
+                    ChangeAnim(Constant.ANIM_IDLE);
+                }
+                else if(isStop && canAttack && IsAttack &&  level.IsExistChar(FindCharacterClosed()))
                 {
                     
                     StopMoving();
-                    // ChangeAnim(Constant.ANIM_ATTACK);
                     Attack();
                 }
-                
                 else if(JoystickInput.Instance.isControl)
                 {
                     ChangeAnim(Constant.ANIM_RUN);
                     Move();
                 }
-                else if(isStop && !(listCharInAttact.Count>0) )
-                {
-                    ChangeAnim(Constant.ANIM_IDLE);
-                }
+                
 
                 
                     
@@ -42,16 +46,6 @@ public class Player : Character
             if(GameManagerr.Instance.IsState(EGameState.Finish))
             {
                 ChangeAnim(Constant.ANIM_DEAD);
-            }
-            
-            
-           
-            
-            
-            
-            if(Input.GetKeyDown(KeyCode.P))
-            {
-                Debug.Log("Number character in range attact: "+ listCharInAttact.Count);
             }
         }
     }
@@ -72,7 +66,8 @@ public class Player : Character
     public override void OnDeath()
     {
         base.OnDeath();
-        GameManagerr.Instance.ChangeState(EGameState.Finish);
+        LevelManager.Instance.OnFinish();
+        // GameManagerr.Instance.ChangeState(EGameState.Finish);
         ChangeAnim(Constant.ANIM_DEAD);
     }
     public override void Move()

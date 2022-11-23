@@ -11,19 +11,37 @@ public class Character : MonoBehaviour, IHit
     [SerializeField] public AttackArea attackArea;
     [SerializeField] public Weapon weaponPrefab;
     [SerializeField] public Transform weaponGenTF;
-    [SerializeField] float turnSpeed =10;
+    [SerializeField] public SkinnedMeshRenderer skinnedMeshRenderer;
+    
+    float turnSpeed =8;
     [SerializeField] private Animator anim;
     public List<Character> listCharInAttact = new List<Character>();
     public Weapon weapon;
+    public CharacterData data;
+    public Indicator indicatorprefab;
     
-    public Vector3 dirAttact;
-    public bool IsDead => !level.listCharacters.Contains(this);
+    public Vector3 dirAttact = Vector3.zero;
+   
     public bool isBullet= false;
-    public bool IsAttack => listCharInAttact.Count>0;
+     public bool IsDead 
+    {
+        get
+        {
+           return  !level.listCharacters.Contains(this);
+        }
+    } 
+    public bool IsAttack 
+    {
+        get 
+        {
+            return listCharInAttact.Count>0;
+        }
+    }
     public EWeaponType currentWeaponType;
     private string currentAnimName;
     public bool isDie;
 
+    
     
     void Awake()
     {
@@ -35,15 +53,19 @@ public class Character : MonoBehaviour, IHit
        OnInit();
        
     }
-    
+  
     public virtual  void OnInit()
     {
-
-        currentWeaponType= EWeaponType.Knife /*(EWeaponType) Random.Range(0, System.Enum.GetValues(typeof(EWeaponType)).Length)*/;
+        InitData();
+        Indicator indicator = Instantiate(indicatorprefab);
+        indicator.SetOwnCharacter(this);
+        currentWeaponType= EWeaponType.Hammer /*(EWeaponType) Random.Range(0, Constant.NUMBER_WEAPONS)*/;
         SpawnWeapon();
         attackArea.character= this;
         dirAttact= TF.forward;
+        
     }
+
 
     public void OnSpawn()
     {
@@ -68,9 +90,10 @@ public class Character : MonoBehaviour, IHit
     {
         if(bullet.character!= this)
         {
-            bullet.OnDespawn();
+            
             character.listCharInAttact.Remove(this);
-            level.DespawnChar(this);
+            bullet.OnDespawn();
+            // level.DespawnChar(this);
             character.Scale();
         }  
     }
@@ -174,7 +197,31 @@ public class Character : MonoBehaviour, IHit
 
         }
     }
-    
+
+    public EBodyMaterialType RandomBodyMat()
+    {
+        EBodyMaterialType  body = EBodyMaterialType.YELLOW;
+        if(level!=null)
+        {
+            int index = (int)Random.Range(0, (float)(level?.listBodyMaterialType.Count));
+            body = level.listBodyMaterialType[index];
+            level.listBodyMaterialType.RemoveAt(index);
+        }
+        return  body;
+    }
+
+    public void InitData()
+    {
+        int index = Random.Range(0, BotDatasIns.BotName.Count);
+        string name = BotDatasIns.BotName[index];
+        float score = Random.Range(0,5);
+        EBodyMaterialType body = RandomBodyMat();
+        // data = new CharacterData(name, score, body);
+        data?.SetBodyMaterial(body);
+        skinnedMeshRenderer.material = data?.GetBodyMaterial();
+        data?.SetName(name);
+        data?.SetScore(score);
+    }
 
     
     

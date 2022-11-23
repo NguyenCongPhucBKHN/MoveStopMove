@@ -10,18 +10,17 @@ public class Hammer : Bullet //Bua
     /// </summary>
     private void Update()
     {
-        HammerImgTF.Rotate(0, 0, 5f, Space.Self);
+        // HammerImgTF.Rotate(0, 0, 10f, Space.Self);
     }
 
     public override void OnInit()
     {
+        base.OnInit();
         speedBullet= 5;
     }
      public override void OnDespawn()
     {
         base.OnDespawn();
-        IsDead= true;
-        Destroy(this.gameObject);
     }
 
 }

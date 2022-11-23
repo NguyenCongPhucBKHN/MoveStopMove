@@ -126,6 +126,7 @@ MonoBehaviour:
   obstacleTF: {fileID: 9214241797960498020}
   BotPrefab: {fileID: 8099917930150353548, guid: c44a46056211c6f43aed3ac9cbf8dfd5, type: 3}
   player: {fileID: 0}
+  playerPrefab: {fileID: 1409808987846466963, guid: c41519ec7589a1b4cb5458c90e86db10, type: 3}
   listCharacters: []
   isWin: 0
   sizeGround: {x: 0, y: 0, z: 0}

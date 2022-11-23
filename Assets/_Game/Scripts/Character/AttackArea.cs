@@ -10,9 +10,8 @@ public class AttackArea : MonoBehaviour, IHit
     void OnTriggerEnter(Collider other)
     {
         Character charInArea = other.GetComponent<Character>();
-        if(charInArea != null  && character!=null && charInArea.gameObject != character.gameObject )
+        if(charInArea != null  && character.gameObject!=null && charInArea.gameObject != character.gameObject )
         {
-            Debug.Log("Character: "+ charInArea.gameObject.name);
             character.listCharInAttact.Add(charInArea);
             // character.IsInRangeAttack= true;
         }
@@ -20,7 +19,7 @@ public class AttackArea : MonoBehaviour, IHit
     void OnTriggerExit(Collider other)
     {
         Character charInArea = other.GetComponent<Character>();
-        if(charInArea != null && character!=null &&  charInArea.gameObject != character.gameObject )
+        if(charInArea != null && character.gameObject!=null &&  charInArea.gameObject != character.gameObject )
         {
             character.listCharInAttact.Remove(charInArea);
         }

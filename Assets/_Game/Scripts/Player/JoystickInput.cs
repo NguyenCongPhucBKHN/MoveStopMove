@@ -9,19 +9,14 @@ public class JoystickInput : Singleton<JoystickInput>
     
     // [SerializeField] public FixedJoystick _joystick;
     [SerializeField] public DynamicJoystick _joystick;
-    [SerializeField] private float _moveSpeed =8;
+    private float _moveSpeed =8;
     [SerializeField] Transform tfCenterJoystick;
     [SerializeField] Transform playerTF;
     public bool isMouse;
 
     
-    public bool isControl => Vector3.Distance(tfCenterJoystick.localPosition, Vector3.zero)>0.1;
+    public bool isControl => Vector3.Distance(tfCenterJoystick.localPosition, Vector3.zero)>0.0000001;
 
-   
-    // private void Awake() {
-    //     _rigidbody = FindObjectOfType<Player>().GetComponent<Rigidbody>();
-    //     playerTF =  _rigidbody.transform;
-    // }
     private void Start() {
         _rigidbody = FindObjectOfType<Player>().GetComponent<Rigidbody>();
         _joystick = FindObjectOfType<DynamicJoystick>();

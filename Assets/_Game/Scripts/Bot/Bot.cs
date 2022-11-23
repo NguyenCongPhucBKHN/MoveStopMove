@@ -7,7 +7,7 @@ public class Bot : Character
 {
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private Transform target;
-    [SerializeField] private float speedBot=8;
+    private float speedBot=8;
     List<Character> chars => level.listCharacters;
     public Character Target => FindCharacterClosed();
     bool isDis= false;
@@ -38,10 +38,9 @@ public class Bot : Character
     void Update()
     {
 
-        if (currentState != null && !IsDead)
+        if ((GameManagerr.Instance.IsState(EGameState.GamePlay)||GameManagerr.Instance.IsState(EGameState.Finish)) && currentState != null && !IsDead) 
         {
             currentState.OnExecute(this);
-            // Attack();
         }
     }
 

@@ -5,10 +5,20 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] public Transform TF;
+    [SerializeField] public Transform Img;
     [SerializeField]public  Rigidbody rb;
-    [SerializeField]public float speedBullet ;
+    [SerializeField] public Vector3 offsetRotation;
+
+    [SerializeField] public Vector3 offsetQuaternion;
+    protected Quaternion bulletOffsetQuaternion;
+    public float speedBullet ;
     public bool IsDead;
     public Character character; //Nhan vat ban dan
+    
+    void Awake()
+    {
+     
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -16,10 +26,9 @@ public class Bullet : MonoBehaviour
         TF= transform;
     }
 
-    
     void Update()
     {
-        if(!character.IsDead)
+        if(character.IsDead)
         {
             Destroy(this.gameObject);
         }
@@ -34,7 +43,11 @@ public class Bullet : MonoBehaviour
     }
     public virtual void Move(Vector3 dirAttact)
     {
-        rb.velocity = character.dirAttact * speedBullet;
+        
+        Quaternion rotation = Quaternion.LookRotation(dirAttact, Vector3.forward);
+        // rotation.x =90;
+        TF.rotation= rotation;
+        rb.velocity = dirAttact* speedBullet ;
     }
 
     public void OnHit(Bullet bullet, Character character)

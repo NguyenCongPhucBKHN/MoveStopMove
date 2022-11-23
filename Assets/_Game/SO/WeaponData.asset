@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapons:
   - weaponType: 0
-    weaponPrefab: {fileID: 2804438122173230584, guid: 3f70f8de06d466447865303a6223b672, type: 3}
+    weaponPrefab: {fileID: 8562617608015651910, guid: 3f70f8de06d466447865303a6223b672, type: 3}
     bulletPrefab: {fileID: 2083600567136613126, guid: d1e6b309b17922c43ba7c2c1434f6a71, type: 3}
   - weaponType: 1
     weaponPrefab: {fileID: 6677129870329120223, guid: 46d3268a5f9b91f4f9d48d8727893857, type: 3}

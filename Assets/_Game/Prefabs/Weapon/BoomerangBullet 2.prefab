@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TF: {fileID: 0}
+  Img: {fileID: 1181115765664860447}
   rb: {fileID: 5300473720993820492}
   speedBullet: 10
   IsDead: 0

@@ -9,7 +9,8 @@ public class Boomerang : Bullet
 
     public override void OnInit()
     {
-        speedBullet= 10;
+        base.OnInit();
+        speedBullet= 6;
     }
     private void Update()
     {
@@ -24,13 +25,13 @@ public class Boomerang : Bullet
         if(isHit && Vector3.Distance(TF.position, character.weaponGenTF.position)<0.01)
         {
             IsDead= true;
+            //TODO: fix late
             Destroy(this.gameObject);
         }
-        
-        
     }
     public override void OnDespawn()
     {
         isHit=true;
+        base.OnDespawn();
     }
 }
