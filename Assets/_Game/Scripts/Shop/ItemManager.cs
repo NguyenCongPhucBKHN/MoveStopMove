@@ -15,6 +15,7 @@ public class ItemManager : Singleton<ItemManager>
 
     public Transform ItemParentTF;
 
+    
     public T SpawnItem<T>() where T: Item
     {
         Item item = GetItem<T>();
@@ -51,7 +52,7 @@ public class ItemManager : Singleton<ItemManager>
     {  
         if(!itemsPrefab.ContainsKey(typeof(T)))
         {
-            Item.LoadPrefab();
+           itemResources=  Present.Instance.LoadPrefab().ToArray();
         }
         for (int i =0; i< itemResources.Length; i++)
         {
@@ -61,6 +62,7 @@ public class ItemManager : Singleton<ItemManager>
                 break;
             }
         }
+        Debug.Log("itemResources.Length: "+ itemResources.Length);
         return itemsPrefab[typeof(T)] as T;
 
     }

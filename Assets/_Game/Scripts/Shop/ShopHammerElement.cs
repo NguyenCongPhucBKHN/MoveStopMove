@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopHammerElement : MonoBehaviour
+public class ShopHammerElement : Item
 {
     public MeshRenderer meshRenderer;
     public int index;
@@ -23,9 +23,7 @@ public class ShopHammerElement : MonoBehaviour
         // player.currentWeaponType = (EWeaponType) present.currentWeaponType; 
         player.weapon.OnDespawn();
         player.weapon.InitData(present.indexSelect);
-        
-        
-        
     }
+    
     
 }

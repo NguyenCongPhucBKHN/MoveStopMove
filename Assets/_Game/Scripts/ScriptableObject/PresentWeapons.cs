@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "MoveStopMove/PresentWeapons")]
 public class PresentWeapons : ScriptableObject
 {
-    [SerializeField] List<PresentWeapon> listDataWeapons ;
+    public List<PresentWeapon> listDataWeapons ;
 
     public int GetIndexTypeWeapon(PresentWeapon weapon)
     {
@@ -28,4 +28,5 @@ public class PresentWeapons : ScriptableObject
     {
         return listDataWeapons.Count;
     }
+
 }

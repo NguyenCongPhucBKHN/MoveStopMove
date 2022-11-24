@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
+    
     public bool IsDestroyOnDespawn = false;
 
     public virtual void Activate()
@@ -25,9 +26,12 @@ public class Item : MonoBehaviour
     {
         ItemManager.Instance.AddBackItem(this);
     }
-    public  static void LoadPrefab () {
-        
+    public  static  List<Item> LoadPrefab () 
+    {
+        List<Item> listItems = new List<Item>();
+        return listItems;
     }
+
 }
 
 

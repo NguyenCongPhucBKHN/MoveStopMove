@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class Present : MonoBehaviour
+public class Present : Singleton<Present>
 {
 [SerializeField] PresentWeapons presentWeapons;
 public WeaponDataa weaponDataa;
@@ -69,10 +69,22 @@ public int indexSelect; //index Material
 
  private void Start()
  {
-   Debug.Log("currentWeaponType start: "+ currentWeaponType);
+   
    weaponDataa?.SetEWeaponType((int)currentWeaponType);
    shopItemSelect = Instantiate(shopItemSelectPrefab,PageTF );
    InitData();
+ }
+
+ /// <summary>
+ /// Update is called every frame, if the MonoBehaviour is enabled.
+ /// </summary>
+ private void Update()
+ {
+   if(Input.GetKeyDown(KeyCode.P))
+   {
+      ShopHammerElement[] listChilds = GetComponentsInChildren<ShopHammerElement>();
+      Debug.Log("number check: "+ listChilds.Length);
+   }
  }
 
  private void InitData()
@@ -114,10 +126,18 @@ public int indexSelect; //index Material
    shopItemSelect.meshRenderer.materials= shopItemSelect.weaponDataa.GetMaterial().ToArray();
  }
 
- public void OnDespawn()
- {
+ 
+   public List<Item> LoadPrefab()
+   {
+      List<Item> listItems = new List<Item>();
+      for(int i =0; i<presentWeapons.GetCountWeapon(); i++)
+      {
+         listItems.Add(presentWeapons.listDataWeapons[i].weaponprefab);
+      }
+      return listItems;
+      
+   }
 
- }
 
  
 
