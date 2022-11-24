@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopHammerElement : Item
+public class ShopWeaponElement : Item
 {
     public MeshRenderer meshRenderer;
     public int index;

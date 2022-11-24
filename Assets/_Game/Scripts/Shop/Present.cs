@@ -6,12 +6,12 @@ public class Present : Singleton<Present>
 {
 [SerializeField] PresentWeapons presentWeapons;
 public WeaponDataa weaponDataa;
-private ShopHammerElement shopHammerElementPrefab;
+private ShopWeaponElement ShopWeaponElementPrefab;
 [SerializeField] private ShopItemSelect shopItemSelectPrefab;
 [SerializeField] private Transform TF;
 [SerializeField] private Transform PageTF;
-private Dictionary<ShopHammerElement, bool> listShopItems = new Dictionary<ShopHammerElement, bool> ();
-private List<ShopHammerElement> listWeaponPrefabs = new List<ShopHammerElement>();
+private Dictionary<ShopWeaponElement, bool> listShopItems = new Dictionary<ShopWeaponElement, bool> ();
+private List<ShopWeaponElement> listWeaponPrefabs = new List<ShopWeaponElement>();
  private int playerIndex;
 
 //  public Button nextButton;
@@ -82,7 +82,7 @@ public int indexSelect; //index Material
  {
    if(Input.GetKeyDown(KeyCode.P))
    {
-      ShopHammerElement[] listChilds = GetComponentsInChildren<ShopHammerElement>();
+      ShopWeaponElement[] listChilds = GetComponentsInChildren<ShopWeaponElement>();
       Debug.Log("number check: "+ listChilds.Length);
    }
  }
@@ -92,30 +92,30 @@ public int indexSelect; //index Material
    count = weaponDataa.listWeaponMaterials.GetWeaponMaterialDatas((EWeaponType)(currentWeaponType)).numberMaterial;
    for(int i =0; i< count; i++)
    {
-     ShopHammerElement shopHammerElement= SetWeapon(i);
-     shopHammerElement.present = this;
-     shopHammerElement.index = i;
+     ShopWeaponElement ShopWeaponElement= SetWeapon(i);
+     ShopWeaponElement.present = this;
+     ShopWeaponElement.index = i;
    }
    indexSelect = 0;
 
    UpdateSelect();
  }
  
- private ShopHammerElement SetWeapon(int i) 
+ private ShopWeaponElement SetWeapon(int i) 
  {
-   shopHammerElementPrefab = presentWeapons.GetPrefabWeapon(currentWeaponType);
-   ShopHammerElement shopHammerElement = Instantiate(shopHammerElementPrefab, TF);
-   listShopItems.Add(shopHammerElement, true);
+   ShopWeaponElementPrefab = presentWeapons.GetPrefabWeapon(currentWeaponType);
+   ShopWeaponElement ShopWeaponElement = Instantiate(ShopWeaponElementPrefab, TF);
+   listShopItems.Add(ShopWeaponElement, true);
    
    weaponDataa?.SetEWeaponType(currentWeaponType);
    // weaponDataa?.SetIndexMaterial(i);
    weaponDataa?.SetMaterial(i);
-   shopHammerElement.meshRenderer.materials= weaponDataa.GetMaterial().ToArray();
-   weapon = shopHammerElement.GetComponent<RectTransform>();
+   ShopWeaponElement.meshRenderer.materials= weaponDataa.GetMaterial().ToArray();
+   weapon = ShopWeaponElement.GetComponent<RectTransform>();
    Vector3 pos = Vector3.zero;
    pos.x = 0.5f*((count+1)%2)+ 1*(i-count/2) + i*0.3f ;
    weapon.anchoredPosition3D= pos;
-   return shopHammerElement;
+   return ShopWeaponElement;
  }
 
  public void UpdateSelect()

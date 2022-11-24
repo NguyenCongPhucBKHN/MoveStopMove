@@ -6,5 +6,5 @@ public class PresentWeapon
 {
     // Start is called before the first frame update
   public int indexTypeWeapon;
-  public ShopHammerElement weaponprefab;
+  public ShopWeaponElement weaponprefab;
 }

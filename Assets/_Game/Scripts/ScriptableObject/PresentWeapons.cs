@@ -13,7 +13,7 @@ public class PresentWeapons : ScriptableObject
         return weapon.indexTypeWeapon;
     }
 
-    public ShopHammerElement GetPrefabWeapon(int index)
+    public ShopWeaponElement GetPrefabWeapon(int index)
     {
         for(int i =0; i< listDataWeapons.Count; i++)
         {
