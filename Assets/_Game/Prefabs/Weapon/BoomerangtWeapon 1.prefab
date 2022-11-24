@@ -117,6 +117,7 @@ MonoBehaviour:
   weaponDataa:
     listWeaponMaterials: {fileID: 11400000, guid: 6ad2cd23ee9dc6d4f831246333680cbb, type: 2}
   character: {fileID: 0}
+  indexMat: 0
 --- !u!1001 &5121239166641369754
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -180,6 +181,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1504981713932161579, guid: f6ba6acc744d0ff46af0b4623f8862f4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b8df1c228d93b44aa8f9692ed835245d, type: 2}
+    - target: {fileID: -1504981713932161579, guid: f6ba6acc744d0ff46af0b4623f8862f4, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: b75b589b61ec64767972a9705b9bf277, type: 2}
     - target: {fileID: -927199367670048503, guid: f6ba6acc744d0ff46af0b4623f8862f4, type: 3}
       propertyPath: m_Name
       value: Z

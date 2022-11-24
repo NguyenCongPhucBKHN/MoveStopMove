@@ -66,6 +66,7 @@ MonoBehaviour:
   weaponDataa:
     listWeaponMaterials: {fileID: 11400000, guid: 6ad2cd23ee9dc6d4f831246333680cbb, type: 2}
   character: {fileID: 0}
+  indexMat: 0
 --- !u!1001 &5422371505683409152
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -123,12 +124,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: ecd6cb62ed8350e498f9e25d15d9caa3, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: ecd6cb62ed8350e498f9e25d15d9caa3, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ee80fe2f170c81941808fc4739d15a46, type: 2}
+      objectReference: {fileID: 2100000, guid: 97b6fe9162c894aa0998e71f8a80d3eb, type: 2}
+    - target: {fileID: 2300000, guid: ecd6cb62ed8350e498f9e25d15d9caa3, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: b774c0fecfba9415fb365e002f1f95d5, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecd6cb62ed8350e498f9e25d15d9caa3, type: 3}
 --- !u!4 &5422371505683280768 stripped
