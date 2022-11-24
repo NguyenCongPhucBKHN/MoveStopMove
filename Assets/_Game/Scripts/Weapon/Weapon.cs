@@ -14,11 +14,13 @@ public class Weapon : MonoBehaviour
     public WeaponDataa weaponDataa;
     public Character character;
     protected bool isActivate = true;
+    public int indexMat ;
    
     void Start()
     {
+        indexMat = Random.Range(0,3);
         OnInit();
-        InitData();
+        InitData(weaponDataa.GetIndexMaterial());
     }
     
     void Update()
@@ -33,16 +35,20 @@ public class Weapon : MonoBehaviour
         
         
     }
-    void InitData()
+    public void InitData(int id)
     {
-        // eWeaponType =(EWeaponType) Random.Range(0, Constant.NUMBER_WEAPONS);
-        eWeaponType = character.currentWeaponType;
-        int numberMaterial = weaponDataa.listWeaponMaterials.GetWeaponMaterialDatas(eWeaponType).numberMaterial;
-        int idrandom = Random.Range(0, numberMaterial);
-        weaponDataa?.SetEWeaponType((int)eWeaponType);
-        weaponDataa?.SetIndexMaterial(idrandom);
-        weaponDataa?.SetMaterial();
-        meshRenderer.materials= weaponDataa.GetMaterial().ToArray();
+        this.indexMat = id;
+        if(character!=null)
+        {
+            eWeaponType =  character.currentWeaponType;
+            // int numberMaterial = weaponDataa.listWeaponMaterials.GetWeaponMaterialDatas(eWeaponType).numberMaterial;
+            // int idrandom = Random.Range(0, numberMaterial);
+            weaponDataa?.SetEWeaponType((int)eWeaponType);
+            // weaponDataa?.SetIndexMaterial(idrandom);
+            weaponDataa?.SetMaterial( indexMat);
+            meshRenderer.materials= weaponDataa.GetMaterial().ToArray();
+        }
+        
     }
     
     public virtual void Attack()
@@ -60,6 +66,19 @@ public class Weapon : MonoBehaviour
             bullet.character= character;
             bullet.Move(character.dirAttact);
             isActivate = !bullet.IsDead;
+    }
+
+    public void OnDespawn()
+    {
+        if(this.eWeaponType!= character.currentWeaponType)
+        {
+            Destroy(this.gameObject);
+            character.SpawnWeapon();
+        }
+        else
+        {
+            // InitData(weaponDataa.GetIndexMaterial());
+        }
     }
     
 }

@@ -136,6 +136,7 @@ public class Character : MonoBehaviour, IHit
         Vector3 postion = weaponGenTF.position;
         postion.y = weaponGenTF.position.y;
         weapon = Instantiate(weaponPrefab, weaponGenTF);
+        weapon.InitData(weapon.indexMat);
         weapon.transform.position= postion; 
         weapon.character = this;
         isBullet = true;
@@ -196,7 +197,7 @@ public class Character : MonoBehaviour, IHit
             anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
   }
 
-    public void Attack()
+    public void Throw()
     {
         if(listCharInAttact.Count>0 && level.IsExistChar(FindCharacterClosed()))
         {

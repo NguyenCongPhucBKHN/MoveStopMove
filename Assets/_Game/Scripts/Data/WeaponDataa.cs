@@ -28,10 +28,12 @@ public class WeaponDataa
         return this.indexMaterial;
     }
 
-    public void SetMaterial()
+    public void SetMaterial(int index)
     {
+        SetIndexMaterial(index);
+        materials.Clear();
         List<Material> listMat= listWeaponMaterials.GetMaterial(this.eWeaponType, this.indexMaterial);
-        for(int i =0; i< listMat.Count; i++)
+        for(int i =0; i< listMat?.Count; i++)
         {
             materials.Add(listMat[i]);
         }

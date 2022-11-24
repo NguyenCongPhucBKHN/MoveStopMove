@@ -30,7 +30,7 @@ public class Player : Character
                 {
                     
                     StopMoving();
-                    Attack();
+                    Throw();
                 }
                 else if(JoystickInput.Instance.isControl)
                 {

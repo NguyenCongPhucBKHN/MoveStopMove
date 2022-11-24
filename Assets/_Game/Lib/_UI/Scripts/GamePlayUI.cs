@@ -23,7 +23,8 @@ public class GamePlayUI : UICanvas
     public void SettingBtn()
     {
      GameManagerr.Instance.ChangeState(EGameState.Pause);
-     UIManager.Instance.OpenUI<Setting>();
+    //  UIManager.Instance.OpenUI<Setting>();
+    UIManager.Instance.OpenUI<ShopWeapon>();
      Close();   
     }
 

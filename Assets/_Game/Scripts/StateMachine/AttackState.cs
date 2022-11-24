@@ -11,7 +11,7 @@ public class AttackState : IState<Bot>
         {
             bot.StopMoving();
             bot.ChangeAnim(Constant.ANIM_ATTACK);
-            bot.Attack();
+            bot.Throw();
         }
         timer=0;
     }
