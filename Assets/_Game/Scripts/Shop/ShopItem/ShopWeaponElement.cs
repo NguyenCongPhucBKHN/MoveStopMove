@@ -29,13 +29,11 @@ public class ShopWeaponElement : Item
     public void OnSelect()
     {
         Present.Instance.indexSelect= indexMaterial; //indexMaterial
-        
         Present.Instance.UpdateSelect();
         player.currentWeaponType = (EWeaponType) Present.Instance.currentWeaponType;
         Debug.Log("(EWeaponType) present.currentWeaponType: "+ (EWeaponType) Present.Instance.currentWeaponType);
         player.weapon.OnDespawn();
         player.weapon.InitData(Present.Instance.indexSelect);
+        Present.Instance.SelectItem();
     }
-    
-    
 }

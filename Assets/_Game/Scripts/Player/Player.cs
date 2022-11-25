@@ -18,10 +18,7 @@ public class Player : Character
             if(GameManagerr.Instance.IsState(EGameState.GamePlay))
             {
                 
-                if(Input.GetKeyDown(KeyCode.C))
-                {
-                    Present.Instance.SelectItem();
-                }
+               
                if(isStop && !(IsAttack) )
                 {
                     ChangeAnim(Constant.ANIM_IDLE);

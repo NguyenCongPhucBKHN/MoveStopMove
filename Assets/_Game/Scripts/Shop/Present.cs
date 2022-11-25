@@ -31,7 +31,7 @@ public int currentWeaponType = 0;
  void Awake()
  {
     shopItemSelect = new ShopItemSelect();
-    playerIndex= DataPlayer.GetCurrentItem();
+    
    
  }  
 
@@ -54,7 +54,7 @@ public int currentWeaponType = 0;
    listSelectedItem[currentWeaponType].gameObject.SetActive(true);
    InitData();
    //  Destroy(player);
-   //  playerIndex = DataPlayer.GetNextItem();
+   //  playerIndex =DataServices.GetNextItem();
     //TODO INIT PLAYER
  }
  public void OnPrev()
@@ -72,7 +72,7 @@ public int currentWeaponType = 0;
 
 void InitSelectedItem()
 {
-  for(int i =0; i < presentWeapons.GetCountWeapon(); i++)
+  for(int i =0; i < presentWeapons?.GetCountWeapon(); i++)
   {
     ShopItemSelect prefab = presentWeapons.GetPrefabItemSelect(i);
     ShopItemSelect item = Instantiate(prefab, PageTF);
@@ -107,7 +107,7 @@ void InitSelectedItem()
 
 private void CreatListItem()
 {
-  shopWeaponElementPrefab = presentWeapons.GetPrefabWeapon(currentWeaponType);
+  shopWeaponElementPrefab = presentWeapons?.GetPrefabWeapon(currentWeaponType);
   if(!listWeaponPrefab.Contains(shopWeaponElementPrefab))
   {
     SpawnListItem(currentWeaponType, shopWeaponElementPrefab);
@@ -176,7 +176,7 @@ void SpawnListItem(int currentWeaponType, ShopWeaponElement shopWeaponElementPre
 
  public void UpdateSelect()
  {
-  shopItemSelect = listSelectedItem[currentWeaponType];
+   shopItemSelect = listSelectedItem[currentWeaponType];
    shopItemSelect.weaponDataa?.SetEWeaponType(currentWeaponType);
    shopItemSelect.weaponDataa.SetMaterial(indexSelect);
    shopItemSelect.meshRenderer.materials= shopItemSelect.weaponDataa.GetMaterial().ToArray();
@@ -197,7 +197,9 @@ void SpawnListItem(int currentWeaponType, ShopWeaponElement shopWeaponElementPre
   public int GetNumMatsOfAWeapon(EWeaponType sweaponType)
   {
     
-    return  weaponDataa.listWeaponMaterials.GetWeaponMaterialDatas( sweaponType).numberMaterial;
+    return (int) weaponDataa?.listWeaponMaterials.GetWeaponMaterialDatas( sweaponType).numberMaterial;
+
+   
   }
   
   // public List<ShopWeaponElement> SpawnListWeapon(EWeaponType eWeaponType)
@@ -218,7 +220,7 @@ void SpawnListItem(int currentWeaponType, ShopWeaponElement shopWeaponElementPre
   
   public void SelectItem()
   {
-   bool isOwned = DataPlayer.IsOwnedWithId(1);
+   bool isOwned = DataService.IsOwnedWithId(currentWeaponType);
         if(isOwned) //Neu so huu thi khong cho mua
         {
             Debug.Log("Done1");

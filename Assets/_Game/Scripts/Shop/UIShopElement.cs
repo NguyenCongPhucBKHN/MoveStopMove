@@ -24,8 +24,9 @@ public class UIShopElement : MonoBehaviour
 
     private void UpdateView()
     {
-        //Kiem tra co dang so huu khong
-        bool isOwned = DataPlayer.IsOwnedWithId(id);
+        // Kiem tra co dang so huu khong
+        bool isOwned =DataPlayer.IsOwnedWithId(id);
+
         if(isOwned) //Neu so huu thi khong cho mua
         {
             purchaseBtn.enabled= false;
@@ -40,12 +41,12 @@ public class UIShopElement : MonoBehaviour
 
     private void OnPurchase() // An vao button mua
     {
-        bool canPurchase = DataPlayer.IsEnoughMoney(cost);
+        bool canPurchase =DataPlayer.IsEnoughMoney(cost);
         if(canPurchase)
         {
-            DataPlayer.AddItem(id);
+           DataPlayer.AddItem(id);
             UpdateView();
-            DataPlayer.SubCoin(cost);
+           DataPlayer.SubCoin(cost);
         }
         else
         {

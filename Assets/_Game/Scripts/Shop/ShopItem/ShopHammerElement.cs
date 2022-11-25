@@ -6,5 +6,6 @@ public class ShopHammerElement : ShopWeaponElement
 {
     public ShopHammerElement(int idMaterial) 
     {
+        
     }
 }
