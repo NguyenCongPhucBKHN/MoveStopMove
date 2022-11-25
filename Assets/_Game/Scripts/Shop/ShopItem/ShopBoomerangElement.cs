@@ -4,4 +4,7 @@ using UnityEngine;
 
 public class ShopBoomerangElement : ShopWeaponElement
 {
+    public ShopBoomerangElement(int idMaterial) 
+    {
+    }
 }

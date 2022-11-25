@@ -11,4 +11,12 @@ public class ShopWeapon : UICanvas
         UIManager.Instance.OpenUI<GamePlayUI>();
         Close();
     }
+
+    public void CloseBtn()
+    {
+        GameManagerr.Instance.ChangeState(EGameState.GamePlay);
+        UIManager.Instance.OpenUI<GamePlayUI>();
+        Close();
+    }
+
 }

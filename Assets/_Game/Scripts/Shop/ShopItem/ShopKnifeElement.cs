@@ -4,5 +4,7 @@ using UnityEngine;
 
 public class ShopKnifeElement : ShopWeaponElement
 {
-    
+    public ShopKnifeElement(int idMaterial) 
+    {
+    }
 }

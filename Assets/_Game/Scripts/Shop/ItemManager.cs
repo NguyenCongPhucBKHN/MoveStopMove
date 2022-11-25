@@ -15,7 +15,16 @@ public class ItemManager : Singleton<ItemManager>
 
     public Transform ItemParentTF;
 
-    
+    public List<T> SpawnListItem<T>(int numberItem) where T: Item
+    {
+        List<T> listItem = new List<T>();
+        for(int i =0; i<numberItem; i++)
+        {
+            T item = SpawnItem<T>();
+            listItem.Add(item);
+        }
+        return listItem as List<T>;
+    }
     public T SpawnItem<T>() where T: Item
     {
         Item item = GetItem<T>();
@@ -38,6 +47,16 @@ public class ItemManager : Singleton<ItemManager>
         return itemsActivate.ContainsKey(type) && itemsActivate[type] != null;
     }
 
+    public T GetItem<T>(int numberItem) where T: Item
+    {
+        if(!IsAcitvate<T>())
+        {
+            Item item = Instantiate(GetUIPrefab<T>(), ItemParentTF);
+            itemsActivate[typeof(T)] = item;
+        }
+        return itemsActivate[typeof(T)] as T;
+    }
+
     public T GetItem<T>() where T: Item
     {
         if(!IsAcitvate<T>())
@@ -52,7 +71,8 @@ public class ItemManager : Singleton<ItemManager>
     {  
         if(!itemsPrefab.ContainsKey(typeof(T)))
         {
-           itemResources=  Present.Instance.LoadPrefab().ToArray();
+            //TODO
+        //    itemResources=  Present.Instance.LoadPrefab().ToArray();
         }
         for (int i =0; i< itemResources.Length; i++)
         {
@@ -62,7 +82,6 @@ public class ItemManager : Singleton<ItemManager>
                 break;
             }
         }
-        Debug.Log("itemResources.Length: "+ itemResources.Length);
         return itemsPrefab[typeof(T)] as T;
 
     }

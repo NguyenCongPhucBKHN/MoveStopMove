@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 public class Present : Singleton<Present>
 {
 [SerializeField] PresentWeapons presentWeapons;
 public WeaponDataa weaponDataa;
-private ShopWeaponElement ShopWeaponElementPrefab;
+private ShopWeaponElement shopWeaponElementPrefab;
 [SerializeField] private ShopItemSelect shopItemSelectPrefab;
 [SerializeField] private Transform TF;
 [SerializeField] private Transform PageTF;
 private Dictionary<ShopWeaponElement, bool> listShopItems = new Dictionary<ShopWeaponElement, bool> ();
-private List<ShopWeaponElement> listWeaponPrefabs = new List<ShopWeaponElement>();
+private List<ShopWeaponElement> listWeapons = new List<ShopWeaponElement>();
+private List<ShopWeaponElement> listWeaponPrefab = new List<ShopWeaponElement>();
+private Dictionary<ShopWeaponElement, ShopWeaponElement> dictItems = new Dictionary<ShopWeaponElement, ShopWeaponElement>();
  private int playerIndex;
 
 //  public Button nextButton;
@@ -22,29 +25,26 @@ private List<ShopWeaponElement> listWeaponPrefabs = new List<ShopWeaponElement>(
 private int count;
 public int indexSelect; //index Material
  ShopItemSelect shopItemSelect;
- private int currentWeaponType = 0;
-
+public int currentWeaponType = 0;
 
  void Awake()
  {
     playerIndex= DataPlayer.GetCurrentItem();
-   //  check
-   //  count = weaponDataa.listWeaponMaterials.GetWeaponMaterialDatas((EWeaponType)(currentWeaponType)).numberMaterial;
-   //  nextButton.onClick.AddListener(OnNext);
-   //  prevButton.onClick.AddListener(OnPrev);
+   
  }  
 
  public void OnNext()
  {
+  Debug.Log("presentWeapons.GetCountWeapon() 1:"+ presentWeapons.GetCountWeapon());
    if(currentWeaponType<presentWeapons.GetCountWeapon()-1)
    {
       currentWeaponType++;
    }
+   else
+   {
+    Debug.Log("Check1");
+   }
    Debug.Log("currentWeaponType: "+ currentWeaponType);
-   // else
-   // {
-   //    currentWeaponType--;
-   // }
    InitData();
    //  Destroy(player);
    //  playerIndex = DataPlayer.GetNextItem();
@@ -52,25 +52,25 @@ public int indexSelect; //index Material
  }
  public void OnPrev()
  {
-   if(currentWeaponType>1)
+   Debug.Log("presentWeapons.GetCountWeapon() 2:"+ presentWeapons.GetCountWeapon());
+   if(currentWeaponType > 0)
    {
       currentWeaponType--; 
    }
-   Debug.Log("currentWeaponType: "+ currentWeaponType);
-   // else
-   // {
-   //    currentWeaponType++;
-   // }
-   InitData();
-   //  Destroy(player);
-   //  playerIndex = DataPlayer.GetPrevItem();
+   else
+   {
+    Debug.Log("Check2");
+   }
+  Debug.Log("currentWeaponType: "+ currentWeaponType);
+  InitData();
+
     //TODO INIT PLAYER
  }
 
  private void Start()
  {
    
-   weaponDataa?.SetEWeaponType((int)currentWeaponType);
+   weaponDataa?.SetEWeaponType(currentWeaponType);
    shopItemSelect = Instantiate(shopItemSelectPrefab,PageTF );
    InitData();
  }
@@ -80,43 +80,97 @@ public int indexSelect; //index Material
  /// </summary>
  private void Update()
  {
-   if(Input.GetKeyDown(KeyCode.P))
-   {
-      ShopWeaponElement[] listChilds = GetComponentsInChildren<ShopWeaponElement>();
-      Debug.Log("number check: "+ listChilds.Length);
-   }
+  
  }
 
  private void InitData()
  {
-   count = weaponDataa.listWeaponMaterials.GetWeaponMaterialDatas((EWeaponType)(currentWeaponType)).numberMaterial;
-   for(int i =0; i< count; i++)
-   {
-     ShopWeaponElement ShopWeaponElement= SetWeapon(i);
-     ShopWeaponElement.present = this;
-     ShopWeaponElement.index = i;
-   }
+    CreatListItem();
    indexSelect = 0;
-
    UpdateSelect();
  }
+
+private void CreatListItem()
+{
+  shopWeaponElementPrefab = presentWeapons.GetPrefabWeapon(currentWeaponType);
+  if(!listWeaponPrefab.Contains(shopWeaponElementPrefab))
+  {
+    SpawnListItem(currentWeaponType, shopWeaponElementPrefab);
+  }
+  else
+  {
+    DeActivateListExceptItem(shopWeaponElementPrefab);
+    ActivateListItem(shopWeaponElementPrefab);
+  }
+}
+
+void ActivateListItem(ShopWeaponElement shopWeaponElementPrefab)
+{
+  List<ShopWeaponElement> listWeapons = dictItems.Where(kvp => kvp.Value == shopWeaponElementPrefab).Select(kvp => kvp.Key).ToList();
+    for(int i =0; i<listWeapons.Count; i++)
+    {
+      listWeapons[i].gameObject.SetActive(true);
+    }
+}
+
+void DeActivateListExceptItem(ShopWeaponElement shopWeaponElementPrefab)
+{
+  List<ShopWeaponElement> listDeWeapons = dictItems.Where(kvp => kvp.Value != shopWeaponElementPrefab).Select(kvp => kvp.Key).ToList();
+    for(int i =0; i<listDeWeapons.Count; i++)
+    {
+      listDeWeapons[i].gameObject.SetActive(false);
+    }
+}
+
+void SpawnListItem(int currentWeaponType, ShopWeaponElement shopWeaponElementPrefab)
+{
+  count = GetNumMatsOfAWeapon((EWeaponType)(currentWeaponType));
+    listWeaponPrefab.Add(shopWeaponElementPrefab);
+    for(int i =0; i<count; i++)
+    {
+      ShopWeaponElement weapon = SetWeapon(i, shopWeaponElementPrefab);
+      // weapon.present = this;
+      weapon.SetIndexMaterial(i);
+      weapon.SetWeaponType((EWeaponType)(currentWeaponType));
+      dictItems.Add(weapon, shopWeaponElementPrefab);
+    }
+    DeActivateListExceptItem(shopWeaponElementPrefab);
+}
+
+
+
  
- private ShopWeaponElement SetWeapon(int i) 
+ private ShopWeaponElement SetWeapon(int indexMaterial, ShopWeaponElement prefab) // Tao 1 cai
  {
-   ShopWeaponElementPrefab = presentWeapons.GetPrefabWeapon(currentWeaponType);
-   ShopWeaponElement ShopWeaponElement = Instantiate(ShopWeaponElementPrefab, TF);
-   listShopItems.Add(ShopWeaponElement, true);
-   
-   weaponDataa?.SetEWeaponType(currentWeaponType);
-   // weaponDataa?.SetIndexMaterial(i);
-   weaponDataa?.SetMaterial(i);
-   ShopWeaponElement.meshRenderer.materials= weaponDataa.GetMaterial().ToArray();
-   weapon = ShopWeaponElement.GetComponent<RectTransform>();
-   Vector3 pos = Vector3.zero;
-   pos.x = 0.5f*((count+1)%2)+ 1*(i-count/2) + i*0.3f ;
-   weapon.anchoredPosition3D= pos;
-   return ShopWeaponElement;
- }
+  
+    // listWeaponPrefab.Add(prefab);
+    ShopWeaponElement shopWeaponElement = Instantiate(prefab, TF);
+    listWeapons.Add(shopWeaponElement);
+  //  ShopWeaponElement ShopWeaponElement = Spawn((EWeaponType)currentWeaponType);
+    weaponDataa?.SetEWeaponType(currentWeaponType);
+    weaponDataa?.SetMaterial(indexMaterial);
+    shopWeaponElement.meshRenderer.materials= weaponDataa.GetMaterial().ToArray();
+    weapon = shopWeaponElement.GetComponent<RectTransform>();
+    Vector3 pos = Vector3.zero;
+    pos.x = 0.5f*((count+1)%2)+ 1*(indexMaterial-count/2) + indexMaterial*0.3f ;
+    weapon.anchoredPosition3D= pos;
+     return shopWeaponElement;
+   }
+
+  // //  listWeaponPrefab.Add(shopWeaponElementPrefab);
+  // //   ShopWeaponElement shopWeaponElement = Instantiate(shopWeaponElementPrefab, TF);
+  // //   listWeapons.Add(shopWeaponElement);
+  //   ShopWeaponElement shopWeaponElement = Spawn((EWeaponType)currentWeaponType);
+  //   weaponDataa?.SetEWeaponType(currentWeaponType);
+  //   weaponDataa?.SetMaterial(indexMaterial);
+  //   shopWeaponElement.meshRenderer.materials= weaponDataa.GetMaterial().ToArray();
+  //   weapon = shopWeaponElement.GetComponent<RectTransform>();
+  //   Vector3 pos = Vector3.zero;
+  //   pos.x = 0.5f*((count+1)%2)+ 1*(indexMaterial-count/2) + indexMaterial*0.3f ;
+  //   weapon.anchoredPosition3D= pos;
+  //    return shopWeaponElement;
+    
+//  }
 
  public void UpdateSelect()
  {
@@ -138,7 +192,33 @@ public int indexSelect; //index Material
       
    }
 
-
+  public int GetNumMatsOfAWeapon(EWeaponType sweaponType)
+  {
+    
+    return  weaponDataa.listWeaponMaterials.GetWeaponMaterialDatas( sweaponType).numberMaterial;
+  }
+  
+  // public List<ShopWeaponElement> SpawnListWeapon(EWeaponType eWeaponType)
+  // {
+  //   int numberMat = GetNumMatsOfAWeapon(eWeaponType);
+  //   switch (eWeaponType) {
+  //   case (EWeaponType) 0:
+  //     return ItemManager.Instance.SpawnListItem<ShopBoomerangElement>(numberMat) ;
+  //   case (EWeaponType) 1: 
+  //     return ItemManager.Instance.SpawnListItem<ShopHammerElement>(numberMat);
+  //   case (EWeaponType) 2:
+  //     return ItemManager.Instance.SpawnListItem<ShopKnifeElement>(numberMat);
+  //   default :
+      
+  //     return null;
+  //  }
+  // }
+  
+  public void SelectItem()
+  {
+   
+  
+  }
  
 
 }

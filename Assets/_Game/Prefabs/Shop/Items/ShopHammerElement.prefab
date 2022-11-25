@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3526646764360161376}
   - component: {fileID: 1878300730882489126}
   - component: {fileID: 2055770441998954363}
-  - component: {fileID: 1008939081424844776}
   - component: {fileID: 8704689646092106772}
+  - component: {fileID: 3902733906816415746}
   m_Layer: 5
   m_Name: ShopHammerElement
   m_TagString: Untagged
@@ -78,22 +78,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1008939081424844776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4122706729737160121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 966b0a234a6236142af94fa4c4a37f4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 8560336943164172318}
-  index: 0
-  present: {fileID: 0}
-  purchaseBtn: {fileID: 0}
 --- !u!114 &8704689646092106772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,9 +122,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1008939081424844776}
-        m_TargetAssemblyTypeName: ShopHammerElement, Assembly-CSharp
-        m_MethodName: OnClick
+      - m_Target: {fileID: 3902733906816415746}
+        m_TargetAssemblyTypeName: ShopWeaponElement, Assembly-CSharp
+        m_MethodName: OnSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -150,6 +134,23 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3902733906816415746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4122706729737160121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4eb4ddd57a972b499730065170922e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsDestroyOnDespawn: 0
+  meshRenderer: {fileID: 8560336943164172318}
+  index: 0
+  present: {fileID: 0}
+  purchaseBtn: {fileID: 0}
 --- !u!1001 &5207472284638547348
 PrefabInstance:
   m_ObjectHideFlags: 0

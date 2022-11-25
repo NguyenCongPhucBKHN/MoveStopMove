@@ -19,4 +19,5 @@ public class WeaponShop : UICanvas
         UIManager.Instance.OpenUI<MainMenu>();
         Close();
     }
+    
 }

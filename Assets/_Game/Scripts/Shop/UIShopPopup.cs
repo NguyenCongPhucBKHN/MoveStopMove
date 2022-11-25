@@ -10,7 +10,7 @@ public class UIShopPopup : MonoBehaviour
 
     void Awake()
     {
-        hideBtn.onClick.AddListener(OnHideShop);
+        // hideBtn.onClick.AddListener(OnHideShop);
         SetData();
     }
     private void  OnValidate()

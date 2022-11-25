@@ -35,9 +35,9 @@ public class Weapon : MonoBehaviour
         
         
     }
-    public void InitData(int id)
+    public void InitData(int indexMaterial) 
     {
-        this.indexMat = id;
+        this.indexMat = indexMaterial;
         if(character!=null)
         {
             eWeaponType =  character.currentWeaponType;
@@ -54,7 +54,6 @@ public class Weapon : MonoBehaviour
     public virtual void Attack()
 
     {   
-            
             // character.weapon.gameObject.SetActive(false);
             // eWeaponType = character.currentWeaponType;
             bulletPrefab = weaponDatas.GetBulletPrefab(eWeaponType);

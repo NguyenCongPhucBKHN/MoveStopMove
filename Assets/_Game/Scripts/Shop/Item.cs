@@ -26,11 +26,6 @@ public class Item : MonoBehaviour
     {
         ItemManager.Instance.AddBackItem(this);
     }
-    public  static  List<Item> LoadPrefab () 
-    {
-        List<Item> listItems = new List<Item>();
-        return listItems;
-    }
 
 }
 

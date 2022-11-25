@@ -79,5 +79,4 @@ public class AllData
     {
         return coin >= cost;
     }
-
 }

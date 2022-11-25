@@ -516,7 +516,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1755760271514929248}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1755760272054635380}
+        m_TargetAssemblyTypeName: ShopWeapon, Assembly-CSharp
+        m_MethodName: CloseBtn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1755760271850714233
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,6 +963,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1755760273050311369}
   - component: {fileID: 1755760273050311368}
+  - component: {fileID: 4579296467492495074}
   m_Layer: 5
   m_Name: TabWeapons
   m_TagString: Untagged
@@ -998,7 +1011,19 @@ MonoBehaviour:
   player: {fileID: 0}
   weapon: {fileID: 0}
   indexSelect: 2
-  check: 1
+--- !u!114 &4579296467492495074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755760273050311366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 794ce2d9b3dfc7d408dd6bb261fa51ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemParentTF: {fileID: 1755760273050311369}
 --- !u!1 &3020108903888619563
 GameObject:
   m_ObjectHideFlags: 0

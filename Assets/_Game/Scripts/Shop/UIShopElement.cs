@@ -13,7 +13,7 @@ public class UIShopElement : MonoBehaviour
     
     void Awake()
     {
-        purchaseBtn.onClick.AddListener(OnPurchase);
+        
     }
     public void SetData(int id)
     {

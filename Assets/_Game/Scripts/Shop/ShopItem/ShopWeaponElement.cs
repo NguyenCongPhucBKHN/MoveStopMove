@@ -6,23 +6,35 @@ using UnityEngine.UI;
 public class ShopWeaponElement : Item
 {
     public MeshRenderer meshRenderer;
-    public int index;
-    public Present present;
-    public Button purchaseBtn;
+    private int indexMaterial;
     private Player player;
+
+    private EWeaponType eWeaponType;
     void Awake()
     {
         player = FindObjectOfType<Player>();
     }
 
-    public void OnClick()
+    public void SetIndexMaterial(int id)
+    {   
+        indexMaterial = id;
+    }
+    
+    public void SetWeaponType(EWeaponType eWeaponType)
     {
-        present.indexSelect = index; //indexMaterial
-        present.UpdateSelect();
-        // Debug.Log("present.currentWeaponType: "+ present.currentWeaponType);
-        // player.currentWeaponType = (EWeaponType) present.currentWeaponType; 
+        this.eWeaponType = eWeaponType;
+    }
+
+
+    public void OnSelect()
+    {
+        Present.Instance.indexSelect= indexMaterial; //indexMaterial
+        
+        Present.Instance.UpdateSelect();
+        player.currentWeaponType = (EWeaponType) Present.Instance.currentWeaponType;
+        Debug.Log("(EWeaponType) present.currentWeaponType: "+ (EWeaponType) Present.Instance.currentWeaponType);
         player.weapon.OnDespawn();
-        player.weapon.InitData(present.indexSelect);
+        player.weapon.InitData(Present.Instance.indexSelect);
     }
     
     

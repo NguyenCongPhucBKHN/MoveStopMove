@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6579227307470043749}
   - component: {fileID: 4009432645748675804}
   - component: {fileID: 8509742774165201661}
-  - component: {fileID: 2370823754693424238}
   - component: {fileID: 4422839109422466009}
+  - component: {fileID: 1583780830764000240}
   m_Layer: 5
   m_Name: ShopBomerangElement
   m_TagString: Untagged
@@ -78,22 +78,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2370823754693424238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2930880696136326612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 966b0a234a6236142af94fa4c4a37f4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 2612968621395538196}
-  index: 0
-  present: {fileID: 0}
-  purchaseBtn: {fileID: 0}
 --- !u!114 &4422839109422466009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,9 +122,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2370823754693424238}
-        m_TargetAssemblyTypeName: ShopHammerElement, Assembly-CSharp
-        m_MethodName: OnClick
+      - m_Target: {fileID: 1583780830764000240}
+        m_TargetAssemblyTypeName: ShopWeaponElement, Assembly-CSharp
+        m_MethodName: OnSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -150,6 +134,23 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1583780830764000240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2930880696136326612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91bdbfbe29cf8dc438c9a16b39023a36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsDestroyOnDespawn: 0
+  meshRenderer: {fileID: 2612968621395538196}
+  index: 0
+  present: {fileID: 0}
+  purchaseBtn: {fileID: 0}
 --- !u!1 &3545620226687594978
 GameObject:
   m_ObjectHideFlags: 0
