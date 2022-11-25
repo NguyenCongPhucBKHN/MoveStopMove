@@ -20,7 +20,7 @@ public class Player : Character
                 
                 if(Input.GetKeyDown(KeyCode.C))
                 {
-                    Debug.Log("area: "+ IsAttack +" number "+ listCharInAttact.Count);
+                    Present.Instance.SelectItem();
                 }
                if(isStop && !(IsAttack) )
                 {

@@ -10,7 +10,7 @@ public static class DataPlayer  //static: Coi nhu 1 Instance
     private static UnityEvent updateCoinEvent = new UnityEvent();
    static DataPlayer()
    {
-    //Chuyen doi du lieu sang kieu AllData;
+    
     allData = JsonUtility.FromJson<AllData>(PlayerPrefs.GetString(ALL_DATA));
     if(allData ==null)
     {

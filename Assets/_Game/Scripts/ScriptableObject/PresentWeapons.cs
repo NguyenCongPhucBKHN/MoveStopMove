@@ -24,6 +24,18 @@ public class PresentWeapons : ScriptableObject
         }
         return null;
     }
+
+     public ShopItemSelect GetPrefabItemSelect(int index)
+    {
+        for(int i =0; i< listDataWeapons.Count; i++)
+        {
+            if(listDataWeapons[i].indexTypeWeapon == index)
+            {
+                return listDataWeapons[i].itemselectPrefab;
+            }
+        }
+        return null;
+    }
     public int GetCountWeapon()
     {
         return listDataWeapons.Count;
