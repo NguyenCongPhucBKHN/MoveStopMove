@@ -48,11 +48,6 @@ public class UIShopElement : MonoBehaviour
             UpdateView();
            DataPlayer.SubCoin(cost);
         }
-        else
-        {
-            Debug.Log("Not enougt money");
-        }
-        
     }
 
 }

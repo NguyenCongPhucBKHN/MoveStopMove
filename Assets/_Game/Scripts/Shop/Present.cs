@@ -18,8 +18,6 @@ private Dictionary<ShopWeaponElement, ShopWeaponElement> dictItems = new Diction
 private List<ShopItemSelect> listSelectedItem = new List<ShopItemSelect>();
  private int playerIndex;
 
-//  public Button nextButton;
-//  public Button prevButton;
  public GameObject player;
  public RectTransform weapon;
  private Vector2 sizeCanvas;
@@ -39,16 +37,10 @@ public int currentWeaponType = 0;
  public void OnNext()
  {
   listSelectedItem[currentWeaponType].gameObject.SetActive(false);
-  Debug.Log("presentWeapons.GetCountWeapon() 1:"+ presentWeapons.GetCountWeapon());
    if(currentWeaponType<presentWeapons.GetCountWeapon()-1)
    {
       currentWeaponType++;
    }
-   else
-   {
-    Debug.Log("Check1");
-   }
-   Debug.Log("currentWeaponType: "+ currentWeaponType);
    shopItemSelectPrefab = presentWeapons.GetPrefabItemSelect(currentWeaponType);
    
    listSelectedItem[currentWeaponType].gameObject.SetActive(true);
@@ -92,9 +84,6 @@ void InitSelectedItem()
 
  }
 
- /// <summary>
- /// Update is called every frame, if the MonoBehaviour is enabled.
- /// </summary>
  
 
  private void InitData()
@@ -157,11 +146,8 @@ void SpawnListItem(int currentWeaponType, ShopWeaponElement shopWeaponElementPre
  
  private ShopWeaponElement SetWeapon(int indexMaterial, ShopWeaponElement prefab) // Tao 1 cai
  {
-  
-    // listWeaponPrefab.Add(prefab);
     ShopWeaponElement shopWeaponElement = Instantiate(prefab, TF);
     listWeapons.Add(shopWeaponElement);
-  //  ShopWeaponElement ShopWeaponElement = Spawn((EWeaponType)currentWeaponType);
     weaponDataa?.SetEWeaponType(currentWeaponType);
     weaponDataa?.SetMaterial(indexMaterial);
     shopWeaponElement.meshRenderer.materials= weaponDataa.GetMaterial().ToArray();

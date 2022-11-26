@@ -82,7 +82,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1040092437235705}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!1 &258148476555700643
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,6 +1011,7 @@ MonoBehaviour:
   player: {fileID: 0}
   weapon: {fileID: 0}
   indexSelect: 2
+  currentWeaponType: 0
 --- !u!114 &4579296467492495074
 MonoBehaviour:
   m_ObjectHideFlags: 0

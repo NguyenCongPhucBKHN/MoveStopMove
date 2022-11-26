@@ -26,6 +26,8 @@ public class Constant
 
     public static float DISTANCE_DESTINATION = 1f;
 
+    public static int SHOP_WEAPON_MAX_ITEM = 9;
 
+    public static int SHOP_SKIN_MAX_ITEM =9;
    
 }

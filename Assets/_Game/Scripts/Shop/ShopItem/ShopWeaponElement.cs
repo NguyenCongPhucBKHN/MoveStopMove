@@ -28,12 +28,19 @@ public class ShopWeaponElement : Item
 
     public void OnSelect()
     {
-        Present.Instance.indexSelect= indexMaterial; //indexMaterial
+        Present.Instance.indexSelect= indexMaterial; 
         Present.Instance.UpdateSelect();
-        player.currentWeaponType = (EWeaponType) Present.Instance.currentWeaponType;
-        Debug.Log("(EWeaponType) present.currentWeaponType: "+ (EWeaponType) Present.Instance.currentWeaponType);
-        player.weapon.OnDespawn();
-        player.weapon.InitData(Present.Instance.indexSelect);
-        Present.Instance.SelectItem();
+        if(DataPlayerController.IsOwnedWeapon(0, 0))
+        {
+            player.currentWeaponType = (EWeaponType) Present.Instance.currentWeaponType;
+            Debug.Log("(EWeaponType) present.currentWeaponType: "+ (EWeaponType) Present.Instance.currentWeaponType);
+            player.weapon.OnDespawn();
+            player.weapon.InitData(Present.Instance.indexSelect);
+            Present.Instance.SelectItem();
+        }
+        ItemModel item = DataPlayerController.GetCurrentWeapon();
+        Debug.Log("crrr: "+ item.IndexType + item.IndexItem);
+        
+        
     }
 }
