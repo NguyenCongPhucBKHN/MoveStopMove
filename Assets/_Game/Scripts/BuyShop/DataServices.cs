@@ -7,38 +7,56 @@ public class DataServices
     public DataRepository dataRepository;
     private string KEY_DATA;
     private int maxItem;
-    private ItemModel initItem;
+    public ItemModel initItem ;
+
     public DataServices(string KEY, int maxitem, ItemModel init)
     {
         KEY_DATA= KEY;
         maxItem= maxitem;
-        initItem = new ItemModel(init.IndexType, init.IndexItem);
+        initItem = new ItemModel(init.indexType, init.indexItem);
+        InitDataServices();
     }
     public void InitDataServices()
     {
         dataRepository = JsonUtility.FromJson<DataRepository>(PlayerPrefs.GetString(KEY_DATA));
-        Debug.Log("dataRepository: "+ dataRepository);
-
+        string data = PlayerPrefs.GetString(KEY_DATA);
+        Debug.Log("string data: "+ data);
         if(dataRepository==null)
         {
             dataRepository = new DataRepository(maxItem, initItem);
-            Debug.Log("MAX_ITEM: "+ dataRepository.MAX_ITEM);
-            Debug.Log("vItem.IndexItem: "+ initItem.IndexItem);
-            dataRepository.SetCurrentItem(initItem.IndexType, initItem.IndexType);
-            dataRepository.AddItem(initItem.IndexType, initItem.IndexType);
+            // dataRepository.SetCurrentItem(initItem.IndexType, initItem.IndexType);
+            // dataRepository.AddItem(initItem.IndexType, initItem.IndexType);
+            SaveData();
         }
-        SaveData();
+
+        else
+        {
+            Debug.Log("dataRepository: "+ dataRepository.indexItem);
+        }
+        
     }
 
     public void SaveData()
     {
+        Debug.Log("before dataRepository : "+ dataRepository.indexType);
         string data = JsonUtility.ToJson(dataRepository);
+        Debug.Log("data after before: "+ data);
         PlayerPrefs.SetString(KEY_DATA, data);
     }
 
     public bool IsOwnedItem(int type, int index)
     {
         return dataRepository.IsOwnedWithId(type, index);
+    }
+
+    public bool IsOwnedType(int type)
+    {
+        return dataRepository.IsOwnedType(type);
+    }
+
+    public bool IsOwnedPrevType(int type)
+    {
+        return dataRepository.IsOwnedPrevType(type);
     }
 
     public void AddItem(int type, int index)

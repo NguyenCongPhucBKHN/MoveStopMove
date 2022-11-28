@@ -16,7 +16,7 @@ public class MainMenu : UICanvas
         LevelManager.Instance.OnStart();
         GameManagerr.Instance.ChangeState(EGameState.GamePlay);
         UIManager.Instance.OpenUI<GamePlayUI>();
-        DataPlayerController.InitData();
+        // DataPlayerController.InitData();
         Close();
     }
 }

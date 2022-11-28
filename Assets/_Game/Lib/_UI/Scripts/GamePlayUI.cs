@@ -22,10 +22,10 @@ public class GamePlayUI : UICanvas
     }
     public void SettingBtn()
     {
-     GameManagerr.Instance.ChangeState(EGameState.Pause);
-    //  UIManager.Instance.OpenUI<Setting>();
-    UIManager.Instance.OpenUI<ShopWeapon>();
-     Close();   
+        GameManagerr.Instance.ChangeState(EGameState.Pause);
+        UIManager.Instance.OpenUI<ShopWeapon>();
+        Present.Instance.UpdateBtn(DataPlayerController.GetCurrentWeapon().indexType,DataPlayerController.GetCurrentWeapon().indexItem );
+        Close();   
     }
 
     void Hide()

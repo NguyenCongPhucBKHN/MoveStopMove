@@ -16,9 +16,15 @@ private List<ShopWeaponElement> listWeapons = new List<ShopWeaponElement>();
 private List<ShopWeaponElement> listWeaponPrefab = new List<ShopWeaponElement>();
 private Dictionary<ShopWeaponElement, ShopWeaponElement> dictItems = new Dictionary<ShopWeaponElement, ShopWeaponElement>();
 private List<ShopItemSelect> listSelectedItem = new List<ShopItemSelect>();
- private int playerIndex;
 
- public GameObject player;
+//UI
+
+ public GameObject SelectBtn;
+ public GameObject UnClockBtn;
+ public GameObject MoneyBtn;
+
+
+ public Player player;
  public RectTransform weapon;
  private Vector2 sizeCanvas;
 private int count;
@@ -29,8 +35,7 @@ public int currentWeaponType = 0;
  void Awake()
  {
     shopItemSelect = new ShopItemSelect();
-    
-   
+    player = FindObjectOfType<Player>();
  }  
 
 
@@ -39,22 +44,25 @@ public int currentWeaponType = 0;
   listSelectedItem[currentWeaponType].gameObject.SetActive(false);
    if(currentWeaponType<presentWeapons.GetCountWeapon()-1)
    {
+      
       currentWeaponType++;
+      Present.Instance.UpdateBtn(currentWeaponType, 0);
+      
    }
    shopItemSelectPrefab = presentWeapons.GetPrefabItemSelect(currentWeaponType);
    
    listSelectedItem[currentWeaponType].gameObject.SetActive(true);
    InitData();
-   //  Destroy(player);
-   //  playerIndex =DataServices.GetNextItem();
-    //TODO INIT PLAYER
+  
  }
  public void OnPrev()
  {
    listSelectedItem[currentWeaponType].gameObject.SetActive(false);
    if(currentWeaponType > 0)
-   {
+   {  
+      
       currentWeaponType--; 
+      Present.Instance.UpdateBtn(currentWeaponType, 0);
    }
    
   InitData();
@@ -81,16 +89,14 @@ void InitSelectedItem()
    InitSelectedItem();
    InitData();
     
-
+  ItemModel item = DataPlayerController.GetCurrentWeapon();
+  Debug.Log("current item: "+ item.indexType +" "+ item.indexItem);
  }
-
- 
-
  private void InitData()
  {
     CreatListItem();
-   indexSelect = 0;
-   UpdateSelect();
+    indexSelect = 0;
+    UpdateSelect();
     listSelectedItem[currentWeaponType].gameObject.SetActive(true);
  }
 
@@ -206,17 +212,43 @@ void SpawnListItem(int currentWeaponType, ShopWeaponElement shopWeaponElementPre
   
   public void SelectItem()
   {
-   bool isOwned = DataService.IsOwnedWithId(currentWeaponType);
-        if(isOwned) //Neu so huu thi khong cho mua
+         if(DataPlayerController.IsOwnedWeapon( Present.Instance.currentWeaponType, indexSelect))
         {
-            Debug.Log("Done1");
+            player.currentWeaponType = (EWeaponType) Present.Instance.currentWeaponType;
+            Debug.Log("(EWeaponType) present.currentWeaponType: "+ (EWeaponType) Present.Instance.currentWeaponType);
+            player.weapon.OnDespawn();
+            player.weapon.InitData(Present.Instance.indexSelect, Present.Instance.currentWeaponType);
         }
-        else
+        else 
         {
-            Debug.Log("Done2");
+            DataPlayerController.AddWeapon(Present.Instance.currentWeaponType, Present.Instance.indexSelect);
         }
+       DataPlayerController.SetCurrentWeapon(Present.Instance.currentWeaponType,  Present.Instance.indexSelect);
+      ItemModel item = DataPlayerController.GetCurrentWeapon();
+      Debug.Log("current item: "+ item.indexType +" "+ item.indexItem);
   
   }
  
+ public void UpdateBtn(int idType, int idIndex)
+ {
+    if(DataPlayerController.IsOwnedWeapon(idType, idIndex))
+    {
+      SelectBtn.SetActive(true);
+      UnClockBtn.SetActive(false);
+      MoneyBtn.SetActive(false);
+    }
+    else if(DataPlayerController.IsOwnedWeaponType(idType))
+    {
+      SelectBtn.SetActive(false);
+      UnClockBtn.SetActive(true);
+      MoneyBtn.SetActive(false);
+    }
+    else
+    {
+       SelectBtn.SetActive(false);
+      UnClockBtn.SetActive(false);
+      MoneyBtn.SetActive(true);
+    }
+ }
 
 }

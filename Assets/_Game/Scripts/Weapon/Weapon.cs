@@ -20,7 +20,7 @@ public class Weapon : MonoBehaviour
     {
         indexMat = Random.Range(0,3);
         OnInit();
-        InitData(weaponDataa.GetIndexMaterial());
+        // InitData(weaponDataa.GetIndexMaterial());
     }
     
     void Update()
@@ -35,17 +35,25 @@ public class Weapon : MonoBehaviour
         
         
     }
-    public void InitData(int indexMaterial) 
+    public void InitData(int indexMaterial, int e) 
     {
         this.indexMat = indexMaterial;
+        
+        Debug.Log("this.indexMat: "+ this.indexMat);
         if(character!=null)
         {
             eWeaponType =  character.currentWeaponType;
-            // int numberMaterial = weaponDataa.listWeaponMaterials.GetWeaponMaterialDatas(eWeaponType).numberMaterial;
-            // int idrandom = Random.Range(0, numberMaterial);
+            Debug.Log("(int)eWeaponType: "+ (int)eWeaponType);
             weaponDataa?.SetEWeaponType((int)eWeaponType);
-            // weaponDataa?.SetIndexMaterial(idrandom);
-            weaponDataa?.SetMaterial( indexMat);
+            weaponDataa?.SetMaterial( this.indexMat);
+            meshRenderer.materials= weaponDataa.GetMaterial().ToArray();
+        }
+        else
+        {
+            eWeaponType =(EWeaponType) e;
+            Debug.Log("else eWeaponType: "+ (int)eWeaponType);
+            weaponDataa?.SetEWeaponType((int)eWeaponType);
+            weaponDataa?.SetMaterial( this.indexMat);
             meshRenderer.materials= weaponDataa.GetMaterial().ToArray();
         }
         

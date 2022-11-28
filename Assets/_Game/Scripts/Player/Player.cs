@@ -9,6 +9,7 @@ public class Player : Character
     private bool canAttack => !JoystickInput.Instance.isMouse && weapon.isActiveAndEnabled;
     private void Start() {
         OnInit();
+        DataPlayerController.AddWeapon(0, 0);
     }
     void Update()
     {
@@ -16,16 +17,13 @@ public class Player : Character
         {
 
             if(GameManagerr.Instance.IsState(EGameState.GamePlay))
-            {
-                
-               
+            { 
                if(isStop && !(IsAttack) )
                 {
                     ChangeAnim(Constant.ANIM_IDLE);
                 }
                 else if(isStop && canAttack && IsAttack &&  level.IsExistChar(FindCharacterClosed()))
                 {
-                    
                     StopMoving();
                     Throw();
                 }
@@ -34,11 +32,6 @@ public class Player : Character
                     ChangeAnim(Constant.ANIM_RUN);
                     Move();
                 }
-                
-
-                
-                    
-                
             }
             if(GameManagerr.Instance.IsState(EGameState.Finish))
             {
@@ -50,7 +43,24 @@ public class Player : Character
     
     public override void OnInit()
     {
-        base.OnInit();
+        string name = "You";
+        float score = Random.Range(0,5);
+        EBodyMaterialType body = RandomBodyMat();
+        // data = new CharacterData(name, score, body);
+        data?.SetBodyMaterial(body);
+        skinnedMeshRenderer.material = data?.GetBodyMaterial();
+        data?.SetName(name);
+        data?.SetScore(score);
+        Indicator indicator = Instantiate(indicatorprefab);
+        indicator.SetOwnCharacter(this);
+        currentWeaponType= (EWeaponType) DataPlayerController.GetCurrentWeapon().indexType;
+        Debug.Log("currentWeaponType: " + currentWeaponType);
+        int idmaterial =  DataPlayerController.GetCurrentWeapon().indexItem;
+        Debug.Log("idmaterial: " + idmaterial);
+        SpawnWeapon(idmaterial);
+        attackArea.character= this;
+        dirAttact= TF.forward;
+        
         ChangeAnim(Constant.ANIM_IDLE);
     }
 

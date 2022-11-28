@@ -3,18 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-public static class DataPlayer  //static: Coi nhu 1 Instance
+public static class DataService //: Singleton<DataService> //static: Coi nhu 1 Instance:DataServices
 {
-    private static AllData allData;
+   private static AllData allData;
     private const string ALL_DATA = "all_data";
     private static UnityEvent updateCoinEvent = new UnityEvent();
-   static DataPlayer()
+    
+  
+   static DataService()
    {
     
     allData = JsonUtility.FromJson<AllData>(PlayerPrefs.GetString(ALL_DATA));
     if(allData ==null)
     {
-        int itemDefault =1;
+        int itemDefault =0;
         allData = new AllData
         {
             listItems = new List<int>{itemDefault},
@@ -28,6 +30,7 @@ public static class DataPlayer  //static: Coi nhu 1 Instance
    {
         string data = JsonUtility.ToJson(allData);
         PlayerPrefs.SetString(ALL_DATA, data);
+        PlayerPrefs.Save();
    }
 
     public static bool IsOwnedWithId(int id)

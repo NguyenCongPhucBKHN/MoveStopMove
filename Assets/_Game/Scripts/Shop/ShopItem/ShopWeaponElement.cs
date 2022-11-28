@@ -5,16 +5,24 @@ using UnityEngine.UI;
 
 public class ShopWeaponElement : Item
 {
+    [SerializeField] protected GameObject ClockObj;
     public MeshRenderer meshRenderer;
+    private EWeaponType eWeaponType;
     private int indexMaterial;
+    protected bool isOwned ;
     private Player player;
 
-    private EWeaponType eWeaponType;
+    
+
+    
     void Awake()
     {
         player = FindObjectOfType<Player>();
     }
-
+    private void Start() 
+    {
+        ActivateClock();
+    }
     public void SetIndexMaterial(int id)
     {   
         indexMaterial = id;
@@ -30,17 +38,19 @@ public class ShopWeaponElement : Item
     {
         Present.Instance.indexSelect= indexMaterial; 
         Present.Instance.UpdateSelect();
-        if(DataPlayerController.IsOwnedWeapon(0, 0))
+        Present.Instance.UpdateBtn((int)eWeaponType, (int)indexMaterial);
+        ActivateClock();
+        
+    }
+    void ActivateClock()
+    {
+        if(!DataPlayerController.IsOwnedWeapon((int)eWeaponType, indexMaterial))
         {
-            player.currentWeaponType = (EWeaponType) Present.Instance.currentWeaponType;
-            Debug.Log("(EWeaponType) present.currentWeaponType: "+ (EWeaponType) Present.Instance.currentWeaponType);
-            player.weapon.OnDespawn();
-            player.weapon.InitData(Present.Instance.indexSelect);
-            Present.Instance.SelectItem();
+            ClockObj.SetActive(true);
         }
-        ItemModel item = DataPlayerController.GetCurrentWeapon();
-        Debug.Log("crrr: "+ item.IndexType + item.IndexItem);
-        
-        
+        else
+        {
+            ClockObj.SetActive(false);
+        }
     }
 }

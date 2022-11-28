@@ -68,8 +68,6 @@ public class Character : MonoBehaviour, IHit
         Indicator indicator = Instantiate(indicatorprefab);
         indicator.SetOwnCharacter(this);
         currentWeaponType=  (EWeaponType) Random.Range(0, Constant.NUMBER_WEAPONS);
-        
-        
         SpawnWeapon();
         attackArea.character= this;
         dirAttact= TF.forward;
@@ -132,16 +130,31 @@ public class Character : MonoBehaviour, IHit
     }
     public void SpawnWeapon()
     {
+        // weapon.indexMat = Random.Range(0, 3);
         weaponPrefab = weaponDatas.GetWeaponPrefab(currentWeaponType);
         Vector3 postion = weaponGenTF.position;
         postion.y = weaponGenTF.position.y;
         weapon = Instantiate(weaponPrefab, weaponGenTF);
-        weapon.InitData(weapon.indexMat);
+        weapon.InitData(weapon.indexMat, (int) currentWeaponType );
         weapon.transform.position= postion; 
         weapon.character = this;
         isBullet = true;
     }
-    
+
+    public void SpawnWeapon(int material)
+    {
+        weaponPrefab = weaponDatas.GetWeaponPrefab(currentWeaponType);
+        Vector3 postion = weaponGenTF.position;
+        postion.y = weaponGenTF.position.y;
+        weapon = Instantiate(weaponPrefab, weaponGenTF);
+        weapon.indexMat = material;
+        Debug.Log("weapon.indexMat: "+ weapon.indexMat);
+        weapon.InitData(weapon.indexMat,(int) currentWeaponType);
+        weapon.transform.position= postion; 
+        weapon.character = this;
+        isBullet = true;
+    }
+
 
     public void Scale()
     {

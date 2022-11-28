@@ -7,6 +7,7 @@ public class ShopWeapon : UICanvas
     [SerializeField] GameObject selectBtn;
     public void SelectBtn()
     {
+        Present.Instance.SelectItem();
         GameManagerr.Instance.ChangeState(EGameState.GamePlay);
         UIManager.Instance.OpenUI<GamePlayUI>();
         Close();
