@@ -215,7 +215,6 @@ void SpawnListItem(int currentWeaponType, ShopWeaponElement shopWeaponElementPre
          if(DataPlayerController.IsOwnedWeapon( Present.Instance.currentWeaponType, indexSelect))
         {
             player.currentWeaponType = (EWeaponType) Present.Instance.currentWeaponType;
-            Debug.Log("(EWeaponType) present.currentWeaponType: "+ (EWeaponType) Present.Instance.currentWeaponType);
             player.weapon.OnDespawn();
             player.weapon.InitData(Present.Instance.indexSelect, Present.Instance.currentWeaponType);
         }
@@ -228,6 +227,8 @@ void SpawnListItem(int currentWeaponType, ShopWeaponElement shopWeaponElementPre
       Debug.Log("current item: "+ item.indexType +" "+ item.indexItem);
   
   }
+
+
  
  public void UpdateBtn(int idType, int idIndex)
  {

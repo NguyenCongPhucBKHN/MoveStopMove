@@ -101,7 +101,7 @@ public class Character : MonoBehaviour, IHit
             
             character.listCharInAttact.Remove(this);
             bullet.OnDespawn();
-            // level.DespawnChar(this);
+            level.DespawnChar(this);
             character.Scale();
         }  
     }

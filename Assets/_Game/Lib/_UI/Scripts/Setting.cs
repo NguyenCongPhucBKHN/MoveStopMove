@@ -11,7 +11,7 @@ public class Setting : UICanvas
         Close();
     }
 
-    public void ReLoadLevel()
+    public void HomeBtn()
     {
         UIManager.Instance.OpenUI<MainMenu>();
         GameManagerr.Instance.ChangeState(EGameState.MainMenu);
@@ -19,14 +19,6 @@ public class Setting : UICanvas
         Close();
     }
 
-    public void RePlayButton()
-    {
-        UIManager.Instance.OpenUI<MainMenu>();
-        GameManagerr.Instance.ChangeState(EGameState.MainMenu);
-        Data.Instance.SetLevel(1);
-        LevelManager.Instance.LoadLevel(1);
-        Close();
-
-    }
+   
 
 }

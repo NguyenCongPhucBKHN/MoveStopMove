@@ -8,35 +8,13 @@ public class GamePlayUI : UICanvas
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
     [SerializeField] GameObject settingBtn;
-    private void Update()
-    {
-        if(GameManagerr.Instance.IsState(EGameState.Finish))
-        {
-            Hide();
-        }
-
-        if(GameManagerr.Instance.IsState(EGameState.GamePlay))
-        {
-            Show();
-        }
-    }
+   
     public void SettingBtn()
     {
         GameManagerr.Instance.ChangeState(EGameState.Pause);
-        UIManager.Instance.OpenUI<ShopWeapon>();
+        UIManager.Instance.OpenUI<Setting>();
         Present.Instance.UpdateBtn(DataPlayerController.GetCurrentWeapon().indexType,DataPlayerController.GetCurrentWeapon().indexItem );
         Close();   
     }
-
-    void Hide()
-    {
-        settingBtn.SetActive(false);
-    }
-
-    void Show()
-    {
-        settingBtn.SetActive(true);
-    }
-
 
 }

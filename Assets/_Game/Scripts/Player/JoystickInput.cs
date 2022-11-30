@@ -23,13 +23,15 @@ public class JoystickInput : Singleton<JoystickInput>
         Debug.Log("rb: "+ _rigidbody);
         playerTF =  _rigidbody.transform;
     }
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
+    
     private void FixedUpdate()
     {
         isMouse = Input.GetMouseButtonDown(0);
         isMouse = !Input.GetMouseButtonUp(0);
+        if(GameManagerr.Instance.IsState(EGameState.Pause) || GameManagerr.Instance.IsState(EGameState.Finish))
+        {
+            this.gameObject.SetActive(false);
+        }
     }
 
     public void Move()
