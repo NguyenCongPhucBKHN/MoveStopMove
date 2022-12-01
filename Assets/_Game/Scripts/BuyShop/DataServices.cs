@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+
+
 public class DataServices 
 {
     public DataRepository dataRepository;
     private string KEY_DATA;
     private int maxItem;
     public ItemModel initItem ;
+    
 
     public DataServices(string KEY, int maxitem, ItemModel init)
     {
@@ -20,27 +25,17 @@ public class DataServices
     {
         dataRepository = JsonUtility.FromJson<DataRepository>(PlayerPrefs.GetString(KEY_DATA));
         string data = PlayerPrefs.GetString(KEY_DATA);
-        Debug.Log("string data: "+ data);
         if(dataRepository==null)
         {
             dataRepository = new DataRepository(maxItem, initItem);
-            // dataRepository.SetCurrentItem(initItem.IndexType, initItem.IndexType);
-            // dataRepository.AddItem(initItem.IndexType, initItem.IndexType);
             SaveData();
-        }
-
-        else
-        {
-            Debug.Log("dataRepository: "+ dataRepository.indexItem);
         }
         
     }
 
     public void SaveData()
     {
-        Debug.Log("before dataRepository : "+ dataRepository.indexType);
         string data = JsonUtility.ToJson(dataRepository);
-        Debug.Log("data after before: "+ data);
         PlayerPrefs.SetString(KEY_DATA, data);
     }
 

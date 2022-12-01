@@ -5,8 +5,19 @@ using UnityEngine;
 public class Player : Character
 {
 
+    
     private bool isStop => !JoystickInput.Instance.isControl;
     private bool canAttack => !JoystickInput.Instance.isMouse && weapon.isActiveAndEnabled;
+
+    [Header("Transform for Skins")]
+    public Transform HatTF;
+    public Transform ShieldTF;
+    public Transform WingTF;
+    public Transform TailTF;
+
+    public SkinnedMeshRenderer pantRender;
+    public SkinnedMeshRenderer skinRender;
+
     private void Start() {
         OnInit();
         DataPlayerController.AddWeapon(0, 0);
@@ -40,12 +51,11 @@ public class Player : Character
         }
     }
 
-    
     public override void OnInit()
     {
         string name = "You";
         float score = Random.Range(0,5);
-        EBodyMaterialType body = RandomBodyMat();
+        EBodyMaterialType body = EBodyMaterialType.YELLOW;
         // data = new CharacterData(name, score, body);
         data?.SetBodyMaterial(body);
         skinnedMeshRenderer.material = data?.GetBodyMaterial();
@@ -54,9 +64,7 @@ public class Player : Character
         Indicator indicator = Instantiate(indicatorprefab);
         indicator.SetOwnCharacter(this);
         currentWeaponType= (EWeaponType) DataPlayerController.GetCurrentWeapon().indexType;
-        Debug.Log("currentWeaponType: " + currentWeaponType);
         int idmaterial =  DataPlayerController.GetCurrentWeapon().indexItem;
-        Debug.Log("idmaterial: " + idmaterial);
         SpawnWeapon(idmaterial);
         attackArea.character= this;
         dirAttact= TF.forward;

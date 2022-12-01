@@ -90,7 +90,6 @@ void InitSelectedItem()
    InitData();
     
   ItemModel item = DataPlayerController.GetCurrentWeapon();
-  Debug.Log("current item: "+ item.indexType +" "+ item.indexItem);
  }
  private void InitData()
  {

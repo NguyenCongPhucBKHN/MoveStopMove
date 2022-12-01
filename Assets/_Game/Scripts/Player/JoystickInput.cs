@@ -20,7 +20,6 @@ public class JoystickInput : Singleton<JoystickInput>
     private void Start() {
         _rigidbody = FindObjectOfType<Player>().GetComponent<Rigidbody>();
         _joystick = FindObjectOfType<DynamicJoystick>();
-        Debug.Log("rb: "+ _rigidbody);
         playerTF =  _rigidbody.transform;
     }
     

@@ -9,7 +9,6 @@ public static class DataPlayerController
     private static string KEY_SKIN ="Skin";
     private static string KEY_COIN ="Coin";
 
-    //Init value
     public static int initCoin=100;
     public static ItemModel weaponInit = new ItemModel(0, 0);
     public static ItemModel skinInit = new ItemModel(0 , 0);
@@ -123,8 +122,6 @@ public static class DataPlayerController
     {
         return coinData.IsEnoughMoney(cost);
     }
-
-
 
     public static void AddCoin(int value)
     {

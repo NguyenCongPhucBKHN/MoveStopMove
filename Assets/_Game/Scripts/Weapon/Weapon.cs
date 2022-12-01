@@ -38,12 +38,9 @@ public class Weapon : MonoBehaviour
     public void InitData(int indexMaterial, int e) 
     {
         this.indexMat = indexMaterial;
-        
-        Debug.Log("this.indexMat: "+ this.indexMat);
         if(character!=null)
         {
             eWeaponType =  character.currentWeaponType;
-            Debug.Log("(int)eWeaponType: "+ (int)eWeaponType);
             weaponDataa?.SetEWeaponType((int)eWeaponType);
             weaponDataa?.SetMaterial( this.indexMat);
             meshRenderer.materials= weaponDataa.GetMaterial().ToArray();
@@ -51,7 +48,6 @@ public class Weapon : MonoBehaviour
         else
         {
             eWeaponType =(EWeaponType) e;
-            Debug.Log("else eWeaponType: "+ (int)eWeaponType);
             weaponDataa?.SetEWeaponType((int)eWeaponType);
             weaponDataa?.SetMaterial( this.indexMat);
             meshRenderer.materials= weaponDataa.GetMaterial().ToArray();

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7005235162190749887}
   - component: {fileID: 2048186739284744841}
   - component: {fileID: 5715093866998163056}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Khien2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6299622851018379948}
-  m_LocalRotation: {x: -0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0.13, y: 0.1, z: -1311}
-  m_LocalScale: {x: 70, y: 70, z: 70}
+  m_LocalRotation: {x: -0.22699977, y: -0.22699977, z: 0.6696799, w: 0.6696799}
+  m_LocalPosition: {x: -0.052, y: -0.147, z: -0.039}
+  m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: -37.45, z: 90}
 --- !u!33 &2048186739284744841
 MeshFilter:
   m_ObjectHideFlags: 0

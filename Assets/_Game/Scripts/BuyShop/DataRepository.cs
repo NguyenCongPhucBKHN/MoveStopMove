@@ -10,13 +10,13 @@ public class DataRepository
         // currentItem = item;
         indexItem = item.indexItem;
         indexType = item.indexType;
-
       
     }
     #region variable & propoty
     public List<int> listItems = new List<int>();
     public int maxItem ; //TODO: Set for each sub class
     public ItemModel currentItem ; //khong save duoc
+
     public int indexType ;
     public int indexItem ;
     
@@ -38,7 +38,6 @@ public class DataRepository
         for(int i =0; i< listItems.Count; i++)
         {
             int iType = listItems[i]/10;
-            Debug.Log("iType: "+ iType+ " "+ idType);
             if(iType == idType) 
             {
                 return true;

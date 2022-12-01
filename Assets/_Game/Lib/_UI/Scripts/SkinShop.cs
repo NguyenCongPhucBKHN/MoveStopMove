@@ -5,39 +5,54 @@ using UnityEngine.UI;
 
 public class SkinShop : UICanvas
 {
-    
    [SerializeField] List<GameObject> ListShopItem;
-   
+   public static ESkinType selectType;
    
     private void Start() {
-        // UIManager.Instance.OpenUI<HatShop>();
-        UpdateSelect(0);
+        UpdateSelect((int) ESkinType.Hat);
+    }
+    public void CloseBtn()
+    {
+        GameManagerr.Instance.ChangeState(EGameState.GamePlay);
+        UIManager.Instance.OpenUI<GamePlayUI>();
+        Close();
     }
     public void HatBtn()
     {
-        // UIManager.Instance.OpenUI<HatShop>();
-        UpdateSelect(0);
+        selectType = ESkinType.Hat;
+        UpdateSelect((int) ESkinType.Hat);
+        PresentSkin.Instance.currentType = ESkinType.Hat;
         
     }
 
      public void PantBtn()
     {
-        // UIManager.Instance.OpenUI<PantShop>();
-        UpdateSelect(1);
+        selectType = ESkinType.Pant;
+        UpdateSelect((int) ESkinType.Pant);
+        PresentSkin.Instance.currentType =  ESkinType.Pant;
     }
 
     public void ShieldBtn()
     {
-        // UIManager.Instance.OpenUI<ShieldShop>();
-        UpdateSelect(2);
+        selectType = ESkinType.Shield;
+        UpdateSelect((int) ESkinType.Shield);
+        PresentSkin.Instance.currentType =  ESkinType.Shield;
     }
 
      public void SetBtn()
     {
-        // UIManager.Instance.OpenUI<SetShop>();
-        UpdateSelect(3);
+        selectType = ESkinType.Skin;
+        UpdateSelect((int) ESkinType.Skin);
+        PresentSkin.Instance.currentType =  ESkinType.Skin;
     }
 
+    public void SelectBtn()
+    {
+        PresentSkin.Instance.SpawnItem();
+        GameManagerr.Instance.ChangeState(EGameState.GamePlay);
+        UIManager.Instance.OpenUI<GamePlayUI>();
+        Close();
+    }
     void UpdateSelect(int j)
     {
         for(int i =0; i<ListShopItem.Count; i++)

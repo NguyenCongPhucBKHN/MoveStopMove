@@ -7,8 +7,9 @@ public class WeaponObject : MonoBehaviour
     public EWeaponType weaponType;
     public Transform TF;
     public WeaponDatas weaponDatas;
-    public void GetWeaponPrefab(EWeaponType eWeaponType)
+
+    public Weapon GetWeaponPrefab(EWeaponType eWeaponType)
     {
-        weaponDatas.GetWeaponPrefab(eWeaponType);
+        return weaponDatas.GetWeaponPrefab(eWeaponType);
     }
 }

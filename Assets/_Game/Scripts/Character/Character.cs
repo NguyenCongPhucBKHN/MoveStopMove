@@ -148,7 +148,6 @@ public class Character : MonoBehaviour, IHit
         postion.y = weaponGenTF.position.y;
         weapon = Instantiate(weaponPrefab, weaponGenTF);
         weapon.indexMat = material;
-        Debug.Log("weapon.indexMat: "+ weapon.indexMat);
         weapon.InitData(weapon.indexMat,(int) currentWeaponType);
         weapon.transform.position= postion; 
         weapon.character = this;
@@ -234,7 +233,7 @@ public class Character : MonoBehaviour, IHit
         return  body;
     }
 
-    public void InitData()
+    public virtual void InitData()
     {
         int index = Random.Range(0, BotDatasIns.BotName.Count);
         string name = BotDatasIns.BotName[index];
