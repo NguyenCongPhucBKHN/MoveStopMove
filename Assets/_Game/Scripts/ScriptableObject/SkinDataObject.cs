@@ -7,6 +7,5 @@ public class SkinDataObject
 {
    public int intType;
    public int indexItem;
-   public EState state;
    public GameObject prefab;
 }

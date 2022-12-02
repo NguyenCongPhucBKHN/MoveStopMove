@@ -10,24 +10,29 @@ public class HatGenSkin : GenSkin
     private Dictionary<GameObject, GameObject> dictHat = new Dictionary<GameObject, GameObject>();
     private  Transform HatTF;
     
-    
+    private void Awake() {
+         PresentSkin.Instance.listGenSkin[0]=this;
+         player= FindObjectOfType<Player>();
+    }
     private void Start() {
         indexType = (int) ESkinType.Hat;
         HatTF = player.HatTF;
-        
     }
    public override void SpawnSkin(ESkinType iType, int indexItem)
    {
         RefeshObj(HatTF);
         prefab = hatDatas.GetPrefab(indexItem);
-        if(dictHat.ContainsKey(prefab))
+        if(prefab!=null)
         {
-            dictHat[prefab].SetActive(true);
-        }
-        else
-        {
-            Hat = Instantiate(prefab, player.HatTF);
-            dictHat.Add(prefab, Hat);
+            if(dictHat.ContainsKey(prefab))
+            {
+                dictHat[prefab].SetActive(true);
+            }
+            else
+            {
+                Hat = Instantiate(prefab, player.HatTF);
+                dictHat.Add(prefab, Hat);
+            }
         }
    }
 
@@ -40,6 +45,7 @@ public class HatGenSkin : GenSkin
    public override void Select()
    {
     PresentSkin.Instance.currentSkin = this;
+
    }
 
    

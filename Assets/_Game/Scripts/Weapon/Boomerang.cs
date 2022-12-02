@@ -16,13 +16,13 @@ public class Boomerang : Bullet
     {
         BoomerangImgTF.Rotate(0, 0, 10, Space.Self);
 
-        if(isHit)
+        if(!isHit)
         {
             float speed= speedBullet*Time.deltaTime;
             TF.position= Vector3.MoveTowards(TF.position, character.weaponGenTF.position, speed);
         }
 
-        if(isHit && Vector3.Distance(TF.position, character.weaponGenTF.position)<0.0001)
+        if(isHit /* && Vector3.Distance(TF.position, character.weaponGenTF.position)<0.0001*/)
         {
             IsDead= true;
             

@@ -16,12 +16,16 @@ public class SkinGenSkin : GenSkin
     private Material SkinMaterial;
     private Material PantMaterial;
     
-    
+    private void Awake() {
+         PresentSkin.Instance.listGenSkin[3]=this;
+         player= FindObjectOfType<Player>();
+    }
     private void Start() {
         indexType = (int) ESkinType.Shield;
         HatTF = player.HatTF;
         TailTF = player.TailTF;
         WingTF = player.WingTF;
+        
         
         
     }
@@ -30,17 +34,26 @@ public class SkinGenSkin : GenSkin
    {   
        SkinMaterial = skinData.GetSkinMaterial(indexItem);
        PantMaterial = skinData.GetPantMaterial(indexItem);
-       player.skinRender.material = SkinMaterial;
-       player.pantRender.material = PantMaterial;
-       RefeshObj(HatTF);
-       RefeshObj(TailTF);
-       RefeshObj(WingTF);
+       if(SkinMaterial!=null && PantMaterial!= null)
+       {
+        player.skinRender.material = SkinMaterial;
+        player.pantRender.material = PantMaterial;
+       }
        GameObject  HatPrefab = skinData.GetHatPrefab(indexItem);
-       SpawnObj(dictHat, HatPrefab, HatTF);
+       
        GameObject TailPrefab = skinData.GetTailPrefab(indexItem);
-       SpawnObj(dictTail, TailPrefab, TailTF );
+       
        GameObject WingPrefab = skinData.GetWingPrefab(indexItem);
-       SpawnObj(dictWing, WingPrefab, WingTF);
+       if(HatPrefab!=null && TailPrefab!= null && WingPrefab!= null)
+       {
+        RefeshObj(HatTF);
+        RefeshObj(TailTF);
+        RefeshObj(WingTF);
+        SpawnObj(dictHat, HatPrefab, HatTF);
+        SpawnObj(dictTail, TailPrefab, TailTF );
+        SpawnObj(dictWing, WingPrefab, WingTF);
+       }
+       
    }
 
 

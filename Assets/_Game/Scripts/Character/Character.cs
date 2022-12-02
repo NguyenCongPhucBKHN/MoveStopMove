@@ -226,9 +226,9 @@ public class Character : MonoBehaviour, IHit
         EBodyMaterialType  body = EBodyMaterialType.YELLOW;
         if(level!=null)
         {
-            int index = (int)Random.Range(0, (float)(level?.listBodyMaterialType.Count));
+            int index = (int)Random.Range(0, (float)(level?.listBodyMaterialType.Count-1));
             body = level.listBodyMaterialType[index];
-            level.listBodyMaterialType.RemoveAt(index);
+            // level.listBodyMaterialType.RemoveAt(index);
         }
         return  body;
     }

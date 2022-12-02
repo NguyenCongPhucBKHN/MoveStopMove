@@ -22,40 +22,42 @@ public class Indicator : MonoBehaviour
     
     void Update()
     {
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(target.position);
-        nameActivate = true;
-       if (screenPos.x < 0)
+        if(target!= null)
         {
-            screenPos.x = Screen.width / 12;
-            nameActivate = false;
-        }
-        else if (screenPos.x > Screen.width)
-        {
-            screenPos.x = Screen.width * 11 / 12;
-            nameActivate = false;
-        }
-        if (screenPos.y < 0)
-        {
-            screenPos.z = Screen.height* 4/ 15;
-            nameActivate = false;
-        }
-        else if (screenPos.y > Screen.height)
-        {
-            screenPos.z = Screen.height * 11 / 15;
-            nameActivate = false;
-        }
+            Vector3 screenPos = Camera.main.WorldToScreenPoint(target.position);
+            nameActivate = true;
+            if (screenPos.x < 0)
+            {
+                screenPos.x = Screen.width / 12;
+                nameActivate = false;
+            }
+            else if (screenPos.x > Screen.width)
+            {
+                screenPos.x = Screen.width * 11 / 12;
+                nameActivate = false;
+            }
+            if (screenPos.y < 0)
+            {
+                screenPos.z = Screen.height* 4/ 15;
+                nameActivate = false;
+            }
+            else if (screenPos.y > Screen.height)
+            {
+                screenPos.z = Screen.height * 11 / 15;
+                nameActivate = false;
+            }
 
-        // Set UI state
-        if (nameTxtObj.activeInHierarchy == false && nameActivate)
-        {
-            nameTxtObj.SetActive(true);
+            // Set UI state
+            if (nameTxtObj.activeInHierarchy == false && nameActivate)
+            {
+                nameTxtObj.SetActive(true);
+            }
+            else if (nameTxtObj.activeInHierarchy == true && !nameActivate)
+            {
+                nameTxtObj.SetActive(false);
+            }
+            followImage.transform.position = new Vector2(screenPos.x, screenPos.y + Screen.height / 8);
         }
-        else if (nameTxtObj.activeInHierarchy == true && !nameActivate)
-        {
-            nameTxtObj.SetActive(false);
-        }
-        followImage.transform.position = new Vector2(screenPos.x, screenPos.y + Screen.height / 8);
-        
     }
     public void SetOwnCharacter(Character charr)
     {

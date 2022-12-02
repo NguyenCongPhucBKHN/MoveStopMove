@@ -8,7 +8,10 @@ public class PantGenSkin : GenSkin
     [SerializeField] private PantDatas data;
     private SkinnedMeshRenderer meshRenderer;
     private Material material;
-    
+     private void Awake() {
+         PresentSkin.Instance.listGenSkin[1]=this;
+         player= FindObjectOfType<Player>();
+    }
      private void Start() 
      {
 
@@ -19,7 +22,11 @@ public class PantGenSkin : GenSkin
      public override void SpawnSkin(ESkinType indexType, int indexItem)
     {   
         material = data.GetMaterial(indexItem);
-        meshRenderer.material = material;
+        if(material!=null)
+        {
+            meshRenderer.material = material;
+        }
+        
     }
 
     public override void DespawnSkin(ESkinType indexType, int indexItem)

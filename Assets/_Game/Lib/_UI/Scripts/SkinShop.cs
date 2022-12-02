@@ -48,7 +48,8 @@ public class SkinShop : UICanvas
 
     public void SelectBtn()
     {
-        PresentSkin.Instance.SpawnItem();
+        // PresentSkin.Instance.SpawnItem();
+        PresentSkin.Instance.SelectItem();
         GameManagerr.Instance.ChangeState(EGameState.GamePlay);
         UIManager.Instance.OpenUI<GamePlayUI>();
         Close();

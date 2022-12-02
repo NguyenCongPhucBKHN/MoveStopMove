@@ -68,6 +68,7 @@ public class Player : Character
         SpawnWeapon(idmaterial);
         attackArea.character= this;
         dirAttact= TF.forward;
+        PresentSkin.Instance.SelectItem();
         
         ChangeAnim(Constant.ANIM_IDLE);
     }
@@ -75,7 +76,7 @@ public class Player : Character
     public override void OnDespawn()
     {
         base.OnDespawn();
-        Destroy(this.gameObject);
+        this.gameObject.SetActive(false);
     }
 
     public override void OnDeath()
@@ -87,9 +88,7 @@ public class Player : Character
     }
     public override void Move()
     {
-
         base.Move();
-        
         JoystickInput.Instance.Move();
     }
 

@@ -10,7 +10,7 @@ public static class DataPlayer  //static: Coi nhu 1 Instance
     private static UnityEvent updateCoinEvent = new UnityEvent();
    static DataPlayer()
    {
-    
+
     allData = JsonUtility.FromJson<AllData>(PlayerPrefs.GetString(ALL_DATA));
     if(allData ==null)
     {
@@ -85,7 +85,8 @@ public static class DataPlayer  //static: Coi nhu 1 Instance
         updateCoinEvent.Invoke();
         SaveData();
     }
-    //Lang nghe su kien cap nhat coin
+    
+    
     public static void AddListener(UnityAction updateCoin)
     {
         updateCoinEvent.AddListener(updateCoin);

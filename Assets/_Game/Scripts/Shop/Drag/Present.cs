@@ -189,25 +189,9 @@ void SpawnListItem(int currentWeaponType, ShopWeaponElement shopWeaponElementPre
   {
     
     return (int) weaponDataa?.listWeaponMaterials.GetWeaponMaterialDatas( sweaponType).numberMaterial;
-
    
   }
   
-  // public List<ShopWeaponElement> SpawnListWeapon(EWeaponType eWeaponType)
-  // {
-  //   int numberMat = GetNumMatsOfAWeapon(eWeaponType);
-  //   switch (eWeaponType) {
-  //   case (EWeaponType) 0:
-  //     return ItemManager.Instance.SpawnListItem<ShopBoomerangElement>(numberMat) ;
-  //   case (EWeaponType) 1: 
-  //     return ItemManager.Instance.SpawnListItem<ShopHammerElement>(numberMat);
-  //   case (EWeaponType) 2:
-  //     return ItemManager.Instance.SpawnListItem<ShopKnifeElement>(numberMat);
-  //   default :
-      
-  //     return null;
-  //  }
-  // }
   
   public void SelectItem()
   {

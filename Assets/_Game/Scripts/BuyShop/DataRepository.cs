@@ -8,36 +8,34 @@ public class DataRepository
     {
         maxItem = number;
         // currentItem = item;
+       
         indexItem = item.indexItem;
         indexType = item.indexType;
-      
     }
-    #region variable & propoty
     public List<int> listItems = new List<int>();
-    public int maxItem ; //TODO: Set for each sub class
-    public ItemModel currentItem ; //khong save duoc
-
+    //item weapon
     public int indexType ;
     public int indexItem ;
     
-
- 
+    public int maxItem ; 
+    #region variable & propoty
+    public ItemModel currentItem ; //khong save duoc
     #endregion
 
     //Bien tam
     
 
     #region  logic: check, add, getprev, getnext
-    public bool IsOwnedWithId(int idTyp, int idIte)
+    public bool IsOwnedWithId(int idTyp, int idIte, int factor=10)
     {
-        return listItems.Contains(idTyp*10+idIte);
+        return listItems.Contains(idTyp*factor+idIte);
     }
 
-    public bool IsOwnedType(int idType)
+    public bool IsOwnedType(int idType, int factor =10)
     {
         for(int i =0; i< listItems.Count; i++)
         {
-            int iType = listItems[i]/10;
+            int iType = listItems[i]/factor;
             if(iType == idType) 
             {
                 return true;
@@ -51,17 +49,17 @@ public class DataRepository
         return IsOwnedType(idType-1);
     }
 
-    public void AddItem(int idType, int idItem)
+    public void AddItem(int idType, int idItem, int factor =10)
     {   
         if(IsOwnedWithId( idType,  idItem)) 
         {
             return;
         }
        
-        listItems.Add(idType*10+idItem);
+        listItems.Add(idType*factor+idItem);
     }
 
-    public void SetCurrentItem(int idType, int idItem)
+    public void SetCurrentItem(int idType, int idItem )
     {
         this.indexType = idType;
         this.indexItem = idItem;
@@ -80,7 +78,7 @@ public class DataRepository
 
     public ItemModel GetCurrentItem()
     {
-        return new ItemModel(indexType, indexItem);
+        return new ItemModel(this.indexType, this.indexItem);
     }
 
     public int GetTypeCurrItem()
@@ -93,43 +91,33 @@ public class DataRepository
         return indexItem;
     }
 
-    public ItemModel GetPrevItemId()
+    public ItemModel GetPrevItemId(int factor =10)
     {
         ItemModel vitem =new ItemModel(indexType, indexItem);  //TODO: CHECK 0 or 1
 
-        int currentIndex = listItems.IndexOf(indexType*10+  indexItem);
+        int currentIndex = listItems.IndexOf(indexType*factor+  indexItem);
         if(currentIndex > 0)
         {
             int numberItem = listItems[currentIndex-1]; 
-            int idType = numberItem%10;
-            int idItem = numberItem - idType*10;
+            int idType = numberItem%factor;
+            int idItem = numberItem - idType*factor;
             vitem = new ItemModel(idType, idItem);
-            
-        }
-        else
-        {
-           // vitem = listItems[listItems.Count-1];
         }
         currentItem = vitem;
         return vitem;
     }
 
-    public ItemModel GetNextItemId()
+    public ItemModel GetNextItemId(int factor =10)
     {
-         ItemModel vitem =new ItemModel(indexType, indexItem);  //TODO: CHECK 0 or 1
-
-        int currentIndex = listItems.IndexOf(indexType*10+  indexItem);
+        ItemModel vitem = new ItemModel(indexType, indexItem);  //TODO: CHECK 0 or 1
+        int currentIndex = listItems.IndexOf(indexType*factor+  indexItem);
         if(currentIndex < maxItem-1 )
         {
             int numberItem = listItems[currentIndex+1]; 
-            int idType = numberItem%10;
-            int idItem = numberItem - idType*10;
+            int idType = numberItem%factor;
+            int idItem = numberItem - idType*factor;
             vitem = new ItemModel(idType, idItem);
             
-        }
-        else
-        {
-           // vitem = listItems[listItems.Count-1];
         }
         currentItem = vitem;
         return vitem;

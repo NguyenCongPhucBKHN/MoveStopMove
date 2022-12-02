@@ -7,21 +7,19 @@ public class TestShop : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        DebugCurrentWeapon();
+        SkinDataModel dataModel = new SkinDataModel();
+        dataModel.indexType =1;
+        dataModel.indexItem =2;
+        Debug.Log("Skin data string: "+ dataModel.ConvertToString());
+        SkinDataModel model2= SkinDataModel.ConverToModel(dataModel);
+        Debug.Log("data2: item: "+ model2.indexType+ " "+ model2.indexItem);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.T))
-        {
-            DebugCurrentWeapon();
-        }
-    }
+    
 
     void DebugCurrentWeapon()
     {
         ItemModel item = DataPlayerController.GetCurrentWeapon();
-        Debug.Log("test: " + item.indexType + item.indexItem);
+        Debug.Log("test: " + item);
     }
 }

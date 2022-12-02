@@ -10,24 +10,31 @@ public class ShieldGenSkin: GenSkin
     private Dictionary<GameObject, GameObject> dictHat = new Dictionary<GameObject, GameObject>();
     private Transform ShieldTF;
     
-    
+     private void Awake() {
+         PresentSkin.Instance.listGenSkin[2]=this;
+         player= FindObjectOfType<Player>();
+    }
     private void Start() {
         indexType = (int) ESkinType.Shield;
         ShieldTF = player.ShieldTF;
+         PresentSkin.Instance.listGenSkin[2]=this;
         
     }
    public override void SpawnSkin(ESkinType iType, int indexItem)
    {
         RefeshObj(ShieldTF);
         prefab = shieldData.GetPrefab(indexItem);
-        if(dictHat.ContainsKey(prefab))
+        if(prefab!=null)
         {
-            dictHat[prefab].SetActive(true);
-        }
-        else
-        {
-            shield = Instantiate(prefab, player.ShieldTF);
-            dictHat.Add(prefab, shield);
+            if(dictHat.ContainsKey(prefab))
+            {
+                dictHat[prefab].SetActive(true);
+            }
+            else
+            {
+                shield = Instantiate(prefab, player.ShieldTF);
+                dictHat.Add(prefab, shield);
+            }
         }
    }
 

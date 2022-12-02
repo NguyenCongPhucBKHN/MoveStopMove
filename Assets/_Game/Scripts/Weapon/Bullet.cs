@@ -29,7 +29,7 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        if(character.IsDead)
+        if(character==null)
         {
             Destroy(this.gameObject);
         }

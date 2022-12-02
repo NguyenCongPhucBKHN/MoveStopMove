@@ -12,18 +12,4 @@ public class ItemModel
         this.indexItem = indexItem;
     }
 
-    // public int IndexType 
-    // { 
-    //     get { return indexType; }
-    //     set { indexType = value; }
-    // }
-
-    // public int IndexItem
-    // {
-    //     get { return indexItem; }
-    //     set { indexItem = value; }
-    // }
-
-    
-
 }

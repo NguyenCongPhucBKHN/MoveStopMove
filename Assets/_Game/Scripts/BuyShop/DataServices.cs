@@ -12,19 +12,22 @@ public class DataServices
     private string KEY_DATA;
     private int maxItem;
     public ItemModel initItem ;
-    
 
-    public DataServices(string KEY, int maxitem, ItemModel init)
+    public DataServices(string KEY,  ItemModel init, int maxitem=5)
     {
         KEY_DATA= KEY;
         maxItem= maxitem;
+       
         initItem = new ItemModel(init.indexType, init.indexItem);
+    
+        
         InitDataServices();
     }
     public void InitDataServices()
     {
         dataRepository = JsonUtility.FromJson<DataRepository>(PlayerPrefs.GetString(KEY_DATA));
         string data = PlayerPrefs.GetString(KEY_DATA);
+        
         if(dataRepository==null)
         {
             dataRepository = new DataRepository(maxItem, initItem);
@@ -37,11 +40,12 @@ public class DataServices
     {
         string data = JsonUtility.ToJson(dataRepository);
         PlayerPrefs.SetString(KEY_DATA, data);
+        Debug.Log("data string: "+ data);
     }
 
-    public bool IsOwnedItem(int type, int index)
+    public bool IsOwnedItem(int type, int index, int factor =10)
     {
-        return dataRepository.IsOwnedWithId(type, index);
+        return dataRepository.IsOwnedWithId(type, index, factor);
     }
 
     public bool IsOwnedType(int type)
@@ -54,9 +58,9 @@ public class DataServices
         return dataRepository.IsOwnedPrevType(type);
     }
 
-    public void AddItem(int type, int index)
+    public void AddItem(int type, int index, int factor =10)
     {
-        dataRepository.AddItem(type, index);
+        dataRepository.AddItem(type, index, factor);
         SaveData();
     }
 

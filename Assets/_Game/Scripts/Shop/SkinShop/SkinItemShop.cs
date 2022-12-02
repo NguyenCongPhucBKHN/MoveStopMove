@@ -9,6 +9,7 @@ public class SkinItemShop : MonoBehaviour
     [SerializeField] private Button button;
     [SerializeField] private ESkinType indexType;
     [SerializeField] private int indexItem;
+    [SerializeField] private GameObject lockObj;
     
     
     void Awake()
@@ -21,5 +22,16 @@ public class SkinItemShop : MonoBehaviour
         PresentSkin.Instance.currentIndex = indexItem;
         PresentSkin.Instance.currentType = indexType;
         PresentSkin.Instance.SpawnItem();
+    }
+    void Update()
+    {
+        if(DataPlayerController.IsOwnedSkin((int)indexType, indexItem))
+        {
+            lockObj.SetActive(false);
+        }
+        else
+        {
+            lockObj.SetActive(true);
+        }
     }
 }
