@@ -285,7 +285,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1755760272054635380}
         m_TargetAssemblyTypeName: ShopWeapon, Assembly-CSharp
-        m_MethodName: SelectBtn
+        m_MethodName: MoneyBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1143,6 +1143,7 @@ MonoBehaviour:
   shopItemSelectPrefab: {fileID: 1301796122, guid: f9353241b4a74c84fabcfc648aeb6bb4, type: 3}
   TF: {fileID: 1755760273050311369}
   PageTF: {fileID: 1755760272501593247}
+  listWeapons: []
   SelectBtn: {fileID: 1755760272884619981}
   UnClockBtn: {fileID: 5093889026235551383}
   MoneyBtn: {fileID: 550903850888626545}
@@ -1150,6 +1151,9 @@ MonoBehaviour:
   weapon: {fileID: 0}
   indexSelect: 2
   currentWeaponType: 0
+  MoneyEven:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &4579296467492495074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1579,7 +1583,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1755760272054635380}
         m_TargetAssemblyTypeName: ShopWeapon, Assembly-CSharp
-        m_MethodName: SelectBtn
+        m_MethodName: UnClockBtn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

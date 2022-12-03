@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.Events;
+
 public class Present : Singleton<Present>
 {
 [SerializeField] PresentWeapons presentWeapons;
@@ -12,7 +14,7 @@ private ShopWeaponElement shopWeaponElementPrefab;
 [SerializeField] private Transform TF;
 [SerializeField] private Transform PageTF;
 private Dictionary<ShopWeaponElement, bool> listShopItems = new Dictionary<ShopWeaponElement, bool> ();
-private List<ShopWeaponElement> listWeapons = new List<ShopWeaponElement>();
+public List<ShopWeaponElement> listWeapons = new List<ShopWeaponElement>();
 private List<ShopWeaponElement> listWeaponPrefab = new List<ShopWeaponElement>();
 private Dictionary<ShopWeaponElement, ShopWeaponElement> dictItems = new Dictionary<ShopWeaponElement, ShopWeaponElement>();
 private List<ShopItemSelect> listSelectedItem = new List<ShopItemSelect>();
@@ -32,6 +34,7 @@ public int indexSelect=0; //index Material
  ShopItemSelect shopItemSelect;
 public int currentWeaponType = 0;
 
+public  UnityEvent MoneyEven = new UnityEvent();
  void Awake()
  {
     shopItemSelect = new ShopItemSelect();
@@ -133,7 +136,7 @@ void DeActivateListExceptItem(ShopWeaponElement shopWeaponElementPrefab)
 
 void SpawnListItem(int currentWeaponType, ShopWeaponElement shopWeaponElementPrefab)
 {
-  count = GetNumMatsOfAWeapon((EWeaponType)(currentWeaponType));
+    count = GetNumMatsOfAWeapon((EWeaponType)(currentWeaponType));
     listWeaponPrefab.Add(shopWeaponElementPrefab);
     for(int i =0; i<count; i++)
     {
@@ -208,7 +211,34 @@ void SpawnListItem(int currentWeaponType, ShopWeaponElement shopWeaponElementPre
        DataPlayerController.SetCurrentWeapon(Present.Instance.currentWeaponType,  Present.Instance.indexSelect);
       ItemModel item = DataPlayerController.GetCurrentWeapon();
       Debug.Log("current item: "+ item.indexType +" "+ item.indexItem);
-  
+  }
+
+  public void MoneyItem()
+  {
+    if(!DataPlayerController.IsOwnedWeapon( Present.Instance.currentWeaponType, indexSelect))
+    {
+      DataPlayerController.SubCoin(100);
+      DataPlayerController.AddWeapon(Present.Instance.currentWeaponType, Present.Instance.indexSelect);
+      UpdateBtn(Present.Instance.currentWeaponType,  Present.Instance.indexSelect);
+      MoneyEven.Invoke();
+
+    }
+  }
+
+  public void UnClock()
+  {
+    if(!DataPlayerController.IsOwnedWeapon( Present.Instance.currentWeaponType, indexSelect))
+    {
+      // DataPlayerController.SubCoin(100);
+      DataPlayerController.AddWeapon(Present.Instance.currentWeaponType, Present.Instance.indexSelect);
+      UpdateBtn(Present.Instance.currentWeaponType,  Present.Instance.indexSelect);
+      MoneyEven.Invoke();
+
+    }
+  }
+  public void EquiedItem()
+  {
+
   }
 
 

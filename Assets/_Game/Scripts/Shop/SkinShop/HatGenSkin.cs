@@ -20,10 +20,11 @@ public class HatGenSkin : GenSkin
     }
    public override void SpawnSkin(ESkinType iType, int indexItem)
    {
-        RefeshObj(HatTF);
+       
         prefab = hatDatas.GetPrefab(indexItem);
         if(prefab!=null)
         {
+            RefeshObj(HatTF);
             if(dictHat.ContainsKey(prefab))
             {
                 dictHat[prefab].SetActive(true);
@@ -45,9 +46,5 @@ public class HatGenSkin : GenSkin
    public override void Select()
    {
     PresentSkin.Instance.currentSkin = this;
-
    }
-
-   
-
 }

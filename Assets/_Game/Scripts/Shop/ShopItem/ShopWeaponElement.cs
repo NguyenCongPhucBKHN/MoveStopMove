@@ -22,6 +22,7 @@ public class ShopWeaponElement : Item
     private void Start() 
     {
         ActivateClock();
+        Present.Instance.MoneyEven.AddListener(ActivateClock);
     }
     public void SetIndexMaterial(int id)
     {   
@@ -39,10 +40,10 @@ public class ShopWeaponElement : Item
         Present.Instance.indexSelect= indexMaterial; 
         Present.Instance.UpdateSelect();
         Present.Instance.UpdateBtn((int)eWeaponType, (int)indexMaterial);
-        ActivateClock();
+        // ActivateClock();
         
     }
-    void ActivateClock()
+    public void ActivateClock()
     {
         if(!DataPlayerController.IsOwnedWeapon((int)eWeaponType, indexMaterial))
         {

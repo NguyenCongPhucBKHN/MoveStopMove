@@ -6,8 +6,7 @@ public class JoystickInput : Singleton<JoystickInput>
 {
      private Rigidbody _rigidbody;
      private float playerSpeed = 8;
-    
-    // [SerializeField] public FixedJoystick _joystick;
+     
     [SerializeField] public DynamicJoystick _joystick;
     private float _moveSpeed =8;
     [SerializeField] Transform tfCenterJoystick;

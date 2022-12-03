@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public static class DataPlayerController 
 {
@@ -12,7 +13,7 @@ public static class DataPlayerController
     private static string KEY_SKIN ="skin";
     private static string KEY_COIN ="Coin";
     
-    public static int initCoin=100;
+    public static int initCoin=1000;
     public static ItemModel weaponInit = new ItemModel(0, 0);
     public static ItemModel hatInit =new ItemModel(0, -1);
     public static ItemModel pantInit =new ItemModel(1, -1);
@@ -37,6 +38,7 @@ public static class DataPlayerController
     //     coinData?.InitDataService();
     // }
 
+    public static UnityEvent updateCoinEvent = new UnityEvent();
     public static void SaveData()
     {
         weaponData.SaveData();
@@ -154,7 +156,11 @@ public static class DataPlayerController
     //     return hatData.GetPrevItem();
     // }
 
-    
+    public static int GetCoin()
+    {
+        Debug.Log("coin: "+ coinData.GetCoin());
+        return coinData.GetCoin();
+    }
 
     public static bool IsEnoughMoney(int cost)
     {
@@ -162,13 +168,18 @@ public static class DataPlayerController
     }
 
     public static void AddCoin(int value)
+    
     {
         coinData.AddCoin(value);
+        updateCoinEvent.Invoke();
+        coinData.SaveData();
     }
 
     public static void SubCoin(int cost)
     {
-        coinData.AddCoin(cost);
+        coinData.SubCoin(cost);
+        updateCoinEvent.Invoke();
+        coinData.SaveData();
     }
 
     

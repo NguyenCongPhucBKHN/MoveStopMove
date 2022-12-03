@@ -11,6 +11,7 @@ public class CoinService
     {
         KEY_DATA= KEY;
         initCoin = coin;
+        InitDataService();
     }
 
     public void InitDataService()
@@ -26,6 +27,7 @@ public class CoinService
     public void SaveData()
     {
         string data = JsonUtility.ToJson(coinData);
+        Debug.Log("data coin: "+ data);
         PlayerPrefs.SetString(KEY_DATA, data);
         PlayerPrefs.Save();
     }
