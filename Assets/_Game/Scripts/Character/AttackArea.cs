@@ -10,18 +10,18 @@ public class AttackArea : MonoBehaviour, IHit
     void OnTriggerEnter(Collider other)
     {
         Character charInArea = other.GetComponent<Character>();
-        if(charInArea != null  && character.gameObject!=null && charInArea.gameObject != character.gameObject )
+        if(charInArea != null  && character?.gameObject!=null && charInArea?.gameObject != character?.gameObject )
         {
-            character.listCharInAttact.Add(charInArea);
+            character?.listCharInAttact.Add(charInArea);
             // character.IsInRangeAttack= true;
         }
     }
     void OnTriggerExit(Collider other)
     {
         Character charInArea = other.GetComponent<Character>();
-        if(charInArea != null && character.gameObject!=null &&  charInArea.gameObject != character.gameObject )
+        if(charInArea != null && character?.gameObject!=null &&  charInArea?.gameObject != character?.gameObject )
         {
-            character.listCharInAttact.Remove(charInArea);
+            character?.listCharInAttact.Remove(charInArea);
         }
     }
    void OnDrawGizmosSelected()

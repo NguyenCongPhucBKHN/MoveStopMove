@@ -35,7 +35,9 @@ public class JoystickInput : Singleton<JoystickInput>
     public void Move()
     {
         _moveSpeed = playerSpeed ;
-        _rigidbody.velocity = isControl ? new Vector3(_joystick.Horizontal *_moveSpeed, _rigidbody.velocity.y, _joystick.Vertical*_moveSpeed): Vector3.zero;
+        Vector2 moveDir= new Vector2(_joystick.Horizontal, _joystick.Vertical);
+        moveDir.Normalize();
+        _rigidbody.velocity = isControl ? new Vector3(moveDir.x *_moveSpeed, _rigidbody.velocity.y, moveDir.y*_moveSpeed): Vector3.zero;
         if(_joystick.Horizontal != 0 || _joystick.Vertical != 0)
         {
            playerTF.rotation = Quaternion.LookRotation(_rigidbody.velocity);

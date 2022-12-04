@@ -13,10 +13,14 @@ public class HatGenSkin : GenSkin
     private void Awake() {
          PresentSkin.Instance.listGenSkin[0]=this;
          player= FindObjectOfType<Player>();
+         if(player!= null)
+         {
+            HatTF = player.HatTF;
+         }
     }
     private void Start() {
         indexType = (int) ESkinType.Hat;
-        HatTF = player.HatTF;
+        
     }
    public override void SpawnSkin(ESkinType iType, int indexItem)
    {
