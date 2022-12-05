@@ -5,7 +5,9 @@ using UnityEngine;
 public class LevelManager : Singleton<LevelManager>
 {
     public Level[] levels;
-    private Level currentLevel;
+    public Level currentLevel;
+
+    public Player player;
     
     private void Start() 
     {
@@ -16,6 +18,7 @@ public class LevelManager : Singleton<LevelManager>
     public void OnStart()
    {
         currentLevel.OnStart();
+        player.gameObject.SetActive(true);
         GameManagerr.Instance.currentState = EGameState.GamePlay;
    }
 
@@ -33,7 +36,7 @@ public class LevelManager : Singleton<LevelManager>
             UIManager.Instance.OpenUI<Lose>();
         }  
         
-        // currentLevel.Despawn();
+        currentLevel.Despawn();
    }
 
     public void LoadLevel(int index)
@@ -47,7 +50,9 @@ public class LevelManager : Singleton<LevelManager>
         currentLevel = Instantiate(levels[index-1]);
         if(currentLevel!= null)
         {  
+            player.gameObject.SetActive(true);
             currentLevel.OnInit();
+            
         }
         Data.Instance.SetLevel(index);
     }

@@ -75,7 +75,6 @@ public class Player : Character
 
     public override void OnDespawn()
     {
-        base.OnDespawn();
         this.gameObject.SetActive(false);
     }
 

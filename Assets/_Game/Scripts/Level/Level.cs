@@ -27,13 +27,8 @@ public class Level : MonoBehaviour
             sizeGround = groudTF.localScale;
             sizeObstacle = obstacleTF.localScale.x > obstacleTF.localScale.z? obstacleTF.localScale.x : obstacleTF.localScale.z; 
             listCharacters = new List<Character>();
-            player= FindObjectOfType<Player>();
-            // if(player!= null)
-            // {
-            //     player = Instantiate(playerPrefab);
-            // }
-            player.level= this;
             listCharacters.Add(player);
+
         }
        
         
@@ -55,6 +50,18 @@ public class Level : MonoBehaviour
     public void OnInit()
     {   
         InitDataSO();
+        InitPlayer();
+    }
+    public void InitPlayer()
+    {
+        player= FindObjectOfType<Player>();
+        if(player==null)   
+        {
+            player = LevelManager.Instance.player;
+            player.gameObject.SetActive(true);
+        }
+        player.level= this;
+        
     }
 
     public void OnStart()
@@ -72,7 +79,7 @@ public class Level : MonoBehaviour
 
             if(!isObjectHere(position, sizeObstacle))
             {
-                Character bot = Instantiate(BotPrefab, position, Quaternion.identity);
+                Character bot = SimplePool.Spawn<Character>(BotPrefab, position, Quaternion.identity);
                 bot.level = this;
                 listCharacters.Add(bot);
             }
@@ -110,7 +117,13 @@ public class Level : MonoBehaviour
     }
     public void Despawn()
     {
-        
+        // for(int i =0; i <listCharacters.Count; i++)
+        // {
+        //     // listCharacters[i].indicator.gameObject.SetActive(false);
+        //     listCharacters[i].gameObject.SetActive(false);
+            
+        // }
+        SimplePool.CollectAll();
     }
 
       

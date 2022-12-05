@@ -41,7 +41,7 @@ public class Character : GameUnit, IHit
     private string currentAnimName;
     public bool isDie;
 
-    protected Indicator indicator;
+    public Indicator indicator;
     
     void Awake()
     {
