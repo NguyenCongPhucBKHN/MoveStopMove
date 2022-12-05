@@ -22,10 +22,11 @@ public class ShieldGenSkin: GenSkin
     }
    public override void SpawnSkin(ESkinType iType, int indexItem)
    {
-        RefeshObj(ShieldTF);
+        
         prefab = shieldData.GetPrefab(indexItem);
         if(prefab!=null)
         {
+            RefeshObj(ShieldTF);
             if(dictHat.ContainsKey(prefab))
             {
                 dictHat[prefab].SetActive(true);

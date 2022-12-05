@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Indicator : MonoBehaviour
+public class Indicator : GameUnit
 {
     // [HideInInspector]
    public  Character ownIndicator;
@@ -13,15 +13,24 @@ public class Indicator : MonoBehaviour
     public Image scoreHolder;
     public Text scoreTxt;
     public Text nameTxt;
+    public Image Arrow;
 
 
     private Material indicatorMat;
 
     private bool nameActivate;
 
+    Player player;
+
+    void Start()
+    {
+        player = FindObjectOfType<Player>();
+    }
     
     void Update()
     {
+        // RotationArrow();
+        
         if(target!= null)
         {
             Vector3 screenPos = Camera.main.WorldToScreenPoint(target.position);
@@ -56,7 +65,10 @@ public class Indicator : MonoBehaviour
             {
                 nameTxtObj.SetActive(false);
             }
-            followImage.transform.position = new Vector2(screenPos.x, screenPos.y + Screen.height / 8);
+
+            Vector2 pos = new Vector2(screenPos.x, screenPos.y );
+
+            followImage.transform.position = screenPos.y  + Screen.height / 8 > Screen.height? pos: new Vector2(screenPos.x, screenPos.y  + Screen.height / 8);
         }
     }
     public void SetOwnCharacter(Character charr)
@@ -95,4 +107,18 @@ public class Indicator : MonoBehaviour
        
     }
 
+    void RotationArrow()
+    {
+        Arrow.transform.LookAt(ownIndicator.tf, Vector3.forward);
+    }
+
+    public override void OnInit()
+    {
+        
+    }
+
+    public override void OnDespawn()
+    {
+        SimplePool.Despawn(this);
+    }
 }

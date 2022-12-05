@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-public class Character : MonoBehaviour, IHit
+public class Character : GameUnit, IHit
 {
     // [SerializeField] private NavMeshAgent agent;
     // [SerializeField] public float chaseRange => Cylinder.transform.lossyScale.x;
-    public Transform TF;
+
     public Level level;
     [SerializeField] public WeaponDatas weaponDatas;
     [SerializeField] public AttackArea attackArea;
@@ -41,11 +41,11 @@ public class Character : MonoBehaviour, IHit
     private string currentAnimName;
     public bool isDie;
 
-    
+    protected Indicator indicator;
     
     void Awake()
     {
-        TF= transform;
+        tf= transform;
     }
 
     void Start()
@@ -54,25 +54,7 @@ public class Character : MonoBehaviour, IHit
        
     }
   
-    public virtual  void OnInit()
-    {
-        int index = Random.Range(0, BotDatasIns.BotName.Count);
-        string name = BotDatasIns.BotName[index];
-        float score = Random.Range(0,5);
-        EBodyMaterialType body = RandomBodyMat();
-        // data = new CharacterData(name, score, body);
-        data?.SetBodyMaterial(body);
-        skinnedMeshRenderer.material = data?.GetBodyMaterial();
-        data?.SetName(name);
-        data?.SetScore(score);
-        Indicator indicator = Instantiate(indicatorprefab);
-        indicator.SetOwnCharacter(this);
-        currentWeaponType=  (EWeaponType) Random.Range(0, Constant.NUMBER_WEAPONS);
-        SpawnWeapon();
-        attackArea.character= this;
-        dirAttact= TF.forward;
-        
-    }
+
 
 
     public void OnSpawn()
@@ -80,11 +62,7 @@ public class Character : MonoBehaviour, IHit
 
     }
 
-    public virtual void OnDespawn()
-    {
-        ChangeAnim(Constant.ANIM_DEAD);
 
-    }
 
     public virtual void OnDeath()
     {
@@ -92,17 +70,21 @@ public class Character : MonoBehaviour, IHit
         StopMoving();
         ChangeAnim(Constant.ANIM_DEAD);
         Invoke(nameof(OnDespawn), Constant.TIMER_DEATH);
+    
     }
     
     public void OnHit(Bullet bullet, Character character)
     {
         if(bullet.character!= this)
         {
-            
             character.listCharInAttact.Remove(this);
             bullet.OnDespawn();
             level.DespawnChar(this);
             character.Scale();
+            if(character.GetType() == typeof(Player))
+            {
+                DataPlayerController.AddCoin(10);
+            }
         }  
     }
     public void OnHitExit(Bullet bullet, Character character)
@@ -126,7 +108,7 @@ public class Character : MonoBehaviour, IHit
     }
     public virtual void StopMoving()
     {
-        
+       
     }
     public void SpawnWeapon()
     {
@@ -211,7 +193,7 @@ public class Character : MonoBehaviour, IHit
 
     public void Throw()
     {
-        if(listCharInAttact.Count>0 && level.IsExistChar(FindCharacterClosed()))
+        if( listCharInAttact.Count>0 && level.IsExistChar(FindCharacterClosed()))
         {
             FaceTarget(FindCharacterClosed());
             ChangeAnim(Constant.ANIM_ATTACK);
@@ -246,6 +228,30 @@ public class Character : MonoBehaviour, IHit
         data?.SetScore(score);
     }
 
-    
-    
+    public override void OnInit()
+    {
+         int index = Random.Range(0, BotDatasIns.BotName.Count);
+        string name = BotDatasIns.BotName[index];
+        float score = Random.Range(0,5);
+        EBodyMaterialType body = RandomBodyMat();
+        // data = new CharacterData(name, score, body);
+        data?.SetBodyMaterial(body);
+        skinnedMeshRenderer.material = data?.GetBodyMaterial();
+        data?.SetName(name);
+        data?.SetScore(score);
+        indicator = SimplePool.Spawn<Indicator>(indicatorprefab);
+        indicator.SetOwnCharacter(this);
+        currentWeaponType=  (EWeaponType) Random.Range(0, Constant.NUMBER_WEAPONS);
+        SpawnWeapon();
+        attackArea.character= this;
+        dirAttact= TF.forward;
+    }
+
+    public override void OnDespawn()
+    {
+        // ChangeAnim(Constant.ANIM_DEAD);
+         
+        SimplePool.Despawn(this);
+        SimplePool.Despawn(indicator);
+    }
 }

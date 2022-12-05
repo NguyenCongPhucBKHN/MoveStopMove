@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GamePlayUI : UICanvas
 {
@@ -8,7 +9,14 @@ public class GamePlayUI : UICanvas
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
     [SerializeField] GameObject settingBtn;
-   
+    [SerializeField] Text Alive;
+     /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void Update()
+    {
+        Alive.text = "Alive: "+ 100;
+    }
     public void SettingBtn()
     {
         GameManagerr.Instance.ChangeState(EGameState.Pause);

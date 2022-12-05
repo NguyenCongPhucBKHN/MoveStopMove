@@ -14,7 +14,7 @@ public class JoystickInput : Singleton<JoystickInput>
     public bool isMouse;
 
     
-    public bool isControl => Vector3.Distance(tfCenterJoystick.localPosition, Vector3.zero)>0.0000001;
+    public bool isControl => Vector3.Distance(tfCenterJoystick.localPosition, Vector3.zero)>0.0001;
 
     private void Start() {
         _rigidbody = FindObjectOfType<Player>().GetComponent<Rigidbody>();

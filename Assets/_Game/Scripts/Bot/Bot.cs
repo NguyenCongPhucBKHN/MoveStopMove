@@ -54,7 +54,7 @@ public class Bot : Character
     public override void OnDespawn()
     {
         base.OnDespawn();
-        Destroy(this.gameObject);
+        ChangeAnim(Constant.ANIM_DEAD);
     }
 
     public override void OnDeath()

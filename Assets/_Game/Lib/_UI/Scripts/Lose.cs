@@ -7,10 +7,10 @@ public class Lose : UICanvas
 {
     public Text level;
 
-    private void Update()
-    {
-        level.text="Level: "+ Data.Instance.GetLevel().ToString();
-    }
+    // private void Update()
+    // {
+    //     level.text="Level: "+ Data.Instance.GetLevel().ToString();
+    // }
 
     public void MainMenuButton()
     {
@@ -31,7 +31,7 @@ public class Lose : UICanvas
         UIManager.Instance.OpenUI<MainMenu>();
         GameManagerr.Instance.ChangeState(EGameState.MainMenu);
         Data.Instance.SetLevel(1);
-        LevelManager.Instance.LoadLevel(1);
+        LevelManager.Instance.LoadLevel(2);
         Close();
 
     }

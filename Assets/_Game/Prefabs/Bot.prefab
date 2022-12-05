@@ -420,7 +420,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a395b15691e0e4c84111c55ccb2a80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TF: {fileID: 1891930176439377008}
+  tf: {fileID: 0}
+  poolType: 0
   level: {fileID: 0}
   weaponDatas: {fileID: 11400000, guid: 3343ac2a8f5502741a5bac9bc28c62ff, type: 2}
   attackArea: {fileID: 575050759627170061}
@@ -494,7 +495,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &800332592374282786
 Transform:
   m_ObjectHideFlags: 0

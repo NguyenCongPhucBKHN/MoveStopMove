@@ -22,7 +22,7 @@ public class PantGenSkin : GenSkin
      public override void SpawnSkin(ESkinType indexType, int indexItem)
     {   
         material = data.GetMaterial(indexItem);
-        if(material!=null)
+        if(material!=null && meshRenderer!=null)
         {
             meshRenderer.material = material;
         }

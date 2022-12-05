@@ -789,6 +789,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsDestroyOnClose: 0
   settingBtn: {fileID: 5985459361847676488}
+  Alive: {fileID: 5985459362485143786}
 --- !u!114 &7798469590968235364
 MonoBehaviour:
   m_ObjectHideFlags: 0

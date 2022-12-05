@@ -46,7 +46,6 @@ public class Bullet : MonoBehaviour
     {
         
         Quaternion rotation = Quaternion.LookRotation(dirAttact, Vector3.forward);
-        // rotation.x =90;
         TF.rotation= rotation;
         rb.velocity = dirAttact* speedBullet ;
     }
