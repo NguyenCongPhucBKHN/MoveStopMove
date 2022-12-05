@@ -3,33 +3,43 @@ using UnityEngine;
 using UnityEngine.AI;
 public class Character : GameUnit, IHit
 {
-    // [SerializeField] private NavMeshAgent agent;
-    // [SerializeField] public float chaseRange => Cylinder.transform.lossyScale.x;
-
-    public Level level;
-    [SerializeField] public WeaponDatas weaponDatas;
-    [SerializeField] public AttackArea attackArea;
-    [SerializeField] public Weapon weaponPrefab;
-    [SerializeField] public Transform weaponGenTF;
-    [SerializeField] public SkinnedMeshRenderer skinnedMeshRenderer;
-    [SerializeField] public ListWeaponMaterials listWeaponMaterials;
-    float turnSpeed =8;
-    [SerializeField] private Animator anim;
-    public List<Character> listCharInAttact = new List<Character>();
-    public Weapon weapon;
+    
+    [Header("DATA")]
+    public WeaponDatas weaponDatas;
     public CharacterData data;
+    
+   [Header("TRANSFORM")]
+    public Transform weaponGenTF;
+   [SerializeField] protected AttackArea attackArea;
+   [SerializeField] protected SkinnedMeshRenderer skinnedMeshRenderer;
+   [SerializeField] private Animator anim;
+
+    [Header("PREFAB")]
+    [SerializeField] private Weapon weaponPrefab;
     public Indicator indicatorprefab;
     
+    [HideInInspector]
+    public List<Character> listCharInAttact = new List<Character>();
+    [HideInInspector]
+    public Weapon weapon;
+    [HideInInspector]
+    public Level level;
+    [HideInInspector]
     public Vector3 dirAttact = Vector3.zero;
-   
-    public bool isBullet= false;
-     public bool IsDead 
+     [HideInInspector]
+    public EWeaponType currentWeaponType;
+    
+    [HideInInspector]
+    public Indicator indicator;
+    [HideInInspector]
+    public bool IsDead 
     {
         get
         {
            return  !level.listCharacters.Contains(this);
         }
     } 
+    [HideInInspector]
     public bool IsAttack 
     {
         get 
@@ -37,11 +47,8 @@ public class Character : GameUnit, IHit
             return listCharInAttact.Count>0;
         }
     }
-    public EWeaponType currentWeaponType;
+   
     private string currentAnimName;
-    public bool isDie;
-
-    public Indicator indicator;
     
     void Awake()
     {
@@ -66,7 +73,6 @@ public class Character : GameUnit, IHit
 
     public virtual void OnDeath()
     {
-        isDie= true;
         StopMoving();
         ChangeAnim(Constant.ANIM_DEAD);
         Invoke(nameof(OnDespawn), Constant.TIMER_DEATH);
@@ -120,7 +126,6 @@ public class Character : GameUnit, IHit
         weapon.InitData(weapon.indexMat, (int) currentWeaponType );
         weapon.transform.position= postion; 
         weapon.character = this;
-        isBullet = true;
     }
 
     public void SpawnWeapon(int material)
@@ -133,7 +138,6 @@ public class Character : GameUnit, IHit
         weapon.InitData(weapon.indexMat,(int) currentWeaponType);
         weapon.transform.position= postion; 
         weapon.character = this;
-        isBullet = true;
     }
 
 

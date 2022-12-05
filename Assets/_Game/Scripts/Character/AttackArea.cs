@@ -41,7 +41,6 @@ public class AttackArea : MonoBehaviour, IHit
         if(bullet.character == this.character)
         {
             bullet.OnDespawn();
-            character.isBullet= false;
         }
     }
 }
