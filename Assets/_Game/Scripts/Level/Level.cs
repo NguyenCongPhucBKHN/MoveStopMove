@@ -81,6 +81,7 @@ public class Level : MonoBehaviour
             {
                 Character bot = SimplePool.Spawn<Character>(BotPrefab, position, Quaternion.identity);
                 bot.level = this;
+                bot.OnInit();
                 listCharacters.Add(bot);
             }
         }

@@ -15,7 +15,7 @@ public class Character : GameUnit, IHit
    [SerializeField] private Animator anim;
 
     [Header("PREFAB")]
-    [SerializeField] private Weapon weaponPrefab;
+    
     public Indicator indicatorprefab;
     
     [HideInInspector]
@@ -49,7 +49,7 @@ public class Character : GameUnit, IHit
     }
    
     private string currentAnimName;
-    
+    private Weapon weaponPrefab;
     void Awake()
     {
         tf= transform;
