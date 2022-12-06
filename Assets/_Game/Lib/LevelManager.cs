@@ -17,7 +17,7 @@ public class LevelManager : Singleton<LevelManager>
 
     public void OnStart()
    {
-        currentLevel.OnStart();
+        // currentLevel.OnStart();
         player.gameObject.SetActive(true);
         GameManagerr.Instance.currentState = EGameState.GamePlay;
    }

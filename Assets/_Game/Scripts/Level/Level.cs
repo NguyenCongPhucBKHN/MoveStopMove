@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-    [SerializeField]public Transform groudTF;
+    public Transform groudTF;
     [SerializeField] Transform obstacleTF;
     [SerializeField] Character BotPrefab;
     [SerializeField] Player player;
-     [SerializeField] Player playerPrefab;
+    
     public List<Character> listCharacters;
     public List<EBodyMaterialType> listBodyMaterialType = new List<EBodyMaterialType>();
     public bool isWin;
@@ -17,42 +17,39 @@ public class Level : MonoBehaviour
     float currentAmount=> listCharacters.Count;
     float targetAmount=5;
     float totalAmount;
-    public float scaleRadius=10f;
+   
 
     void Awake()
     {
         if(sizeGround!=null)
         {
-            OnInit();
+            
             sizeGround = groudTF.localScale;
             sizeObstacle = obstacleTF.localScale.x > obstacleTF.localScale.z? obstacleTF.localScale.x : obstacleTF.localScale.z; 
             listCharacters = new List<Character>();
-            listCharacters.Add(player);
-
-        }
-       
-        
+        }  
 
     }
-    // Start is called before the first frame update
-    void Start()
+
+    // void Start()
+    // {
+    //     OnInit();
+    // }
+
+    public void OnStart()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {   
-        
-        SpawnAmountBot();
+        OnInit();
     }
 
     public void OnInit()
     {   
+       
         InitDataSO();
-        InitPlayer();
+        SpawnPlayer();
+        SpawnAmountBot();
+
     }
-    public void InitPlayer()
+    public void SpawnPlayer()
     {
         player= FindObjectOfType<Player>();
         if(player==null)   
@@ -61,13 +58,17 @@ public class Level : MonoBehaviour
             player.gameObject.SetActive(true);
         }
         player.level= this;
-        
+        listCharacters.Add(player);
     }
 
-    public void OnStart()
+     public void SpawnAmountBot()
     {
-
+        for(int i =0; i< targetAmount+1; i++)
+        {
+             SpawnABot();
+        }
     }
+    
     public void SpawnABot()
     {
         if(groudTF!=null)
@@ -76,7 +77,6 @@ public class Level : MonoBehaviour
             float z = groudTF.position.z-sizeGround.z/2+ Random.Range(0, sizeGround.z);
             float y = groudTF.position.y + sizeGround.y/2 + BotPrefab.transform.localScale.y/2+0.5f;
             Vector3 position = new Vector3(x, y, z);
-
             if(!isObjectHere(position, sizeObstacle))
             {
                 Character bot = SimplePool.Spawn<Character>(BotPrefab, position, Quaternion.identity);
@@ -86,6 +86,31 @@ public class Level : MonoBehaviour
             }
         }
           
+    }
+
+    public void DespawnChar(Character character)
+    {
+        character.OnDeath();
+        listCharacters.Remove(character);
+        RemoveCharInAreaAttack(character);
+        SpawnABot();
+    }
+
+    public void RemoveCharInAreaAttack(Character character)
+    {
+        for(int i =0; i<listCharacters.Count; i++)
+        {
+            if(listCharacters[i].listCharInAttact.Contains(character))
+            {
+                listCharacters[i].listCharInAttact.Remove(character);
+            }
+        }
+    }
+
+    public void Despawn()
+    {
+        SimplePool.CollectAll();
+        listCharacters.Clear();
     }
 
     public Vector3 GenPointTarget()
@@ -104,34 +129,11 @@ public class Level : MonoBehaviour
             return Vector3.zero;
     }
 
-    public void SpawnAmountBot()
-    {
-       if(currentAmount< targetAmount + 1)
-       {
-        SpawnABot();
-       }
-    }
-    public void DespawnChar(Character character)
-    {
-        character.OnDeath();
-        listCharacters.Remove(character);
-    }
-    public void Despawn()
-    {
-        // for(int i =0; i <listCharacters.Count; i++)
-        // {
-        //     // listCharacters[i].indicator.gameObject.SetActive(false);
-        //     listCharacters[i].gameObject.SetActive(false);
-            
-        // }
-        SimplePool.CollectAll();
-    }
-
-      
     public bool IsExistChar(Character charr)
     {
         return this.listCharacters.Contains(charr);
     }
+
     bool isObjectHere(Vector3 position, float distance)
     {
         Collider[] intersecting = Physics.OverlapSphere(position, distance);

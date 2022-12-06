@@ -19,7 +19,7 @@ public class AttackArea : MonoBehaviour, IHit
     void OnTriggerExit(Collider other)
     {
         Character charInArea = other.GetComponent<Character>();
-        if(charInArea != null && character?.gameObject!=null &&  charInArea?.gameObject != character?.gameObject )
+        if(charInArea != null /* && character?.gameObject!=null &&  charInArea?.gameObject != character?.gameObject */)
         {
             character?.listCharInAttact.Remove(charInArea);
         }

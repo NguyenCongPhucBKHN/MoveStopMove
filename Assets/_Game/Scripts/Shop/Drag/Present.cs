@@ -229,7 +229,6 @@ void SpawnListItem(int currentWeaponType, ShopWeaponElement shopWeaponElementPre
   {
     if(!DataPlayerController.IsOwnedWeapon( Present.Instance.currentWeaponType, indexSelect))
     {
-      // DataPlayerController.SubCoin(100);
       DataPlayerController.AddWeapon(Present.Instance.currentWeaponType, Present.Instance.indexSelect);
       UpdateBtn(Present.Instance.currentWeaponType,  Present.Instance.indexSelect);
       MoneyEven.Invoke();

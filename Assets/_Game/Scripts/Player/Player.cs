@@ -29,6 +29,10 @@ public class Player : Character
 
             if(GameManagerr.Instance.IsState(EGameState.GamePlay))
             { 
+                if(Input.GetKeyDown(KeyCode.L))
+                {
+                    Debug.Log("isStop: "+ isStop+ " !(IsAttack): "+ !(IsAttack)+ " canAttack: "+ canAttack + " level.IsExistChar(FindCharacterClosed(): "+ level.IsExistChar(FindCharacterClosed()));
+                }
                if(isStop && !(IsAttack) )
                 {
                     ChangeAnim(Constant.ANIM_IDLE);
@@ -75,6 +79,7 @@ public class Player : Character
 
     public override void OnDespawn()
     {
+        indicator.gameObject.SetActive(false);
         this.gameObject.SetActive(false);
     }
 
@@ -82,13 +87,17 @@ public class Player : Character
     {
         base.OnDeath();
         LevelManager.Instance.OnFinish();
-        // GameManagerr.Instance.ChangeState(EGameState.Finish);
         ChangeAnim(Constant.ANIM_DEAD);
     }
     public override void Move()
     {
-        base.Move();
-        JoystickInput.Instance.Move();
+        
+        if(GameManagerr.Instance.IsState(EGameState.GamePlay))
+        {
+            JoystickInput.Instance.Move();
+            base.Move();
+        }
+        
     }
 
 

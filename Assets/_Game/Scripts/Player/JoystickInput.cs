@@ -24,11 +24,17 @@ public class JoystickInput : Singleton<JoystickInput>
     
     private void FixedUpdate()
     {
-        isMouse = Input.GetMouseButtonDown(0);
-        isMouse = !Input.GetMouseButtonUp(0);
+        if(GameManagerr.Instance.IsState(EGameState.GamePlay))
+        {
+            isMouse = Input.GetMouseButtonDown(0);
+            isMouse = !Input.GetMouseButtonUp(0);
+        }
+        
         if(GameManagerr.Instance.IsState(EGameState.Pause) || GameManagerr.Instance.IsState(EGameState.Finish))
         {
             this.gameObject.SetActive(false);
+            isMouse = false;
+            tfCenterJoystick.localPosition = Vector3.zero;
         }
     }
 

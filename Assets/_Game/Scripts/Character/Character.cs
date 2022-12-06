@@ -44,6 +44,7 @@ public class Character : GameUnit, IHit
     {
         get 
         {
+            Debug.Log("listCharInAttact.Count: "+ listCharInAttact.Count);
             return listCharInAttact.Count>0;
         }
     }
@@ -60,32 +61,54 @@ public class Character : GameUnit, IHit
        OnInit();
        
     }
-  
 
-
-
-    public void OnSpawn()
+     public override void OnInit()
     {
+        attackArea.character= this;
+        int index = Random.Range(0, BotDatasIns.BotName.Count);
+        string name = BotDatasIns.BotName[index];
+        float score = Random.Range(0,5);
+        EBodyMaterialType body = RandomBodyMat();
+        // data = new CharacterData(name, score, body);
+        data?.SetBodyMaterial(body);
+        skinnedMeshRenderer.material = data?.GetBodyMaterial();
+        data?.SetName(name);
+        data?.SetScore(score);
+        indicator = SimplePool.Spawn<Indicator>(indicatorprefab);
+        indicator.SetOwnCharacter(this);
+        currentWeaponType=  (EWeaponType) Random.Range(0, Constant.NUMBER_WEAPONS);
+        SpawnWeapon();
+        dirAttact= TF.forward;
+    }
 
+    public override void OnDespawn()
+    {
+        // ChangeAnim(Constant.ANIM_DEAD);
+        SimplePool.Despawn(indicator);
+        SimplePool.Despawn(this);
+        
     }
 
 
 
-    public virtual void OnDeath()
+
+
+    public virtual void OnDeath() //khi bi tieu dieu, goi ham OnDeath
     {
         StopMoving();
         ChangeAnim(Constant.ANIM_DEAD);
+        listCharInAttact.Clear();
         Invoke(nameof(OnDespawn), Constant.TIMER_DEATH);
     
     }
     
-    public void OnHit(Bullet bullet, Character character)
+    public void OnHit(Bullet bullet, Character character) 
     {
         if(bullet.character!= this)
         {
             character.listCharInAttact.Remove(this);
             bullet.OnDespawn();
-            level.DespawnChar(this);
+            level.DespawnChar(this); // Goi ham OnDeath va loai bo trong list character in level
             character.Scale();
             if(character.GetType() == typeof(Player))
             {
@@ -118,7 +141,6 @@ public class Character : GameUnit, IHit
     }
     public void SpawnWeapon()
     {
-        // weapon.indexMat = Random.Range(0, 3);
         weaponPrefab = weaponDatas.GetWeaponPrefab(currentWeaponType);
         Vector3 postion = weaponGenTF.position;
         postion.y = weaponGenTF.position.y;
@@ -197,9 +219,10 @@ public class Character : GameUnit, IHit
 
     public void Throw()
     {
-        if( listCharInAttact.Count>0 && level.IsExistChar(FindCharacterClosed()))
+        Character closed = FindCharacterClosed();
+        if( listCharInAttact.Count>0 && level.IsExistChar(closed))
         {
-            FaceTarget(FindCharacterClosed());
+            FaceTarget(closed);
             ChangeAnim(Constant.ANIM_ATTACK);
             weapon.gameObject.SetActive(false);
             weapon.Attack();
@@ -212,9 +235,8 @@ public class Character : GameUnit, IHit
         EBodyMaterialType  body = EBodyMaterialType.YELLOW;
         if(level!=null)
         {
-            int index = (int)Random.Range(0, (float)(level?.listBodyMaterialType.Count-1));
+            int index = (int)Random.Range(0, (float)(level?.listBodyMaterialType.Count));
             body = level.listBodyMaterialType[index];
-            // level.listBodyMaterialType.RemoveAt(index);
         }
         return  body;
     }
@@ -232,30 +254,5 @@ public class Character : GameUnit, IHit
         data?.SetScore(score);
     }
 
-    public override void OnInit()
-    {
-         int index = Random.Range(0, BotDatasIns.BotName.Count);
-        string name = BotDatasIns.BotName[index];
-        float score = Random.Range(0,5);
-        EBodyMaterialType body = RandomBodyMat();
-        // data = new CharacterData(name, score, body);
-        data?.SetBodyMaterial(body);
-        skinnedMeshRenderer.material = data?.GetBodyMaterial();
-        data?.SetName(name);
-        data?.SetScore(score);
-        indicator = SimplePool.Spawn<Indicator>(indicatorprefab);
-        indicator.SetOwnCharacter(this);
-        currentWeaponType=  (EWeaponType) Random.Range(0, Constant.NUMBER_WEAPONS);
-        SpawnWeapon();
-        attackArea.character= this;
-        dirAttact= TF.forward;
-    }
-
-    public override void OnDespawn()
-    {
-        // ChangeAnim(Constant.ANIM_DEAD);
-         
-        SimplePool.Despawn(this);
-        SimplePool.Despawn(indicator);
-    }
+   
 }
