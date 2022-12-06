@@ -420,25 +420,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36a395b15691e0e4c84111c55ccb2a80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tf: {fileID: 0}
-  poolType: 0
-  level: {fileID: 0}
+  tf: {fileID: 1891930176439377008}
+  poolType: 4
   weaponDatas: {fileID: 11400000, guid: 3343ac2a8f5502741a5bac9bc28c62ff, type: 2}
-  attackArea: {fileID: 575050759627170061}
-  weaponPrefab: {fileID: 6677129870329120223, guid: 4629a796f5a456f4289c2a3c678613a6, type: 3}
-  weaponGenTF: {fileID: 7690204217093911406}
-  skinnedMeshRenderer: {fileID: 8103061914575386135}
-  listWeaponMaterials: {fileID: 11400000, guid: 6ad2cd23ee9dc6d4f831246333680cbb, type: 2}
-  anim: {fileID: 6684901851177428637}
-  listCharInAttact: []
-  weapon: {fileID: 0}
   data:
     bodyMaterialDatas: {fileID: 11400000, guid: fe91af189e32f544f956ae00babc858f, type: 2}
+  weaponGenTF: {fileID: 7690204217093911406}
+  UnderObj: {fileID: 8904902061604479822}
+  attackArea: {fileID: 575050759627170061}
+  skinnedMeshRenderer: {fileID: 8103061914575386135}
+  anim: {fileID: 6684901851177428637}
   indicatorprefab: {fileID: 8513976419224877250, guid: a8209984803d1164a82d115143da8bac, type: 3}
+  listCharInAttact: []
+  weapon: {fileID: 0}
+  level: {fileID: 0}
   dirAttact: {x: 0, y: 0, z: 0}
-  isBullet: 0
   currentWeaponType: 0
-  isDie: 0
+  indicator: {fileID: 0}
   agent: {fileID: 652621676}
   target: {fileID: 0}
 --- !u!195 &652621676
@@ -505,7 +503,7 @@ Transform:
   m_GameObject: {fileID: 8904902061604479822}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 1.6666672, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 4806942953358651219}
   m_RootOrder: 0

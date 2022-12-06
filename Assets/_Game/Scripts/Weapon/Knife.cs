@@ -5,13 +5,13 @@ using UnityEngine;
 public class Knife : Bullet
 {
     
-    private void Update()
-    {
+    // private void Update()
+    // {
         
-    }
+    // }
     public override void OnInit()
     {
-        // base.OnInit();
+        base.OnInit();
         speedBullet= 6;
     }
 

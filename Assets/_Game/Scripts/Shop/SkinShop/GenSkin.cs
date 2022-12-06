@@ -37,7 +37,7 @@ public class GenSkin : MonoBehaviour
        List<GameObject> listObj= GetAllChilds(parentTF.gameObject);
        for(int i = 0; i<listObj.Count; i++)
        {
-        listObj[i].gameObject.SetActive(false);
+        listObj[i]?.gameObject.SetActive(false);
        }
    }
 

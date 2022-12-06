@@ -19,20 +19,20 @@ public class Boomerang : Bullet
         if(isHit)
         {
             float speed= speedBullet*Time.deltaTime;
-            TF.position= Vector3.MoveTowards(TF.position, character.weaponGenTF.position, speed);
+            tf.position= Vector3.MoveTowards(tf.position, character.weaponGenTF.position, speed);
         }
 
-        if(isHit  && Vector3.Distance(TF.position, character.weaponGenTF.position)<0.0001)
+        if(isHit  && Vector3.Distance(tf.position, character.weaponGenTF.position)<0.0001)
         {
             IsDead= true;
             
             //TODO: fix late
-            Destroy(this.gameObject);
+            SimplePool.Despawn(this);
         }
     }
     public override void OnDespawn()
     {
         isHit=true;
-        // base.OnDespawn();
+        base.OnDespawn();
     }
 }

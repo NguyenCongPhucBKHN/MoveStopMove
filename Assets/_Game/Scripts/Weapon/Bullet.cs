@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
-public class Bullet : MonoBehaviour
+public class Bullet : GameUnit
 {
-    [SerializeField] public Transform TF;
+    // [SerializeField] public Transform TF;
     [SerializeField] public Transform Img;
     [SerializeField]public  Rigidbody rb;
     [SerializeField] public Vector3 offsetRotation;
@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] public Vector3 offsetQuaternion;
     [SerializeField] public MeshRenderer meshRenderer;
     protected Quaternion bulletOffsetQuaternion;
-    public float speedBullet ;
+    public float speedBullet=10 ;
     public bool IsDead;
     public Character character; //Nhan vat ban dan
     
@@ -24,29 +24,30 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         OnInit();
-        TF= transform;
+        tf= transform;
     }
 
-    void Update()
-    {
-        if(character==null)
-        {
-            Destroy(this.gameObject);
-        }
-    }
+    // void Update()
+    // {
+    //     if(character==null)
+    //     {
+    //         SimplePool.Despawn(this);
+    //         // Destroy(this.gameObject);
+    //     }
+    // }
 
-    public virtual void OnInit()
-    {
-        TF= transform;
-        rb = GetComponent<Rigidbody>();
-        rb.useGravity= false;
-        IsDead = false;
-    }
+    // public virtual void OnInit()
+    // {
+    //     TF= transform;
+    //     rb = GetComponent<Rigidbody>();
+    //     rb.useGravity= false;
+    //     IsDead = false;
+    // }
     public virtual void Move(Vector3 dirAttact)
     {
         
         Quaternion rotation = Quaternion.LookRotation(dirAttact, Vector3.forward);
-        TF.rotation= rotation;
+        tf.rotation= rotation;
         rb.velocity = dirAttact* speedBullet ;
     }
 
@@ -79,10 +80,27 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public virtual void OnDespawn()
+    // public virtual void OnDespawn()
+    // {
+    //     character.weapon.gameObject.SetActive(true);
+    //     IsDead=true;
+    //     Destroy(this.gameObject);
+    // }
+
+    public override void OnInit()
+    {
+        tf= transform;
+        rb = GetComponent<Rigidbody>();
+        rb.useGravity= false;
+        IsDead = false;
+    }
+
+    public override void OnDespawn()
     {
         character.weapon.gameObject.SetActive(true);
         IsDead=true;
-        Destroy(this.gameObject);
+        SimplePool.Despawn(this);
+
+        // throw new System.NotImplementedException();
     }
 }

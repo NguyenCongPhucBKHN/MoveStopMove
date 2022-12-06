@@ -22,7 +22,7 @@ public class Constant
     public static float TIMER_MAX_IDLE = 2f;
     public static float TIMER_MIN_MOVE = 3f;
     public static float TIMER_MAX_MOVE = 6f;
-    public static float TIMER_DEATH= 2f;
+    public static float TIMER_DEATH= 1f;
 
     public static float DISTANCE_DESTINATION = 1f;
 

@@ -28,7 +28,11 @@ public class HatGenSkin : GenSkin
         prefab = hatDatas.GetPrefab(indexItem);
         if(prefab!=null)
         {
-            RefeshObj(HatTF);
+            if(HatTF!=null)
+            {
+                RefeshObj(HatTF);
+            }
+            
             if(dictHat.ContainsKey(prefab))
             {
                 dictHat[prefab].SetActive(true);

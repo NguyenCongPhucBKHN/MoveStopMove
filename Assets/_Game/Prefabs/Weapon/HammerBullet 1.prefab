@@ -84,7 +84,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed700bb489085f48a1b585729a2637d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TF: {fileID: 4399644279839031619}
+  tf: {fileID: 4399644279839031619}
+  poolType: 1
   Img: {fileID: 6598524184613809748}
   rb: {fileID: 5300473720993820492}
   offsetRotation: {x: 0, y: 0, z: 0}

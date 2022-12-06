@@ -13,6 +13,7 @@ public class AttackArea : MonoBehaviour, IHit
         if(charInArea != null  && character?.gameObject!=null && charInArea?.gameObject != character?.gameObject )
         {
             character?.listCharInAttact.Add(charInArea);
+            charInArea.UnderObj.SetActive(true);
             // character.IsInRangeAttack= true;
         }
     }
@@ -22,6 +23,7 @@ public class AttackArea : MonoBehaviour, IHit
         if(charInArea != null /* && character?.gameObject!=null &&  charInArea?.gameObject != character?.gameObject */)
         {
             character?.listCharInAttact.Remove(charInArea);
+            charInArea.UnderObj.SetActive(false);
         }
     }
    void OnDrawGizmosSelected()

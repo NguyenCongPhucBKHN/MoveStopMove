@@ -26,7 +26,11 @@ public class ShieldGenSkin: GenSkin
         prefab = shieldData.GetPrefab(indexItem);
         if(prefab!=null)
         {
-            RefeshObj(ShieldTF);
+            if(ShieldTF!=null)
+            {
+                RefeshObj(ShieldTF);
+            }
+            
             if(dictHat.ContainsKey(prefab))
             {
                 dictHat[prefab].SetActive(true);

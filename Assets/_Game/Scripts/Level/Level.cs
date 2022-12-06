@@ -31,10 +31,7 @@ public class Level : MonoBehaviour
 
     }
 
-    // void Start()
-    // {
-    //     OnInit();
-    // }
+   
 
     public void OnStart()
     {
@@ -56,8 +53,11 @@ public class Level : MonoBehaviour
         {
             player = LevelManager.Instance.player;
             player.gameObject.SetActive(true);
+    
         }
+        
         player.level= this;
+        player.OnInit();
         listCharacters.Add(player);
     }
 
@@ -77,7 +77,7 @@ public class Level : MonoBehaviour
             float z = groudTF.position.z-sizeGround.z/2+ Random.Range(0, sizeGround.z);
             float y = groudTF.position.y + sizeGround.y/2 + BotPrefab.transform.localScale.y/2+0.5f;
             Vector3 position = new Vector3(x, y, z);
-            if(!isObjectHere(position, sizeObstacle))
+            if(!isObjectHere(position, sizeObstacle) && listCharacters.Count<targetAmount)
             {
                 Character bot = SimplePool.Spawn<Character>(BotPrefab, position, Quaternion.identity);
                 bot.level = this;
@@ -90,10 +90,13 @@ public class Level : MonoBehaviour
 
     public void DespawnChar(Character character)
     {
-        character.OnDeath();
-        listCharacters.Remove(character);
         RemoveCharInAreaAttack(character);
+        listCharacters.Remove(character);
+        // character.indicator.OnDespawn();
+        character.OnDeath();
         SpawnABot();
+        
+        
     }
 
     public void RemoveCharInAreaAttack(Character character)
@@ -109,18 +112,16 @@ public class Level : MonoBehaviour
 
     public void Despawn()
     {
-        SimplePool.CollectAll();
         listCharacters.Clear();
+        SimplePool.CollectAll();
+        
     }
 
     public Vector3 GenPointTarget()
     {
         if(groudTF!=null)
         {
-            float x = groudTF.position.x-sizeGround.x/2+ Random.Range(0, sizeGround.x);
-            float z = groudTF.position.z-sizeGround.z/2+ Random.Range(0, sizeGround.z);
-            float y = groudTF.position.y + sizeGround.y/2 + BotPrefab.transform.localScale.y/2+0.5f;
-            Vector3 position = new Vector3(x, y, z);
+            Vector3 position = RandomPos();
             if(!isObjectHere(position, sizeObstacle))
             {
                 return position;
@@ -154,5 +155,14 @@ public class Level : MonoBehaviour
         {
             listBodyMaterialType.Add((EBodyMaterialType) i);
         }
+    }
+
+    public Vector3 RandomPos()
+    {
+        float x = groudTF.position.x-sizeGround.x/2+ Random.Range(0, sizeGround.x);
+        float z = groudTF.position.z-sizeGround.z/2+ Random.Range(0, sizeGround.z);
+        float y = groudTF.position.y + sizeGround.y/2 + BotPrefab.transform.localScale.y/2+0.5f;
+        Vector3 position = new Vector3(x, y, z);
+        return position;
     }
 }

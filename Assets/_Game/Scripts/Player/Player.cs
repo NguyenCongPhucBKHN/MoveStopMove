@@ -29,15 +29,13 @@ public class Player : Character
 
             if(GameManagerr.Instance.IsState(EGameState.GamePlay))
             { 
-                if(Input.GetKeyDown(KeyCode.L))
-                {
-                    Debug.Log("isStop: "+ isStop+ " !(IsAttack): "+ !(IsAttack)+ " canAttack: "+ canAttack + " level.IsExistChar(FindCharacterClosed(): "+ level.IsExistChar(FindCharacterClosed()));
-                }
+                
                if(isStop && !(IsAttack) )
                 {
                     ChangeAnim(Constant.ANIM_IDLE);
                 }
-                else if(isStop && canAttack && IsAttack &&  level.IsExistChar(FindCharacterClosed()))
+                else 
+                if(isStop && canAttack && IsAttack &&  level.IsExistChar(FindCharacterClosed()))
                 {
                     StopMoving();
                     Throw();
@@ -65,8 +63,11 @@ public class Player : Character
         skinnedMeshRenderer.material = data?.GetBodyMaterial();
         data?.SetName(name);
         data?.SetScore(score);
-        Indicator indicator = Instantiate(indicatorprefab);
-        indicator.SetOwnCharacter(this);
+        if(indicator==null)
+        {
+            indicator = SimplePool.Spawn<Indicator>(indicatorprefab);
+            indicator.SetOwnCharacter(this);
+        }
         currentWeaponType= (EWeaponType) DataPlayerController.GetCurrentWeapon().indexType;
         int idmaterial =  DataPlayerController.GetCurrentWeapon().indexItem;
         SpawnWeapon(idmaterial);
@@ -79,7 +80,13 @@ public class Player : Character
 
     public override void OnDespawn()
     {
-        indicator.gameObject.SetActive(false);
+        if(indicator!= null)
+        {
+            indicator.OnDespawn();
+        }
+        
+        indicator= null;
+
         this.gameObject.SetActive(false);
     }
 

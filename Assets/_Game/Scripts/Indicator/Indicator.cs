@@ -22,15 +22,17 @@ public class Indicator : GameUnit
 
     Player player;
 
-    void Start()
-    {
-        player = FindObjectOfType<Player>();
-    }
+    // void Start()
+    // {
+    //     player = FindObjectOfType<Player>();
+    // }
     
     void Update()
     {
-        // RotationArrow();
-        
+        if(!ownIndicator.gameObject.activeSelf)
+        {
+            this.gameObject.SetActive(false);
+        }
         if(target!= null)
         {
             Vector3 screenPos = Camera.main.WorldToScreenPoint(target.position);
@@ -47,12 +49,12 @@ public class Indicator : GameUnit
             }
             if (screenPos.y < 0)
             {
-                screenPos.z = Screen.height* 4/ 15;
+                screenPos.y = Screen.height* 4/ 15;
                 nameActivate = false;
             }
             else if (screenPos.y > Screen.height)
             {
-                screenPos.z = Screen.height * 11 / 15;
+                screenPos.y = Screen.height * 11 / 15;
                 nameActivate = false;
             }
 
@@ -81,7 +83,7 @@ public class Indicator : GameUnit
     }
     void SetTarget()
     {
-        target= ownIndicator.TF;
+        target= ownIndicator.tf;
     }
 
     public void SetScore()

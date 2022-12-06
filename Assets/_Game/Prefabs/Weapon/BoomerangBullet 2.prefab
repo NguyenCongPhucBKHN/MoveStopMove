@@ -126,7 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9f8b62045676ca4c83342b83b50fedb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TF: {fileID: 4399644279839031619}
+  tf: {fileID: 4399644279839031619}
+  poolType: 0
   Img: {fileID: 1181115765664860447}
   rb: {fileID: 5300473720993820492}
   offsetRotation: {x: 0, y: 0, z: 0}

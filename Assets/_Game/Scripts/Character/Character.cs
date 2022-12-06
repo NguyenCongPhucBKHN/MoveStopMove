@@ -10,6 +10,7 @@ public class Character : GameUnit, IHit
     
    [Header("TRANSFORM")]
     public Transform weaponGenTF;
+    public GameObject UnderObj;
    [SerializeField] protected AttackArea attackArea;
    [SerializeField] protected SkinnedMeshRenderer skinnedMeshRenderer;
    [SerializeField] private Animator anim;
@@ -30,7 +31,7 @@ public class Character : GameUnit, IHit
     public EWeaponType currentWeaponType;
     
     [HideInInspector]
-    public Indicator indicator;
+    public Indicator indicator= null;
     [HideInInspector]
     public bool IsDead 
     {
@@ -44,20 +45,27 @@ public class Character : GameUnit, IHit
     {
         get 
         {
-            Debug.Log("listCharInAttact.Count: "+ listCharInAttact.Count);
             return listCharInAttact.Count>0;
         }
     }
    
     private string currentAnimName;
     private Weapon weaponPrefab;
-    void Awake()
-    {
-        tf= transform;
-    }
+
+
+
+    public void RefeshCharacter()
+   {
+    indicator =null;
+    
+
+   }
+
+
 
     void Start()
     {
+        tf= transform;
        OnInit();
        
     }
@@ -69,24 +77,30 @@ public class Character : GameUnit, IHit
         string name = BotDatasIns.BotName[index];
         float score = Random.Range(0,5);
         EBodyMaterialType body = RandomBodyMat();
-        // data = new CharacterData(name, score, body);
+        
         data?.SetBodyMaterial(body);
         skinnedMeshRenderer.material = data?.GetBodyMaterial();
         data?.SetName(name);
         data?.SetScore(score);
-        indicator = SimplePool.Spawn<Indicator>(indicatorprefab);
-        indicator.SetOwnCharacter(this);
+        if(indicator== null)
+        {
+            indicator = SimplePool.Spawn<Indicator>(indicatorprefab);
+            indicator.SetOwnCharacter(this);
+        }
         currentWeaponType=  (EWeaponType) Random.Range(0, Constant.NUMBER_WEAPONS);
         SpawnWeapon();
-        dirAttact= TF.forward;
+        dirAttact= tf.forward;
     }
 
     public override void OnDespawn()
     {
-        // ChangeAnim(Constant.ANIM_DEAD);
-        SimplePool.Despawn(indicator);
+        if(indicator)
+        {
+            SimplePool.Despawn(indicator);
+        }
+       
+        // RefeshCharacter();
         SimplePool.Despawn(this);
-        
     }
 
 
@@ -99,6 +113,7 @@ public class Character : GameUnit, IHit
         ChangeAnim(Constant.ANIM_DEAD);
         listCharInAttact.Clear();
         Invoke(nameof(OnDespawn), Constant.TIMER_DEATH);
+        this.indicator = null;
     
     }
     
@@ -106,8 +121,9 @@ public class Character : GameUnit, IHit
     {
         if(bullet.character!= this)
         {
-            character.listCharInAttact.Remove(this);
             bullet.OnDespawn();
+            character.listCharInAttact.Remove(this);
+
             level.DespawnChar(this); // Goi ham OnDeath va loai bo trong list character in level
             character.Scale();
             if(character.GetType() == typeof(Player))
