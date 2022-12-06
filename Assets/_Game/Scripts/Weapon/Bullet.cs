@@ -15,11 +15,8 @@ public class Bullet : GameUnit
     public float speedBullet=10 ;
     public bool IsDead;
     public Character character; //Nhan vat ban dan
-    
-    void Awake()
-    {
-     
-    }
+    public bool isAttack;
+   
     // Start is called before the first frame update
     void Start()
     {

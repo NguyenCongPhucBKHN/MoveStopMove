@@ -19,7 +19,7 @@ public class Character : GameUnit, IHit
     
     public Indicator indicatorprefab;
     
-    [HideInInspector]
+    // [HideInInspector] //TODO
     public List<Character> listCharInAttact = new List<Character>();
     [HideInInspector]
     public Weapon weapon;
@@ -30,8 +30,8 @@ public class Character : GameUnit, IHit
      [HideInInspector]
     public EWeaponType currentWeaponType;
     
-    [HideInInspector]
-    public Indicator indicator= null;
+    // [HideInInspector] //TODO
+    public Indicator indicator;
     [HideInInspector]
     public bool IsDead 
     {
@@ -61,8 +61,6 @@ public class Character : GameUnit, IHit
 
    }
 
-
-
     void Start()
     {
         tf= transform;
@@ -82,7 +80,8 @@ public class Character : GameUnit, IHit
         skinnedMeshRenderer.material = data?.GetBodyMaterial();
         data?.SetName(name);
         data?.SetScore(score);
-        if(indicator== null)
+
+        if(indicator ==null || !indicator.gameObject.activeInHierarchy)
         {
             indicator = SimplePool.Spawn<Indicator>(indicatorprefab);
             indicator.SetOwnCharacter(this);
@@ -119,14 +118,13 @@ public class Character : GameUnit, IHit
     
     public void OnHit(Bullet bullet, Character character) 
     {
-        if(bullet.character!= this)
+        if(bullet.character!= this && bullet.isAttack)
         {
-            bullet.OnDespawn();
             character.listCharInAttact.Remove(this);
-
+            bullet.OnDespawn();
             level.DespawnChar(this); // Goi ham OnDeath va loai bo trong list character in level
             character.Scale();
-            if(character.GetType() == typeof(Player))
+            if(character.GetType() == typeof(Player)) //TODO IsDead
             {
                 DataPlayerController.AddCoin(10);
             }
@@ -263,12 +261,21 @@ public class Character : GameUnit, IHit
         string name = BotDatasIns.BotName[index];
         float score = Random.Range(0,5);
         EBodyMaterialType body = RandomBodyMat();
-        // data = new CharacterData(name, score, body);
         data?.SetBodyMaterial(body);
         skinnedMeshRenderer.material = data?.GetBodyMaterial();
         data?.SetName(name);
         data?.SetScore(score);
     }
 
+    public void UpdateListAttack()
+    {
+        for(int i =0; i<listCharInAttact.Count; i++)
+        {
+            if(!listCharInAttact[i].gameObject.activeSelf)
+            {
+                listCharInAttact.Remove(listCharInAttact[i]);
+            }
+        }
+    }
    
 }

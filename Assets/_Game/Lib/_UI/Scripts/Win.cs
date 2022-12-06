@@ -10,10 +10,10 @@ public class Win : UICanvas
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
-    private void Update()
-    {
-        level.text="Level: "+ Data.Instance.GetLevel().ToString();
-    }
+    // private void Update()
+    // {
+    //     level.text="Level: "+ Data.Instance.GetLevel().ToString();
+    // }
     public void MainMenuButton()
     {
         UIManager.Instance.OpenUI<MainMenu>();

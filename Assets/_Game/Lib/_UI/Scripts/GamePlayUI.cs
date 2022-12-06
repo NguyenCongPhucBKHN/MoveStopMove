@@ -15,13 +15,13 @@ public class GamePlayUI : UICanvas
     /// </summary>
     void Update()
     {
-        Alive.text = "Alive: "+ 100;
+        Alive.text = "Alive: "+ LevelManager.Instance.currentLevel.totalAmount;
     }
     public void SettingBtn()
     {
         GameManagerr.Instance.ChangeState(EGameState.Pause);
         UIManager.Instance.OpenUI<Setting>();
-        Present.Instance.UpdateBtn(DataPlayerController.GetCurrentWeapon().indexType,DataPlayerController.GetCurrentWeapon().indexItem );
+        // Present.Instance.UpdateBtn(DataPlayerController.GetCurrentWeapon().indexType,DataPlayerController.GetCurrentWeapon().indexItem );
         Close();   
     }
 

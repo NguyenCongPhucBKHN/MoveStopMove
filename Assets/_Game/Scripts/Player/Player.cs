@@ -26,20 +26,18 @@ public class Player : Character
     {
         if(level!=null)
         {
-
             if(GameManagerr.Instance.IsState(EGameState.GamePlay))
             { 
-                
-               if(isStop && !(IsAttack) )
+               if(isStop && !(IsAttack) ) // Dung va co bot trong vung tan cong
                 {
                     ChangeAnim(Constant.ANIM_IDLE);
                 }
-                else 
-                if(isStop && canAttack && IsAttack &&  level.IsExistChar(FindCharacterClosed()))
+                else if(isStop && canAttack && IsAttack &&  level.IsExistChar(FindCharacterClosed())) // Dung va co the tan cong, co bot trong vung tan cong
                 {
                     StopMoving();
                     Throw();
                 }
+                
                 else if(JoystickInput.Instance.isControl)
                 {
                     ChangeAnim(Constant.ANIM_RUN);
@@ -48,7 +46,15 @@ public class Player : Character
             }
             if(GameManagerr.Instance.IsState(EGameState.Finish))
             {
-                ChangeAnim(Constant.ANIM_DEAD);
+                if(!LevelManager.Instance.currentLevel.isWin)
+                {
+                    ChangeAnim(Constant.ANIM_DEAD);
+                }
+                else
+                {
+                    ChangeAnim(Constant.ANIM_WIN);
+                }
+                
             }
         }
     }
@@ -63,7 +69,7 @@ public class Player : Character
         skinnedMeshRenderer.material = data?.GetBodyMaterial();
         data?.SetName(name);
         data?.SetScore(score);
-        if(indicator==null)
+        if(indicator==null || !indicator.gameObject.activeSelf)
         {
             indicator = SimplePool.Spawn<Indicator>(indicatorprefab);
             indicator.SetOwnCharacter(this);
@@ -93,8 +99,9 @@ public class Player : Character
     public override void OnDeath()
     {
         base.OnDeath();
-        LevelManager.Instance.OnFinish();
         ChangeAnim(Constant.ANIM_DEAD);
+        level.isWin = false;
+        LevelManager.Instance.OnFinish();
     }
     public override void Move()
     {

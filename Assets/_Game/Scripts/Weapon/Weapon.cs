@@ -63,6 +63,7 @@ public class Weapon : MonoBehaviour
             bulletPrefab = weaponDatas.GetBulletPrefab(eWeaponType);
             character.dirAttact.y=0;
             Bullet bullet = Instantiate(bulletPrefab, TF.position,Quaternion.identity);
+            bullet.isAttack = true;
             bullet.meshRenderer.materials = weaponDataa.GetMaterial().ToArray();
             // bullet.TF.localScale = character.TF.localScale;
             bullet.TF.localScale= character.TF.localScale;

@@ -14,9 +14,9 @@ public class Level : MonoBehaviour
     public bool isWin;
     public Vector3 sizeGround;
     float sizeObstacle;
-    float currentAmount=> listCharacters.Count;
     float targetAmount=5;
-    float totalAmount;
+    public float totalAmount= 10;
+
    
 
     void Awake()
@@ -31,6 +31,10 @@ public class Level : MonoBehaviour
 
     }
 
+    void Start()
+    {
+        player= FindObjectOfType<Player>();
+    }
    
 
     public void OnStart()
@@ -48,7 +52,7 @@ public class Level : MonoBehaviour
     }
     public void SpawnPlayer()
     {
-        player= FindObjectOfType<Player>();
+        
         if(player==null)   
         {
             player = LevelManager.Instance.player;
@@ -81,8 +85,9 @@ public class Level : MonoBehaviour
             {
                 Character bot = SimplePool.Spawn<Character>(BotPrefab, position, Quaternion.identity);
                 bot.level = this;
-                bot.OnInit();
                 listCharacters.Add(bot);
+                bot.OnInit();
+                
             }
         }
           
@@ -92,10 +97,18 @@ public class Level : MonoBehaviour
     {
         RemoveCharInAreaAttack(character);
         listCharacters.Remove(character);
-        // character.indicator.OnDespawn();
         character.OnDeath();
-        SpawnABot();
-        
+        if(totalAmount> targetAmount)
+        {
+            SpawnABot();
+        }
+        else
+        {
+            isWin= true;
+            LevelManager.Instance.OnFinish();
+        }        
+        UpdateListAttack();
+        totalAmount--;
         
     }
 
@@ -106,6 +119,20 @@ public class Level : MonoBehaviour
             if(listCharacters[i].listCharInAttact.Contains(character))
             {
                 listCharacters[i].listCharInAttact.Remove(character);
+            }  
+        }
+    }
+
+    public void RemoveCharacter()
+    {
+        for(int i =0; i< listCharacters.Count; i++)
+        {
+            for (int j =0; j< listCharacters[i].listCharInAttact.Count; j ++)
+            {
+                if(!listCharacters.Contains(listCharacters[i].listCharInAttact[j]))
+                {
+                    listCharacters[i].listCharInAttact.Remove(listCharacters[i].listCharInAttact[j]);
+                }
             }
         }
     }
@@ -164,5 +191,20 @@ public class Level : MonoBehaviour
         float y = groudTF.position.y + sizeGround.y/2 + BotPrefab.transform.localScale.y/2+0.5f;
         Vector3 position = new Vector3(x, y, z);
         return position;
+    }
+
+      public void UpdateListAttack()
+    {
+        for(int j =0; j<listCharacters.Count; j++)
+        {
+            for(int i =0; i<listCharacters[j].listCharInAttact.Count; i++)
+        {
+            if(!listCharacters[j].listCharInAttact[i].gameObject.activeSelf)
+            {
+                listCharacters[j].listCharInAttact.Remove(listCharacters[j].listCharInAttact[i]);
+            }
+        }
+        }
+        
     }
 }
