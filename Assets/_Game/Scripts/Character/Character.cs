@@ -52,15 +52,6 @@ public class Character : GameUnit, IHit
     private string currentAnimName;
     private Weapon weaponPrefab;
 
-
-
-    public void RefeshCharacter()
-   {
-    indicator =null;
-    
-
-   }
-
     void Start()
     {
         tf= transform;
@@ -70,7 +61,22 @@ public class Character : GameUnit, IHit
 
      public override void OnInit()
     {
-        attackArea.character= this;
+        AssignAttackArea();
+        SetSkin();
+        SetWeapon();
+        SetIndicator();
+    //    Debug.Log("material: "+ data.GetBodyMaterial().color);
+    //    Debug.Log("indicator: "+ indicator.GetMaterial().color);
+
+    }
+
+    public void AssignAttackArea()
+    {
+        this.attackArea.character = this;
+    }
+
+    public void SetSkin() // name, score, body material //TODO: HAT, PANT,...
+    {
         int index = Random.Range(0, BotDatasIns.BotName.Count);
         string name = BotDatasIns.BotName[index];
         float score = Random.Range(0,5);
@@ -80,25 +86,32 @@ public class Character : GameUnit, IHit
         skinnedMeshRenderer.material = data?.GetBodyMaterial();
         data?.SetName(name);
         data?.SetScore(score);
+    }
 
-        if(indicator ==null || !indicator.gameObject.activeInHierarchy)
+    public void SetIndicator()
+    {
+         if(indicator ==null || !indicator.gameObject.activeInHierarchy)
         {
             indicator = SimplePool.Spawn<Indicator>(indicatorprefab);
             indicator.SetOwnCharacter(this);
         }
-        currentWeaponType=  (EWeaponType) Random.Range(0, Constant.NUMBER_WEAPONS);
-        SpawnWeapon();
-        dirAttact= tf.forward;
     }
 
+    public void SetWeapon()
+    {
+        currentWeaponType=  (EWeaponType) Random.Range(0, Constant.NUMBER_WEAPONS);
+        SpawnWeapon();
+        // dirAttact= tf.forward;
+    }
+
+    
     public override void OnDespawn()
     {
         if(indicator)
         {
             SimplePool.Despawn(indicator);
         }
-       
-        // RefeshCharacter();
+    
         SimplePool.Despawn(this);
     }
 
@@ -112,7 +125,6 @@ public class Character : GameUnit, IHit
         ChangeAnim(Constant.ANIM_DEAD);
         listCharInAttact.Clear();
         Invoke(nameof(OnDespawn), Constant.TIMER_DEATH);
-        this.indicator = null;
     
     }
     
@@ -184,15 +196,7 @@ public class Character : GameUnit, IHit
         TF.localScale = scale;
         
     }
-     public void SetSkin()
-    {
-
-    }
-    public void SetWeapon()
-    {
-
-    }
-
+   
    public void FaceTarget(Character target)
     {
         if(this.level.listCharacters.Contains(target))

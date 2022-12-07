@@ -11,6 +11,14 @@ public class CharacterData
     private Material bodyMaterial;
 
     float scale;
+
+    public CharacterData(string name, float score, EBodyMaterialType eBodyMaterialType)
+    {
+        this.name = name;
+        this.score = score;
+        this.eBodyMaterialType = eBodyMaterialType;
+        SetBodyMaterial(eBodyMaterialType);
+    }
     
     public void SetName(string vname)
     {

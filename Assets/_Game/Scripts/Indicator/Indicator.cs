@@ -30,7 +30,6 @@ public class Indicator : GameUnit
         if(target!=null)
         {
             viewPoint = Camera.main.WorldToViewportPoint(target.position);
-            Debug.Log("viewPoint begin: "+ viewPoint);
             nameActivate = true;
 
             if (viewPoint.x < 0)
@@ -67,9 +66,7 @@ public class Indicator : GameUnit
                 nameTxtObj.SetActive(false);
                 
             }
-            Debug.Log("viewPoint: "+ viewPoint);
             
-            // Vector2 pos = new Vector2(screenPos.x, screenPos.y );
             Vector3 posFollowWorld = Camera.main.ViewportToWorldPoint(viewPoint);
             Vector3 posFollowScreen = Camera.main.WorldToScreenPoint(posFollowWorld);
 
@@ -98,27 +95,7 @@ public class Indicator : GameUnit
 
     }
 
-    bool IsOnScreen()
-    {
-        if(target!= null)
-        {
-            screenPos = Camera.main.WorldToScreenPoint(target.position);
-            return !((screenPos.x < 0)|| (screenPos.x > Screen.width) ||(screenPos.y<0)||(screenPos.y > Screen.height));
-        }
-        return false;
-    }
-
-     private float AngleBetweenVector2(Vector2 vec1, Vector2 vec2)
-    {
-        float angle = 0;
-        
-        angle = Vector3.Angle (vec1, vec2);
-        //We get the sign (1 or -1) depending the position of the vectors using the foward direction
-        float sign = Mathf.Sign(Vector3.Dot(Vector3.forward,Vector3.Cross(vec1,vec2)));
-        float signed_angle = angle * sign;
-        //We return the angle
-        return signed_angle;
-    }
+   
 
     public void SetOwnCharacter(Character charr)
     {
@@ -151,14 +128,12 @@ public class Indicator : GameUnit
         {
             nameTxt.color = indicatorMat.color;
             scoreHolder.color = indicatorMat.color;
+            Arrow.color = indicatorMat.color;
         }
-        
-       
     }
-
-    void RotationArrow()
+    public Material GetMaterial()
     {
-        Arrow.transform.LookAt(ownIndicator.tf, Vector3.forward);
+        return  indicatorMat;
     }
 
     public override void OnInit()
