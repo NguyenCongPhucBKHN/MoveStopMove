@@ -14,73 +14,88 @@ public class Indicator : GameUnit
     public Text scoreTxt;
     public Text nameTxt;
     public Image Arrow;
+    public Transform ArrowTF;
 
 
     private Material indicatorMat;
 
     private bool nameActivate;
     Vector3 screenPos;
+    Vector3 viewPoint;
 
     Player player;
 
     void Update()
     {
-        
-        // Vector2 inputVector = new Vector2(target.position.x, target.position.z);
-        // Vector2 arrowPos = new Vector2(Arrow.transform.position.x, Arrow.transform.position.y);
-        // float angle =  AngleBetweenVector2(arrowPos, inputVector);
-        // Arrow.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        if(target!=null)
+        {
+            viewPoint = Camera.main.WorldToViewportPoint(target.position);
+            Debug.Log("viewPoint begin: "+ viewPoint);
+            nameActivate = true;
 
-        // if(!ownIndicator.gameObject.activeSelf)
-        // {
-        //     this.gameObject.SetActive(false);
-        // }
-        // if(target!= null)
-        // {
-        //     screenPos = Camera.main.WorldToScreenPoint(target.position);
-        //     nameActivate = true;
-        //     if (screenPos.x < 0)
-        //     {
-        //         screenPos.x = 15;
-        //         nameActivate = false;
-        //     }
-        //     else if (screenPos.x > Screen.width)
-        //     {
-        //         screenPos.x = Screen.width -10;
-        //         nameActivate = false;
-        //     }
-        //     if (screenPos.y < 0)
-        //     {
-        //         screenPos.y = 20;
-        //         nameActivate = false;
-        //     }
-        //     else if (screenPos.y > Screen.height)
-        //     {
-        //         screenPos.y = Screen.height -20;
-        //         nameActivate = false;
-        //     }
+            if (viewPoint.x < 0)
+            {
+                viewPoint.x = 0.1f;
+                nameActivate = false;
+            }
+            else if (viewPoint.x > 1)
+            {
+                viewPoint.x = 0.9f;
+                nameActivate = false;
+            }
+            if (viewPoint.y < 0)
+            {
+                viewPoint.y = 0.1f;
+                nameActivate = false;
+            }
+            else if (viewPoint.y > 1)
+            {
+                viewPoint.y = 0.9f;
+                nameActivate = false;
+            }
 
-        //     // Set UI state
-        //     if (nameTxtObj.activeInHierarchy == false && nameActivate)
-        //     {
-        //         Arrow.gameObject.SetActive(false);
-        //         nameTxtObj.SetActive(true);
+            // Set UI state
+            if (nameTxtObj.activeInHierarchy == false && nameActivate)
+            {
+                Arrow.gameObject.SetActive(false);
+                nameTxtObj.SetActive(true);
                 
-        //     }
-        //     else if (nameTxtObj.activeInHierarchy == true && !nameActivate)
-        //     {
-        //         Arrow.gameObject.SetActive(true);
-        //         nameTxtObj.SetActive(false);
+            }
+            else if (nameTxtObj.activeInHierarchy == true && !nameActivate)
+            {
+                Arrow.gameObject.SetActive(true);
+                nameTxtObj.SetActive(false);
                 
-        //     }
+            }
+            Debug.Log("viewPoint: "+ viewPoint);
             
-        //     Vector2 pos = new Vector2(screenPos.x, screenPos.y );
+            // Vector2 pos = new Vector2(screenPos.x, screenPos.y );
+            Vector3 posFollowWorld = Camera.main.ViewportToWorldPoint(viewPoint);
+            Vector3 posFollowScreen = Camera.main.WorldToScreenPoint(posFollowWorld);
+
+            if(!nameActivate)
+            {
+                
+                followImage.transform.position = new Vector2(posFollowScreen.x, posFollowScreen.y);
+                Vector3 arrowViewPoint = Camera.main.WorldToScreenPoint(ArrowTF.position);
+                Vector3 dir = (arrowViewPoint - viewPoint);
+                dir.z = 0f;
+                dir.Normalize();
+                ArrowTF.up = dir;
+            }
+            else
+            {
+                Vector3 pos2 = viewPoint + new Vector3(0, 0.1f, 0);
+                Vector3 posFollowWorld2 = Camera.main.ViewportToWorldPoint(pos2);
+                Vector3 posFollowScreen2 = Camera.main.WorldToScreenPoint(posFollowWorld2);
+                followImage.transform.position = new Vector2(posFollowScreen2.x, posFollowScreen2.y);
+                followImage.transform.rotation =  Quaternion.identity;
+            }
             
-        //     followImage.transform.position = screenPos.y  + Screen.height / 8 > Screen.height   ?new Vector2(pos.x, pos.y - Screen.height / 15): new Vector2(screenPos.x, screenPos.y  + Screen.height / 10);
             
-            
-           
-        // }
+        }
+
+
     }
 
     bool IsOnScreen()

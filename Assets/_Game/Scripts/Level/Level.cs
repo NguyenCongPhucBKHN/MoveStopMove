@@ -104,8 +104,13 @@ public class Level : MonoBehaviour
         }
         else
         {
-            isWin= true;
-            LevelManager.Instance.OnFinish();
+            if(
+                listCharacters.Count<2)
+                {
+                    isWin= true;
+                    LevelManager.Instance.OnFinish();
+                }
+            
         }        
         UpdateListAttack();
         totalAmount--;
