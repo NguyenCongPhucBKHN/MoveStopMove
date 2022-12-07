@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &546349507804245723
 RectTransform:
   m_ObjectHideFlags: 0
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd3fceea5917cac44af041447dae3dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tf: {fileID: 8513976419224877278}
+  tf: {fileID: 8513976418589889477}
   poolType: 5
   ownIndicator: {fileID: 0}
   followImage: {fileID: 8513976418589889476}
