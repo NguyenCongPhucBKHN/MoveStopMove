@@ -55,7 +55,7 @@ public class Character : GameUnit, IHit
     void Start()
     {
         tf= transform;
-    //    OnInit();
+        currentWeaponType=  (EWeaponType) Random.Range(0, Constant.NUMBER_WEAPONS);
        
     }
 
@@ -65,8 +65,7 @@ public class Character : GameUnit, IHit
         SetSkin();
         SetWeapon();
         SetIndicator();
-    //    Debug.Log("material: "+ data.GetBodyMaterial().color);
-    //    Debug.Log("indicator: "+ indicator.GetMaterial().color);
+        UnderObj.SetActive(false);
 
     }
 
@@ -81,7 +80,6 @@ public class Character : GameUnit, IHit
         string name = BotDatasIns.BotName[index];
         float score = Random.Range(0,5);
         EBodyMaterialType body = RandomBodyMat();
-        
         data?.SetBodyMaterial(body);
         skinnedMeshRenderer.material = data?.GetBodyMaterial();
         data?.SetName(name);
@@ -97,18 +95,19 @@ public class Character : GameUnit, IHit
 
     public void SetWeapon()
     {
-        currentWeaponType=  (EWeaponType) Random.Range(0, Constant.NUMBER_WEAPONS);
+        
         SpawnWeapon();
-        // dirAttact= tf.forward;
+
     }
 
     
     public override void OnDespawn()
     {
-        if(indicator)
-        {
-            SimplePool.Despawn(indicator);
-        }
+        UnderObj.SetActive(false);
+      
+        SimplePool.Despawn(indicator);
+        
+        weapon.gameObject.SetActive(false);
     
         SimplePool.Despawn(this);
     }
@@ -168,7 +167,15 @@ public class Character : GameUnit, IHit
         weaponPrefab = weaponDatas.GetWeaponPrefab(currentWeaponType);
         Vector3 postion = weaponGenTF.position;
         postion.y = weaponGenTF.position.y;
-        weapon = Instantiate(weaponPrefab, weaponGenTF);
+        if(weapon!= null)
+        {
+            weapon.gameObject.SetActive(true);
+        }
+        else
+        {
+             weapon = Instantiate(weaponPrefab, weaponGenTF);
+        }
+       
         weapon.InitData(weapon.indexMat, (int) currentWeaponType );
         weapon.transform.position= postion; 
         weapon.character = this;

@@ -75,7 +75,7 @@ public class Indicator : GameUnit
                 
                 followImage.transform.position = new Vector2(posFollowScreen.x, posFollowScreen.y);
                 Vector3 arrowViewPoint = Camera.main.WorldToScreenPoint(ArrowTF.position);
-                Vector3 dir = (arrowViewPoint - viewPoint);
+                Vector3 dir = (viewPoint - arrowViewPoint );
                 dir.z = 0f;
                 dir.Normalize();
                 ArrowTF.up = dir;

@@ -95,7 +95,7 @@ public class Level : MonoBehaviour
 
     public void DespawnChar(Character character)
     {
-        RemoveCharInAreaAttack(character);
+        // RemoveCharInAreaAttack(character);
         listCharacters.Remove(character);
         character.OnDeath();
         if(totalAmount> targetAmount)
@@ -112,21 +112,12 @@ public class Level : MonoBehaviour
                 }
             
         }        
-        UpdateListAttack();
+        
         totalAmount--;
         
     }
 
-    public void RemoveCharInAreaAttack(Character character)
-    {
-        for(int i =0; i<listCharacters.Count; i++)
-        {
-            if(listCharacters[i].listCharInAttact.Contains(character))
-            {
-                listCharacters[i].listCharInAttact.Remove(character);
-            }  
-        }
-    }
+    
 
     public void RemoveCharacter()
     {
@@ -198,18 +189,18 @@ public class Level : MonoBehaviour
         return position;
     }
 
-      public void UpdateListAttack()
-    {
-        for(int j =0; j<listCharacters.Count; j++)
-        {
-            for(int i =0; i<listCharacters[j].listCharInAttact.Count; i++)
-        {
-            if(!listCharacters[j].listCharInAttact[i].gameObject.activeSelf)
-            {
-                listCharacters[j].listCharInAttact.Remove(listCharacters[j].listCharInAttact[i]);
-            }
-        }
-        }
+    //   public void UpdateListAttack()
+    // {
+    //     for(int j =0; j<listCharacters.Count; j++)
+    //     {
+    //         for(int i =0; i<listCharacters[j].listCharInAttact.Count; i++)
+    //     {
+    //         if(!listCharacters[j].listCharInAttact[i].gameObject.activeSelf)
+    //         {
+    //             listCharacters[j].listCharInAttact.Remove(listCharacters[j].listCharInAttact[i]);
+    //         }
+    //     }
+    //     }
         
-    }
+    // }
 }
