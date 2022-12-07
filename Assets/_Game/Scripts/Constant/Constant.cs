@@ -17,7 +17,7 @@ public class Constant
 
     public static float TIMER_ATTACK= 0.5f;
     public static float TIMER_MIN_WAIT = 0.5f;
-    public static float TIMER_MAX_WAIT = 1.5f;
+    public static float TIMER_MAX_WAIT = 1.5f; //THOIGIANDOITANCONG
     public static float TIMER_MIN_IDLE = 1f;
     public static float TIMER_MAX_IDLE = 2f;
     public static float TIMER_MIN_MOVE = 3f;

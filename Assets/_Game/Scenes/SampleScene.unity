@@ -1301,27 +1301,27 @@ MonoBehaviour:
   Pool:
   - root: {fileID: 1690565542}
     prefab: {fileID: 8099917930150353548, guid: c44a46056211c6f43aed3ac9cbf8dfd5, type: 3}
-    amount: 20
+    amount: 5
     collect: 1
     clamp: 0
   - root: {fileID: 32472223}
     prefab: {fileID: 8513976419224877250, guid: a8209984803d1164a82d115143da8bac, type: 3}
-    amount: 15
+    amount: 5
     collect: 1
     clamp: 0
   - root: {fileID: 1602318600}
     prefab: {fileID: 1186905374965625443, guid: 5c6429a327fb83c4e959dcf84ef1ec6a, type: 3}
-    amount: 15
+    amount: 5
     collect: 1
     clamp: 0
   - root: {fileID: 1049491842}
     prefab: {fileID: 8627487314941598410, guid: be63d7e43aa6e2940b036ac3b4e8e1d6, type: 3}
-    amount: 15
+    amount: 5
     collect: 1
     clamp: 0
   - root: {fileID: 1134110005}
     prefab: {fileID: 2083600567136613126, guid: d1e6b309b17922c43ba7c2c1434f6a71, type: 3}
-    amount: 15
+    amount: 5
     collect: 1
     clamp: 0
   Particle: []

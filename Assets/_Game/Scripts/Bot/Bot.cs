@@ -29,7 +29,7 @@ public class Bot : Character
     // Start is called before the first frame update
     void Start()
     {
-        OnInit();
+        // OnInit();
         Rigidbody rd = GetComponent<Rigidbody>();
         rd.velocity =Vector3.zero;
     }

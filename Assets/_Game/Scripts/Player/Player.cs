@@ -19,7 +19,7 @@ public class Player : Character
     public SkinnedMeshRenderer skinRender;
 
     private void Start() {
-        OnInit();
+        // OnInit();
         DataPlayerController.AddWeapon(0, 0);
     }
     void Update()

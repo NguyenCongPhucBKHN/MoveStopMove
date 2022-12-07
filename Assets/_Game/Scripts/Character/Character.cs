@@ -55,7 +55,7 @@ public class Character : GameUnit, IHit
     void Start()
     {
         tf= transform;
-       OnInit();
+    //    OnInit();
        
     }
 
@@ -90,11 +90,9 @@ public class Character : GameUnit, IHit
 
     public void SetIndicator()
     {
-         if(indicator ==null || !indicator.gameObject.activeInHierarchy)
-        {
-            indicator = SimplePool.Spawn<Indicator>(indicatorprefab);
-            indicator.SetOwnCharacter(this);
-        }
+        indicator = SimplePool.Spawn<Indicator>(indicatorprefab);
+        indicator.SetOwnCharacter(this);
+       
     }
 
     public void SetWeapon()
