@@ -14,8 +14,8 @@ public class Level : MonoBehaviour
     public bool isWin;
     public Vector3 sizeGround;
     float sizeObstacle;
-    float targetAmount=5;
-    public float totalAmount= 10;
+    float targetAmount=5; // So luong bot tren man hinh
+    public float totalAmount= 6; // So luong bot trong 1 level
 
    
 
@@ -57,7 +57,7 @@ public class Level : MonoBehaviour
         {
             player = LevelManager.Instance.player;
             player.gameObject.SetActive(true);
-    
+            player.listCharInAttact.Clear();
         }
         
         player.level= this;
@@ -95,46 +95,20 @@ public class Level : MonoBehaviour
 
     public void DespawnChar(Character character)
     {
-        // RemoveCharInAreaAttack(character);
         listCharacters.Remove(character);
         character.OnDeath();
-        if(totalAmount> targetAmount)
-        {
-            SpawnABot();
-        }
-        else
-        {
-            if(
-                listCharacters.Count<2)
-                {
-                    isWin= true;
-                    LevelManager.Instance.OnFinish();
-                }
-            
-        }        
-        
-        totalAmount--;
-        
+        UpdateListChar();
+        --totalAmount;
     }
 
     
 
-    public void RemoveCharacter()
-    {
-        for(int i =0; i< listCharacters.Count; i++)
-        {
-            for (int j =0; j< listCharacters[i].listCharInAttact.Count; j ++)
-            {
-                if(!listCharacters.Contains(listCharacters[i].listCharInAttact[j]))
-                {
-                    listCharacters[i].listCharInAttact.Remove(listCharacters[i].listCharInAttact[j]);
-                }
-            }
-        }
-    }
-
     public void Despawn()
     {
+        for(int i =0; i<listCharacters.Count; i++)
+        {
+            listCharacters[i].OnDespawn();
+        }
         listCharacters.Clear();
         SimplePool.CollectAll();
         
@@ -155,6 +129,7 @@ public class Level : MonoBehaviour
 
     public bool IsExistChar(Character charr)
     {
+        UpdateListChar();
         return this.listCharacters.Contains(charr);
     }
 
@@ -189,18 +164,33 @@ public class Level : MonoBehaviour
         return position;
     }
 
-    //   public void UpdateListAttack()
-    // {
-    //     for(int j =0; j<listCharacters.Count; j++)
-    //     {
-    //         for(int i =0; i<listCharacters[j].listCharInAttact.Count; i++)
-    //     {
-    //         if(!listCharacters[j].listCharInAttact[i].gameObject.activeSelf)
-    //         {
-    //             listCharacters[j].listCharInAttact.Remove(listCharacters[j].listCharInAttact[i]);
-    //         }
-    //     }
-    //     }
-        
-    // }
+    public void UpdateListChar()
+    {
+        for(int i =0; i< listCharacters.Count; i++)
+        {
+            if(listCharacters[i].IsDead)
+            {
+                listCharacters.Remove(listCharacters[i]);
+            }
+        }
+    }
+
+    public void CheckCountChar()
+    {
+        if(totalAmount> 0) // So luong bot con lai lon hon so bot tren man hinh 
+        {
+            SpawnABot();
+        }
+        else // So luong bot con lai nho hon hoac bang so bot tren man hinh
+        {
+            if(listCharacters.Contains(player) && totalAmount<2 )
+                {
+                    isWin= true;
+                    LevelManager.Instance.OnFinish();
+                }
+            
+        }        
+    }
+    
+
 }

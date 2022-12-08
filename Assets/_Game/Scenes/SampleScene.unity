@@ -635,7 +635,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 72.4
+  field of view: 72
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -999,6 +999,7 @@ MonoBehaviour:
   dirAttact: {x: 0, y: 0, z: 0}
   currentWeaponType: 0
   indicator: {fileID: 0}
+  IsDead: 0
   HatTF: {fileID: 147441705}
   ShieldTF: {fileID: 259090552}
   WingTF: {fileID: 348671073}
@@ -1301,7 +1302,7 @@ MonoBehaviour:
   Pool:
   - root: {fileID: 1690565542}
     prefab: {fileID: 8099917930150353548, guid: c44a46056211c6f43aed3ac9cbf8dfd5, type: 3}
-    amount: 5
+    amount: 10
     collect: 1
     clamp: 0
   - root: {fileID: 32472223}

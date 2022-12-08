@@ -14,9 +14,9 @@ public class Bullet : GameUnit
     protected Quaternion bulletOffsetQuaternion;
     public float speedBullet=10 ;
     public bool IsDead;
-    public Character character; //Nhan vat ban dan
+    public Character character; 
    
-    // Start is called before the first frame update
+
     void Start()
     {
         OnInit();
@@ -59,13 +59,6 @@ public class Bullet : GameUnit
             hit.OnHit(this, character);
         }
     }
-
-    // public virtual void OnDespawn()
-    // {
-    //     character.weapon.gameObject.SetActive(true);
-    //     IsDead=true;
-    //     Destroy(this.gameObject);
-    // }
 
     public override void OnInit()
     {

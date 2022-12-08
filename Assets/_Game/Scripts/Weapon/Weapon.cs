@@ -19,23 +19,18 @@ public class Weapon : MonoBehaviour
     void Start()
     {
         indexMat = Random.Range(0,3);
-        // OnInit();
     }
     
   
-    // void  OnInit()
-    // {
-        
-        
-    // }
+    
     public void InitData(int eType,int indexMaterial) 
     {
         this.indexMat = indexMaterial;
-        if(character!=null)
+        if(character!=null && weaponDataa!=null)
         {
             eWeaponType =  character.currentWeaponType;
-            weaponDataa?.SetEWeaponType((int)eWeaponType);
-            weaponDataa?.SetMaterial( this.indexMat);
+            weaponDataa.SetEWeaponType((int)eWeaponType);
+            weaponDataa.SetMaterial( this.indexMat);
             meshRenderer.materials= weaponDataa.GetMaterial().ToArray();
         }
         else
@@ -51,7 +46,7 @@ public class Weapon : MonoBehaviour
     public virtual void Attack()
 
     {   
-             bulletPrefab = weaponDatas.GetBulletPrefab(eWeaponType);
+            bulletPrefab = weaponDatas.GetBulletPrefab(eWeaponType);
             character.dirAttact.y=0;
             Bullet bullet = Instantiate(bulletPrefab, TF.position,Quaternion.identity);
             bullet.meshRenderer.materials = weaponDataa.GetMaterial().ToArray();
@@ -63,15 +58,13 @@ public class Weapon : MonoBehaviour
 
     public void OnDespawn()
     {
-        if(this.eWeaponType!= character.currentWeaponType)
-        {
-            Destroy(this.gameObject);
-            character.SpawnWeapon();
-        }
-        else
-        {
-            // InitData(weaponDataa.GetIndexMaterial());
-        }
+        
+        // if(this.eWeaponType!= character.currentWeaponType)
+        // {
+            // gameObject.SetActive(false);
+            Destroy(gameObject);
+            
+        // }
     }
     
 }

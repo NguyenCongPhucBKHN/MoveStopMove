@@ -23,7 +23,7 @@ public class IdleState : IState<Bot>
             bot.ChangeState(new PartrolState());
         }
 
-        if(bot.IsAttack && timer> waitTime)
+        if(bot.isAttack() && timer> waitTime)
         {
             bot.ChangeState(new AttackState());
         }

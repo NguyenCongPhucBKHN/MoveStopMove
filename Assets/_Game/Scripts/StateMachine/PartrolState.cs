@@ -19,7 +19,7 @@ public class PartrolState : IState<Bot>
         timer += Time.deltaTime;
         
 
-        if(bot.IsAttack && timer > waitTime)
+        if(bot.isAttack() && timer > waitTime)
             {
                 bot.ChangeState(new AttackState());
             }
@@ -29,7 +29,7 @@ public class PartrolState : IState<Bot>
          if(bot.Target!= null)
          {
             // bot.FaceTarget(bot.Target);
-            if(bot.IsAttack && timer > waitTime)
+            if(bot.isAttack() && timer > waitTime)
             {
                 bot.ChangeState(new AttackState());
             }

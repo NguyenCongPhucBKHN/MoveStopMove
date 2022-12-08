@@ -28,11 +28,11 @@ public class Player : Character
         {
             if(GameManagerr.Instance.IsState(EGameState.GamePlay))
             { 
-               if(isStop && !(IsAttack) ) // Dung va co bot trong vung tan cong
+               if(isStop && !isAttack()) // Dung va co bot trong vung tan cong
                 {
                     ChangeAnim(Constant.ANIM_IDLE);
                 }
-                else if(isStop && canAttack && IsAttack &&  level.IsExistChar(FindCharacterClosed())) // Dung va co the tan cong, co bot trong vung tan cong
+                else if(isStop && canAttack && isAttack() &&  level.IsExistChar(FindCharacterClosed())) // Dung va co the tan cong, co bot trong vung tan cong
                 {
                     StopMoving();
                     Throw();
@@ -62,6 +62,7 @@ public class Player : Character
     public override void OnInit()
     {
         this.gameObject.SetActive(true);
+        IsDead= false;
         AssignAttackArea();
         SetData();
         SetSkin();
@@ -102,6 +103,7 @@ public class Player : Character
 
     public override void OnDeath()
     {
+        listCharInAttact.Clear();
         ChangeAnim(Constant.ANIM_DEAD);
         base.OnDeath();
         LevelManager.Instance.OnFinish();
@@ -115,6 +117,10 @@ public class Player : Character
             base.Move();
         }
         
+    }
+    public void DespawnCurrentWeapon()
+    {
+        Destroy(weapon.gameObject);
     }
 
 

@@ -7,7 +7,7 @@ public class Indicator : GameUnit
 {
     // [HideInInspector]
    public  Character ownIndicator;
-    private Transform target; // Target
+    [SerializeField]private Transform target; // Target
     public GameObject followImage;
     public GameObject nameTxtObj;
     public Image scoreHolder;
@@ -21,7 +21,8 @@ public class Indicator : GameUnit
 
     private bool nameActivate;
     Vector3 screenPos;
-    Vector3 viewPoint;
+    [SerializeField]Vector3 viewPoint;
+    [SerializeField] Vector3 possiontion;
 
     Player player;
 
@@ -30,24 +31,28 @@ public class Indicator : GameUnit
         if(target!=null)
         {
             viewPoint = Camera.main.WorldToViewportPoint(target.position);
+            possiontion = viewPoint;
+
             nameActivate = true;
 
-            if (viewPoint.x < 0)
+
+
+            if (viewPoint.x < 0 || possiontion.x <0 ) /*&& possiontion.x >0)*/
             {
                 viewPoint.x = 0.1f;
                 nameActivate = false;
             }
-            else if (viewPoint.x > 1)
+            else if (viewPoint.x > 1 )
             {
                 viewPoint.x = 0.9f;
                 nameActivate = false;
             }
-            if (viewPoint.y < 0)
+            if (viewPoint.y < 0) /*&& possiontion.y >-100) */ //Done
             {
                 viewPoint.y = 0.1f;
                 nameActivate = false;
             }
-            else if (viewPoint.y > 1)
+            else if (viewPoint.y > 1 ||  possiontion.y <-100 )
             {
                 viewPoint.y = 0.95f;
                 nameActivate = false;
@@ -67,25 +72,27 @@ public class Indicator : GameUnit
                 
             }
             
+
             
-            Vector3 posFollowWorld = Camera.main.ViewportToWorldPoint(viewPoint);
-            Vector3 posFollowScreen = Camera.main.WorldToScreenPoint(posFollowWorld);
+            // Vector3 posFollowWorld = Camera.main.ViewportToWorldPoint(viewPoint);
+             Vector3 posFollowScreen = Camera.main.ViewportToScreenPoint(viewPoint);
 
             if(!nameActivate)
             {
                 
-                followImage.transform.position = new Vector2(posFollowScreen.x, posFollowScreen.y);
-                Vector3 arrowViewPoint = Camera.main.WorldToViewportPoint(ArrowTF.position);
-                Vector3 dir = (viewPoint - arrowViewPoint );
-                Vector2 dirr = Camera.main.ViewportToWorldPoint(dir);
-                dirr.Normalize();
+                 followImage.transform.position = new Vector2(posFollowScreen.x, posFollowScreen.y);
+                // Vector3 arrowViewPoint = Camera.main.WorldToViewportPoint(ArrowTF.position);
+                Vector3 dir = (viewPoint - new Vector3(0.5f, 0.5f,0));
+                dir.z =0;
+                // Vector2 dirr = Camera.main.ViewportToWorldPoint(dir);
+                dir.Normalize();
                 if(viewPoint.y>0.945f)
                 {
-                     ArrowTF.up = -dirr;
+                     ArrowTF.up = dir;
                 }
                 else
                 {
-                    ArrowTF.up = dirr; 
+                    ArrowTF.up = dir; 
                 }
                 
                 

@@ -40,6 +40,7 @@ public class ShopWeaponElement : Item
         Present.Instance.indexSelect= indexMaterial; 
         Present.Instance.UpdateSelect();
         Present.Instance.UpdateBtn((int)eWeaponType, (int)indexMaterial);
+        Present.Instance.MoneyTxt.text = "Buy with " + Present.Instance.GetCost((int)eWeaponType, (int)indexMaterial);
         // ActivateClock();
         
     }

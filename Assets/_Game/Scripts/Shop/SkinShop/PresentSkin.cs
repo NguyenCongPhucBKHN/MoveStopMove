@@ -6,7 +6,7 @@ public class PresentSkin : Singleton<PresentSkin>
 {
     
     public ESkinType currentType;
-    public int currentIndex;
+    public int currentIndex ;
     public GenSkin currentSkin;
     public GenSkin[] listGenSkin = new GenSkin[4];
     private void Start() {

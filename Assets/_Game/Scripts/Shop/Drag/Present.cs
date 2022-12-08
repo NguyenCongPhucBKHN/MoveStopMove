@@ -21,9 +21,11 @@ private List<ShopItemSelect> listSelectedItem = new List<ShopItemSelect>();
 
 //UI
 
- public GameObject SelectBtn;
+ public Button SelectBtn;
  public GameObject UnClockBtn;
  public GameObject MoneyBtn;
+ public Button Equipped;
+ public Text MoneyTxt;
 
 
  public Player player;
@@ -49,6 +51,7 @@ public  UnityEvent MoneyEven = new UnityEvent();
    {
       
       currentWeaponType++;
+       MoneyTxt.text = "Buy with " + GetCost(currentWeaponType, 0) +"$";
       Present.Instance.UpdateBtn(currentWeaponType, 0);
       
    }
@@ -65,7 +68,9 @@ public  UnityEvent MoneyEven = new UnityEvent();
    {  
       
       currentWeaponType--; 
+      MoneyTxt.text = "Buy with " + GetCost(currentWeaponType, 0) +"$";
       Present.Instance.UpdateBtn(currentWeaponType, 0);
+
    }
    
   InitData();
@@ -201,7 +206,10 @@ void SpawnListItem(int currentWeaponType, ShopWeaponElement shopWeaponElementPre
          if(DataPlayerController.IsOwnedWeapon( Present.Instance.currentWeaponType, indexSelect))
         {
             player.currentWeaponType = (EWeaponType) Present.Instance.currentWeaponType;
-            player.weapon.OnDespawn();
+            player.DespawnCurrentWeapon();
+            player.weapon = player.SpawnWeapon(indexSelect);
+            // player.weapon.OnDespawn();
+            // player.SpawnWeapon(indexSelect);
             player.weapon.InitData(Present.Instance.currentWeaponType, Present.Instance.indexSelect);
         }
         else 
@@ -217,8 +225,10 @@ void SpawnListItem(int currentWeaponType, ShopWeaponElement shopWeaponElementPre
   {
     if(!DataPlayerController.IsOwnedWeapon( Present.Instance.currentWeaponType, indexSelect))
     {
-      DataPlayerController.SubCoin(100);
+      int cost = GetCost(Present.Instance.currentWeaponType,  0);
+      DataPlayerController.SubCoin(cost);
       DataPlayerController.AddWeapon(Present.Instance.currentWeaponType, Present.Instance.indexSelect);
+      MoneyTxt.text = "Buy with " + GetCost(currentWeaponType, 0) +" $ ";
       UpdateBtn(Present.Instance.currentWeaponType,  Present.Instance.indexSelect);
       MoneyEven.Invoke();
 
@@ -230,6 +240,7 @@ void SpawnListItem(int currentWeaponType, ShopWeaponElement shopWeaponElementPre
     if(!DataPlayerController.IsOwnedWeapon( Present.Instance.currentWeaponType, indexSelect))
     {
       DataPlayerController.AddWeapon(Present.Instance.currentWeaponType, Present.Instance.indexSelect);
+      MoneyTxt.text = "Buy with " + GetCost(currentWeaponType, 0) +" $ ";
       UpdateBtn(Present.Instance.currentWeaponType,  Present.Instance.indexSelect);
       MoneyEven.Invoke();
 
@@ -246,22 +257,39 @@ void SpawnListItem(int currentWeaponType, ShopWeaponElement shopWeaponElementPre
  {
     if(DataPlayerController.IsOwnedWeapon(idType, idIndex))
     {
-      SelectBtn.SetActive(true);
+      SelectBtn.gameObject.SetActive(true);
       UnClockBtn.SetActive(false);
       MoneyBtn.SetActive(false);
     }
-    else if(DataPlayerController.IsOwnedWeaponType(idType))
-    {
-      SelectBtn.SetActive(false);
-      UnClockBtn.SetActive(true);
-      MoneyBtn.SetActive(false);
-    }
+    // else if(DataPlayerController.IsOwnedWeaponType(idType))
+    // {
+    //   SelectBtn.SetActive(false);
+    //   UnClockBtn.SetActive(true);
+    //   MoneyBtn.SetActive(false);
+    // }
     else
     {
-       SelectBtn.SetActive(false);
+      SelectBtn.gameObject.SetActive(false);
       UnClockBtn.SetActive(false);
       MoneyBtn.SetActive(true);
     }
+ }
+
+ public int GetCost (int idType, int idIndex)
+ {
+  return idType*100 + idIndex*10;
+ }
+
+ void OnSelectBtn()
+ {
+  
+ }
+
+ void OnEquippedBtn()
+ {
+  
+  GameManagerr.Instance.ChangeState(EGameState.MainMenu);
+
  }
 
 }

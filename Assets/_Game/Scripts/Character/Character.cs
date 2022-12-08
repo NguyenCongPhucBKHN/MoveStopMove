@@ -22,7 +22,7 @@ public class Character : GameUnit, IHit
     // [HideInInspector] //TODO
     public List<Character> listCharInAttact = new List<Character>();
     [HideInInspector]
-    public Weapon weapon=null;
+    public Weapon weapon;
     [HideInInspector]
     public Level level;
     [HideInInspector]
@@ -34,12 +34,7 @@ public class Character : GameUnit, IHit
     public Indicator indicator;
     [HideInInspector]
     public bool IsDead;
-    // {
-    //     get
-    //     {
-    //        return  !level.listCharacters.Contains(this);
-    //     }
-    // } 
+     
     [HideInInspector]
     public bool IsAttack 
     {
@@ -50,12 +45,14 @@ public class Character : GameUnit, IHit
     }
    
     private string currentAnimName;
-    private Weapon weaponPrefab;
+    
+    private Dictionary<Weapon, Weapon> dictWeapon = new Dictionary<Weapon, Weapon>();
+    private List<Weapon> listWeapon = new List<Weapon>();
 
     void Start()
     {
         tf= transform;
-        currentWeaponType=  (EWeaponType) Random.Range(0, Constant.NUMBER_WEAPONS);
+        
     }
 
      public override void OnInit()
@@ -103,21 +100,29 @@ public class Character : GameUnit, IHit
     
     public override void OnDespawn()
     {
+        
         indicator.OnDespawn();
-        weapon.OnDespawn();
+        DespawnWeapon();
         UnderObj.SetActive(false);
         SimplePool.Despawn(this);
     }
 
 
-
+    public void DespawnWeapon()
+    {   
+        Weapon weaponPrefab = weaponDatas.GetWeaponPrefab(currentWeaponType);
+        foreach(KeyValuePair<Weapon, Weapon> weapon in dictWeapon)
+        {
+            weapon.Value.gameObject.SetActive(false);
+        }
+    }
 
 
     public virtual void OnDeath() //khi bi tieu dieu, goi ham OnDeath
     {
         StopMoving();
-        ChangeAnim(Constant.ANIM_DEAD);
         listCharInAttact.Clear();
+        ChangeAnim(Constant.ANIM_DEAD);
         Invoke(nameof(OnDespawn), Constant.TIMER_DEATH);
     
     }
@@ -128,16 +133,21 @@ public class Character : GameUnit, IHit
         {
             character.listCharInAttact.Remove(this);
             bullet.OnDespawn();
-            level.DespawnChar(this); // Goi ham OnDeath va loai bo trong list character in level
-            if(!IsDead)
+            
+            if(!this.IsDead)
             {
+                this.IsDead = true;
+                level.DespawnChar(this);
                 character.Scale();
-                if(character.GetType() == typeof(Player)) //TODO IsDead
+                if(character.GetType() == typeof(Player)) 
                 {
                     DataPlayerController.AddCoin(10);
                 }
-                IsDead = true;
+                level.UpdateListChar();
+                level.CheckCountChar();
+                
             }
+            
             
         }  
     }
@@ -166,35 +176,32 @@ public class Character : GameUnit, IHit
     }
     public void SpawnWeapon()
     {
-        
-        // weaponPrefab = weaponDatas.GetWeaponPrefab(currentWeaponType);
-        // Vector3 postion = weaponGenTF.position;
-        // postion.y = weaponGenTF.position.y;
-        // weapon = Instantiate(weaponPrefab, weaponGenTF);
-        // weapon.transform.position= postion;
-        // weapon.InitData( (int) currentWeaponType, weapon.indexMat);
-        // weapon.character = this;
-
-         weaponPrefab = weaponDatas.GetWeaponPrefab(currentWeaponType);
-        Vector3 postion = weaponGenTF.position;
-        postion.y = weaponGenTF.position.y;
-        if(weapon!= null)
+        currentWeaponType=  (EWeaponType) Random.Range(0, Constant.NUMBER_WEAPONS);
+        Weapon weaponPrefab = weaponDatas.GetWeaponPrefab(currentWeaponType);
+        if(!dictWeapon.ContainsKey(weaponPrefab))
         {
-            weapon.gameObject.SetActive(true);
+
+            weapon = Instantiate(weaponPrefab, weaponGenTF);
+            dictWeapon.Add(weaponPrefab, weapon);
+            listWeapon.Add(weapon);
+           
         }
         else
         {
-             weapon = Instantiate(weaponPrefab, weaponGenTF);
+            weapon = dictWeapon[weaponPrefab];
+            weapon.gameObject.SetActive(true);
         }
-
+        Vector3 postion = weaponGenTF.position;
+        postion.y = weaponGenTF.position.y;
         weapon.InitData( (int) currentWeaponType ,weapon.indexMat);
         weapon.transform.position= postion; 
         weapon.character = this;
+        weapon.gameObject.SetActive(true);
     }
 
-    public void SpawnWeapon(int material)
+    public Weapon SpawnWeapon(int material)
     {
-        weaponPrefab = weaponDatas.GetWeaponPrefab(currentWeaponType);
+        Weapon weaponPrefab = weaponDatas.GetWeaponPrefab(currentWeaponType);
         Vector3 postion = weaponGenTF.position;
         postion.y = weaponGenTF.position.y;
         weapon = Instantiate(weaponPrefab, weaponGenTF);
@@ -202,6 +209,8 @@ public class Character : GameUnit, IHit
         weapon.InitData((int) currentWeaponType, weapon.indexMat);
         weapon.transform.position= postion; 
         weapon.character = this;
+        weapon.gameObject.SetActive(true);
+        return weapon;
     }
 
 
@@ -215,6 +224,7 @@ public class Character : GameUnit, IHit
    
    public void FaceTarget(Character target)
     {
+        level.UpdateListChar();
         if(this.level.listCharacters.Contains(target))
         {
             Vector3 position = target.TF.position;
@@ -233,6 +243,7 @@ public class Character : GameUnit, IHit
     {
         Character closedChar = null;
         float distance = Mathf.Infinity;
+        level.UpdateListChar();
         for(int i =0; i<listCharInAttact.Count; i++)
         {
             if(this.level.listCharacters.Contains(listCharInAttact[i]))
@@ -287,15 +298,17 @@ public class Character : GameUnit, IHit
         data?.SetScore(score);
     }
 
-    public void UpdateListAttack()
+    public bool isAttack()
     {
         for(int i =0; i<listCharInAttact.Count; i++)
         {
-            if(!listCharInAttact[i].gameObject.activeSelf)
+            if(!listCharInAttact[i].IsDead)
             {
-                listCharInAttact.Remove(listCharInAttact[i]);
+                return true;
             }
         }
+        return false;
     }
+    
    
 }
