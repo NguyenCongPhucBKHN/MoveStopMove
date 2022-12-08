@@ -49,7 +49,7 @@ public class Indicator : GameUnit
             }
             else if (viewPoint.y > 1)
             {
-                viewPoint.y = 0.9f;
+                viewPoint.y = 0.95f;
                 nameActivate = false;
             }
 
@@ -67,6 +67,7 @@ public class Indicator : GameUnit
                 
             }
             
+            
             Vector3 posFollowWorld = Camera.main.ViewportToWorldPoint(viewPoint);
             Vector3 posFollowScreen = Camera.main.WorldToScreenPoint(posFollowWorld);
 
@@ -74,11 +75,20 @@ public class Indicator : GameUnit
             {
                 
                 followImage.transform.position = new Vector2(posFollowScreen.x, posFollowScreen.y);
-                Vector3 arrowViewPoint = Camera.main.WorldToScreenPoint(ArrowTF.position);
+                Vector3 arrowViewPoint = Camera.main.WorldToViewportPoint(ArrowTF.position);
                 Vector3 dir = (viewPoint - arrowViewPoint );
-                dir.z = 0f;
-                dir.Normalize();
-                ArrowTF.up = dir;
+                Vector2 dirr = Camera.main.ViewportToWorldPoint(dir);
+                dirr.Normalize();
+                if(viewPoint.y>0.945f)
+                {
+                     ArrowTF.up = -dirr;
+                }
+                else
+                {
+                    ArrowTF.up = dirr; 
+                }
+                
+                
             }
             else
             {
