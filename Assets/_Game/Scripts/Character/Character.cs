@@ -22,7 +22,7 @@ public class Character : GameUnit, IHit
     // [HideInInspector] //TODO
     public List<Character> listCharInAttact = new List<Character>();
     [HideInInspector]
-    public Weapon weapon;
+    public Weapon weapon=null;
     [HideInInspector]
     public Level level;
     [HideInInspector]
@@ -33,13 +33,13 @@ public class Character : GameUnit, IHit
     // [HideInInspector] //TODO
     public Indicator indicator;
     [HideInInspector]
-    public bool IsDead 
-    {
-        get
-        {
-           return  !level.listCharacters.Contains(this);
-        }
-    } 
+    public bool IsDead;
+    // {
+    //     get
+    //     {
+    //        return  !level.listCharacters.Contains(this);
+    //     }
+    // } 
     [HideInInspector]
     public bool IsAttack 
     {
@@ -55,17 +55,17 @@ public class Character : GameUnit, IHit
     void Start()
     {
         tf= transform;
-        currentWeaponType=  (EWeaponType) Random.Range(0, Constant.NUMBER_WEAPONS);
-       
     }
 
      public override void OnInit()
     {
+        IsDead = false;
         AssignAttackArea();
         SetSkin();
         SetWeapon();
         SetIndicator();
         UnderObj.SetActive(false);
+        ChangeAnim(Constant.ANIM_IDLE);
 
     }
 
@@ -74,7 +74,7 @@ public class Character : GameUnit, IHit
         this.attackArea.character = this;
     }
 
-    public void SetSkin() // name, score, body material //TODO: HAT, PANT,...
+    public virtual void SetSkin() // name, score, body material //TODO: HAT, PANT,...
     {
         int index = Random.Range(0, BotDatasIns.BotName.Count);
         string name = BotDatasIns.BotName[index];
@@ -89,26 +89,22 @@ public class Character : GameUnit, IHit
     public void SetIndicator()
     {
         indicator = SimplePool.Spawn<Indicator>(indicatorprefab);
-        indicator.SetOwnCharacter(this);
+        indicator.ownIndicator = this;
+        indicator.OnInit();
        
     }
 
-    public void SetWeapon()
+    public virtual void SetWeapon()
     {
-        
         SpawnWeapon();
-
     }
 
     
     public override void OnDespawn()
     {
+        indicator.OnDespawn();
+        weapon.OnDespawn();
         UnderObj.SetActive(false);
-      
-        SimplePool.Despawn(indicator);
-        
-        weapon.gameObject.SetActive(false);
-    
         SimplePool.Despawn(this);
     }
 
@@ -127,16 +123,21 @@ public class Character : GameUnit, IHit
     
     public void OnHit(Bullet bullet, Character character) 
     {
-        if(bullet.character!= this && bullet.isAttack)
+        if(bullet.character!= this)
         {
             character.listCharInAttact.Remove(this);
             bullet.OnDespawn();
             level.DespawnChar(this); // Goi ham OnDeath va loai bo trong list character in level
-            character.Scale();
-            if(character.GetType() == typeof(Player)) //TODO IsDead
+            if(!IsDead)
             {
-                DataPlayerController.AddCoin(10);
+                character.Scale();
+                if(character.GetType() == typeof(Player)) //TODO IsDead
+                {
+                    DataPlayerController.AddCoin(10);
+                }
+                IsDead = true;
             }
+            
         }  
     }
     public void OnHitExit(Bullet bullet, Character character)
@@ -164,20 +165,13 @@ public class Character : GameUnit, IHit
     }
     public void SpawnWeapon()
     {
+        currentWeaponType=  (EWeaponType) Random.Range(0, Constant.NUMBER_WEAPONS);
         weaponPrefab = weaponDatas.GetWeaponPrefab(currentWeaponType);
         Vector3 postion = weaponGenTF.position;
         postion.y = weaponGenTF.position.y;
-        if(weapon!= null)
-        {
-            weapon.gameObject.SetActive(true);
-        }
-        else
-        {
-             weapon = Instantiate(weaponPrefab, weaponGenTF);
-        }
-       
-        weapon.InitData(weapon.indexMat, (int) currentWeaponType );
-        weapon.transform.position= postion; 
+        weapon = Instantiate(weaponPrefab, weaponGenTF);
+        weapon.transform.position= postion;
+        weapon.InitData( (int) currentWeaponType, weapon.indexMat);
         weapon.character = this;
     }
 
@@ -188,7 +182,7 @@ public class Character : GameUnit, IHit
         postion.y = weaponGenTF.position.y;
         weapon = Instantiate(weaponPrefab, weaponGenTF);
         weapon.indexMat = material;
-        weapon.InitData(weapon.indexMat,(int) currentWeaponType);
+        weapon.InitData((int) currentWeaponType, weapon.indexMat);
         weapon.transform.position= postion; 
         weapon.character = this;
     }

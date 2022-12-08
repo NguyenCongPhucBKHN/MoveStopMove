@@ -202,7 +202,7 @@ void SpawnListItem(int currentWeaponType, ShopWeaponElement shopWeaponElementPre
         {
             player.currentWeaponType = (EWeaponType) Present.Instance.currentWeaponType;
             player.weapon.OnDespawn();
-            player.weapon.InitData(Present.Instance.indexSelect, Present.Instance.currentWeaponType);
+            player.weapon.InitData(Present.Instance.currentWeaponType, Present.Instance.indexSelect);
         }
         else 
         {

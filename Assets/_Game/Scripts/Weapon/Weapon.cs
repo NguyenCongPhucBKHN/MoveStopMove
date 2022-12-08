@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public class Weapon : GameUnit
 {
-    [SerializeField] protected Transform TF;
     protected EWeaponType eWeaponType;
     [SerializeField]
     protected Bullet bulletPrefab;
@@ -19,23 +18,16 @@ public class Weapon : MonoBehaviour
     void Start()
     {
         indexMat = Random.Range(0,3);
-        OnInit();
-        // InitData(weaponDataa.GetIndexMaterial());
+        // OnInit();
     }
     
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            Attack();
-        }
-    }
-    void  OnInit()
-    {
+  
+    // void  OnInit()
+    // {
         
         
-    }
-    public void InitData(int indexMaterial, int e) 
+    // }
+    public void InitData(int eType,int indexMaterial) 
     {
         this.indexMat = indexMaterial;
         if(character!=null)
@@ -47,7 +39,7 @@ public class Weapon : MonoBehaviour
         }
         else
         {
-            eWeaponType =(EWeaponType) e;
+            eWeaponType =(EWeaponType) eType;
             weaponDataa?.SetEWeaponType((int)eWeaponType);
             weaponDataa?.SetMaterial( this.indexMat);
             meshRenderer.materials= weaponDataa.GetMaterial().ToArray();
@@ -58,14 +50,10 @@ public class Weapon : MonoBehaviour
     public virtual void Attack()
 
     {   
-            // character.weapon.gameObject.SetActive(false);
-            // eWeaponType = character.currentWeaponType;
             bulletPrefab = weaponDatas.GetBulletPrefab(eWeaponType);
             character.dirAttact.y=0;
-            Bullet bullet = Instantiate(bulletPrefab, TF.position,Quaternion.identity);
-            bullet.isAttack = true;
+            Bullet bullet = SimplePool.Spawn<Bullet>(bulletPrefab, tf.position,Quaternion.identity);
             bullet.meshRenderer.materials = weaponDataa.GetMaterial().ToArray();
-            // bullet.TF.localScale = character.TF.localScale;
             bullet.TF.localScale= character.TF.localScale;
             bullet.character= character;
             bullet.Move(character.dirAttact);
@@ -74,15 +62,17 @@ public class Weapon : MonoBehaviour
 
     public void OnDespawn()
     {
-        if(this.eWeaponType!= character.currentWeaponType)
-        {
-            Destroy(this.gameObject);
-            character.SpawnWeapon();
-        }
-        else
-        {
-            // InitData(weaponDataa.GetIndexMaterial());
-        }
+        Destroy(this.gameObject);
+        // if(this.eWeaponType!= character.currentWeaponType)
+        // {
+        //     Destroy(this.gameObject);
+        //     // this.gameObject.SetActive(false);
+        //     character.SpawnWeapon();
+        // }
+        // else
+        // {
+        //     Destroy(this.gameObject);
+        // }
     }
     
 }

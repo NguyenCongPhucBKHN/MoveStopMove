@@ -15,7 +15,6 @@ public class Bullet : GameUnit
     public float speedBullet=10 ;
     public bool IsDead;
     public Character character; //Nhan vat ban dan
-    public bool isAttack;
    
     // Start is called before the first frame update
     void Start()
@@ -24,22 +23,6 @@ public class Bullet : GameUnit
         tf= transform;
     }
 
-    // void Update()
-    // {
-    //     if(character==null)
-    //     {
-    //         SimplePool.Despawn(this);
-    //         // Destroy(this.gameObject);
-    //     }
-    // }
-
-    // public virtual void OnInit()
-    // {
-    //     TF= transform;
-    //     rb = GetComponent<Rigidbody>();
-    //     rb.useGravity= false;
-    //     IsDead = false;
-    // }
     public virtual void Move(Vector3 dirAttact)
     {
         

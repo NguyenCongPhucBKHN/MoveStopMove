@@ -107,9 +107,8 @@ public class Indicator : GameUnit
 
    
 
-    public void SetOwnCharacter(Character charr)
+    public void SetOwnCharacter()
     {
-        ownIndicator = charr;
         SetTarget();
         SetMaterial();
         SetScore();
@@ -148,7 +147,7 @@ public class Indicator : GameUnit
 
     public override void OnInit()
     {
-        
+        SetOwnCharacter();
     }
 
     public override void OnDespawn()

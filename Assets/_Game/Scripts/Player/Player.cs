@@ -61,53 +61,56 @@ public class Player : Character
 
     public override void OnInit()
     {
+        this.gameObject.SetActive(true);
+        AssignAttackArea();
+        SetData();
+        SetSkin();
+        SetWeapon();
+        SetIndicator();
+        ChangeAnim(Constant.ANIM_IDLE);
+    }
+
+    void SetData()
+    {
         string name = "You";
-        float score = Random.Range(0,5);
+        float score = 0;
         EBodyMaterialType body = EBodyMaterialType.YELLOW;
-        // data = new CharacterData(name, score, body);
         data?.SetBodyMaterial(body);
         skinnedMeshRenderer.material = data?.GetBodyMaterial();
         data?.SetName(name);
         data?.SetScore(score);
-        if(indicator==null || !indicator.gameObject.activeSelf)
-        {
-            indicator = SimplePool.Spawn<Indicator>(indicatorprefab);
-            indicator.SetOwnCharacter(this);
-        }
+        
+    }
+
+    public override void SetSkin()
+    {
+        PresentSkin.Instance.SelectItem();
+    }
+
+    public override void SetWeapon()
+    {
         currentWeaponType= (EWeaponType) DataPlayerController.GetCurrentWeapon().indexType;
         int idmaterial =  DataPlayerController.GetCurrentWeapon().indexItem;
         SpawnWeapon(idmaterial);
-        attackArea.character= this;
-        dirAttact= TF.forward;
-        PresentSkin.Instance.SelectItem();
-        
-        ChangeAnim(Constant.ANIM_IDLE);
     }
 
     public override void OnDespawn()
     {
-        if(indicator!= null)
-        {
-            indicator.OnDespawn();
-        }
-        
-        indicator= null;
-
+        indicator.OnDespawn();
         this.gameObject.SetActive(false);
     }
 
     public override void OnDeath()
     {
-        base.OnDeath();
         ChangeAnim(Constant.ANIM_DEAD);
-        level.isWin = false;
+        base.OnDeath();
         LevelManager.Instance.OnFinish();
+        level.isWin = false;
     }
     public override void Move()
     {
-        
         if(GameManagerr.Instance.IsState(EGameState.GamePlay))
-        {
+        {  
             JoystickInput.Instance.Move();
             base.Move();
         }
