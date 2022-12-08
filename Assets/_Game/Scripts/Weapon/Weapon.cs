@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : GameUnit
+public class Weapon : MonoBehaviour
 {
+    [SerializeField] protected Transform TF;
     protected EWeaponType eWeaponType;
     [SerializeField]
     protected Bullet bulletPrefab;
@@ -50,29 +51,27 @@ public class Weapon : GameUnit
     public virtual void Attack()
 
     {   
-            bulletPrefab = weaponDatas.GetBulletPrefab(eWeaponType);
+             bulletPrefab = weaponDatas.GetBulletPrefab(eWeaponType);
             character.dirAttact.y=0;
-            Bullet bullet = SimplePool.Spawn<Bullet>(bulletPrefab, tf.position,Quaternion.identity);
+            Bullet bullet = Instantiate(bulletPrefab, TF.position,Quaternion.identity);
             bullet.meshRenderer.materials = weaponDataa.GetMaterial().ToArray();
+            // bullet.TF.localScale = character.TF.localScale;
             bullet.TF.localScale= character.TF.localScale;
             bullet.character= character;
             bullet.Move(character.dirAttact);
-            isActivate = !bullet.IsDead;
     }
 
     public void OnDespawn()
     {
-        Destroy(this.gameObject);
-        // if(this.eWeaponType!= character.currentWeaponType)
-        // {
-        //     Destroy(this.gameObject);
-        //     // this.gameObject.SetActive(false);
-        //     character.SpawnWeapon();
-        // }
-        // else
-        // {
-        //     Destroy(this.gameObject);
-        // }
+        if(this.eWeaponType!= character.currentWeaponType)
+        {
+            Destroy(this.gameObject);
+            character.SpawnWeapon();
+        }
+        else
+        {
+            // InitData(weaponDataa.GetIndexMaterial());
+        }
     }
     
 }

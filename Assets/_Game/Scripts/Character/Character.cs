@@ -55,6 +55,7 @@ public class Character : GameUnit, IHit
     void Start()
     {
         tf= transform;
+        currentWeaponType=  (EWeaponType) Random.Range(0, Constant.NUMBER_WEAPONS);
     }
 
      public override void OnInit()
@@ -165,13 +166,29 @@ public class Character : GameUnit, IHit
     }
     public void SpawnWeapon()
     {
-        currentWeaponType=  (EWeaponType) Random.Range(0, Constant.NUMBER_WEAPONS);
-        weaponPrefab = weaponDatas.GetWeaponPrefab(currentWeaponType);
+        
+        // weaponPrefab = weaponDatas.GetWeaponPrefab(currentWeaponType);
+        // Vector3 postion = weaponGenTF.position;
+        // postion.y = weaponGenTF.position.y;
+        // weapon = Instantiate(weaponPrefab, weaponGenTF);
+        // weapon.transform.position= postion;
+        // weapon.InitData( (int) currentWeaponType, weapon.indexMat);
+        // weapon.character = this;
+
+         weaponPrefab = weaponDatas.GetWeaponPrefab(currentWeaponType);
         Vector3 postion = weaponGenTF.position;
         postion.y = weaponGenTF.position.y;
-        weapon = Instantiate(weaponPrefab, weaponGenTF);
-        weapon.transform.position= postion;
-        weapon.InitData( (int) currentWeaponType, weapon.indexMat);
+        if(weapon!= null)
+        {
+            weapon.gameObject.SetActive(true);
+        }
+        else
+        {
+             weapon = Instantiate(weaponPrefab, weaponGenTF);
+        }
+
+        weapon.InitData( (int) currentWeaponType ,weapon.indexMat);
+        weapon.transform.position= postion; 
         weapon.character = this;
     }
 
