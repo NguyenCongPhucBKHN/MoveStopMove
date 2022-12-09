@@ -15,7 +15,6 @@ public class Lose : UICanvas
     }
 
     private void OnEnable() {
-        Debug.Log("lose DataPlayerController.coinInLevel: "+ DataPlayerController.coinInLevel);
         coinInLevel.text = DataPlayerController.coinInLevel.ToString();
         bonusTxt.text = "x" + bonus;
     }

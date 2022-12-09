@@ -10,6 +10,7 @@ public class MainMenu : UICanvas
         GameManagerr.Instance.ChangeState(EGameState.GamePlay);
         DataPlayerController.coinInLevel =0;
         UIManager.Instance.OpenUI<GamePlayUI>();
+        // JoystickInput.Instance.gameObject.SetActive(false);
         Close();
     }
     public void WeaponBtn()

@@ -56,10 +56,13 @@ public class SkinShop : UICanvas
     public void SelectBtn()
     {
         // PresentSkin.Instance.SpawnItem();
+
         PresentSkin.Instance.SelectItem();
+        int cost = PresentSkin.Instance.GetCostItem();
+        DataPlayerController.SubCoin(cost);
         GameManagerr.Instance.ChangeState(EGameState.MainMenu);
         UIManager.Instance.OpenUI<MainMenu>();
-        Close();
+        // Close();
     }
     void UpdateSelect(int j)
     {
@@ -74,6 +77,30 @@ public class SkinShop : UICanvas
                 ListShopItem[i].SetActive(false);
             }
         }
+    }
+
+   
+    public void MoneyActivate()
+    {
+        
+        MoneyBtn.gameObject.SetActive(true);
+        SelectButton.gameObject.SetActive(false);
+        EquippedBtn.gameObject.SetActive(false);
+    }
+
+    public void SelectActivate()
+    {
+        
+        MoneyBtn.gameObject.SetActive(false);
+        SelectButton.gameObject.SetActive(true);
+        EquippedBtn.gameObject.SetActive(false);
+    }
+    public void EquippedActivate()
+    {
+        
+        MoneyBtn.gameObject.SetActive(false);
+        SelectButton.gameObject.SetActive(false);
+        EquippedBtn.gameObject.SetActive(true);
     }
     
 }

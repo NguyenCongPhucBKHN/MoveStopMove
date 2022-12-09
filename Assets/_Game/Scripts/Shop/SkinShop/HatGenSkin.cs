@@ -12,6 +12,7 @@ public class HatGenSkin : GenSkin
     
     private void Awake() {
          PresentSkin.Instance.listGenSkin[0]=this;
+         button.onClick.AddListener(Select);
          player= FindObjectOfType<Player>();
          if(player!= null)
          {
@@ -54,6 +55,7 @@ public class HatGenSkin : GenSkin
 
    public override void Select()
    {
+    Debug.Log("Hat");
     PresentSkin.Instance.currentSkin = this;
    }
 }

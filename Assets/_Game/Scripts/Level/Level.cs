@@ -44,7 +44,7 @@ public class Level : MonoBehaviour
 
     public void OnInit()
     {   
-       
+        DataPlayerController.coinInLevel =0;
         InitDataSO();
         SpawnPlayer();
         SpawnAmountBot();

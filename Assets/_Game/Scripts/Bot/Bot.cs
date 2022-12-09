@@ -42,6 +42,10 @@ public class Bot : Character
         {
             currentState.OnExecute(this);
         }
+        else if(GameManagerr.Instance.IsState(EGameState.MainMenu)|| GameManagerr.Instance.IsState(EGameState.Pause))
+        {
+            ChangeState(new IdleState());
+        }
     }
 
     public override void OnInit()

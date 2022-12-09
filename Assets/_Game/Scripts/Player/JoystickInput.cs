@@ -22,15 +22,24 @@ public class JoystickInput : Singleton<JoystickInput>
         playerTF =  _rigidbody.transform;
     }
     
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    
     private void FixedUpdate()
     {
         if(GameManagerr.Instance.IsState(EGameState.GamePlay))
         {
-            isMouse = Input.GetMouseButtonDown(0);
-            isMouse = !Input.GetMouseButtonUp(0);
+            isMouse = Input.GetMouseButtonUp(0);
+            if(isMouse)
+            {
+                this.gameObject.SetActive(true);
+                tfCenterJoystick.localPosition = Vector3.zero;
+            }
+            // isMouse = !Input.GetMouseButtonUp(0);
         }
         
-        if(GameManagerr.Instance.IsState(EGameState.Pause) || GameManagerr.Instance.IsState(EGameState.Finish))
+        else /*if (GameManagerr.Instance.IsState(EGameState.Pause) || GameManagerr.Instance.IsState(EGameState.Finish))*/
         {
             this.gameObject.SetActive(false);
             isMouse = false;

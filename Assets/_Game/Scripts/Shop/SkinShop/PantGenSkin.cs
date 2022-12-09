@@ -10,6 +10,7 @@ public class PantGenSkin : GenSkin
     private Material material;
      private void Awake() {
          PresentSkin.Instance.listGenSkin[1]=this;
+         button.onClick.AddListener(Select);
          player= FindObjectOfType<Player>();
     }
      private void Start() 
@@ -36,6 +37,7 @@ public class PantGenSkin : GenSkin
 
     public override void Select()
     {
+        Debug.Log("Pant");
         PresentSkin.Instance.currentSkin = this;        
     }
 

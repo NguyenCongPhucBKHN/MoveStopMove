@@ -16,7 +16,6 @@ public class Win : UICanvas
     }
 
     private void OnEnable() {
-        Debug.Log("Win DataPlayerController.coinInLevel: "+ DataPlayerController.coinInLevel);
         coinTxt.text = DataPlayerController.coinInLevel.ToString();
         bonusTxt.text = "x" + bonus;
     }

@@ -61,6 +61,7 @@ public class Character : GameUnit, IHit
         IsDead = false;
         TF.localScale = Vector3.one;
         UnderObj.SetActive(false);
+
         AssignAttackArea();
         SetSkin();
         SetWeapon();
@@ -101,7 +102,6 @@ public class Character : GameUnit, IHit
     
     public override void OnDespawn()
     {
-        
         indicator.OnDespawn();
         DespawnWeapon();
         UnderObj.SetActive(false);
@@ -142,6 +142,7 @@ public class Character : GameUnit, IHit
                 level.DespawnChar(this);
                 AddScore(character);
                 character.Scale();
+                character.UnderObj.SetActive(false);
                 // DataPlayerController.coinInLevel+= Constant.COIN_INCR;
                 // character.coinInLevel+= Constant.COIN_INCR;
                 if(character.GetType() == typeof(Player)) 
@@ -184,11 +185,9 @@ public class Character : GameUnit, IHit
         Weapon weaponPrefab = weaponDatas.GetWeaponPrefab(currentWeaponType);
         if(!dictWeapon.ContainsKey(weaponPrefab))
         {
-
             weapon = Instantiate(weaponPrefab, weaponGenTF);
             dictWeapon.Add(weaponPrefab, weapon);
             listWeapon.Add(weapon);
-           
         }
         else
         {

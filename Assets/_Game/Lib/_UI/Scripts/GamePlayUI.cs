@@ -21,7 +21,6 @@ public class GamePlayUI : UICanvas
     {
         GameManagerr.Instance.ChangeState(EGameState.Pause);
         UIManager.Instance.OpenUI<Setting>();
-        // Present.Instance.UpdateBtn(DataPlayerController.GetCurrentWeapon().indexType,DataPlayerController.GetCurrentWeapon().indexItem );
         Close();   
     }
 

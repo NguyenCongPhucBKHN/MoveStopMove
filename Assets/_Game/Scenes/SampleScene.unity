@@ -1305,7 +1305,7 @@ MonoBehaviour:
   Pool:
   - root: {fileID: 1690565542}
     prefab: {fileID: 8099917930150353548, guid: c44a46056211c6f43aed3ac9cbf8dfd5, type: 3}
-    amount: 20
+    amount: 30
     collect: 1
     clamp: 0
   - root: {fileID: 32472223}

@@ -14,17 +14,7 @@ public class Coin : UICanvas
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            DataPlayerController.AddCoin(10);
-        }
-        if(Input.GetKeyDown(KeyCode.D))
-        {
-            DataPlayerController.SubCoin(9);
-        }
-    }
+   
     public void UpdateCoin()
     {
         coin.text = DataPlayerController.GetCoin().ToString();

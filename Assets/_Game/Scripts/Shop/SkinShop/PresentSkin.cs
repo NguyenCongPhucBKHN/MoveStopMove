@@ -12,6 +12,7 @@ public class PresentSkin : Singleton<PresentSkin>
     public ESkinType currentType;
     public int currentIndex ;
     public GenSkin currentSkin ;
+    public bool isCurrent, isOwned, noHave;
     public GenSkin[] listGenSkin = new GenSkin[4];
     private void Start() {
         currentType = ESkinType.Hat;
@@ -34,12 +35,12 @@ public class PresentSkin : Singleton<PresentSkin>
 
     public void SelectItem() //Button select/equip
     {
-        if(!DataPlayerController.IsOwnedSkin((int)currentType, currentIndex))
-        {
+        // if(!DataPlayerController.IsOwnedSkin((int)currentType, currentIndex))
+        // {
             DataPlayerController.AddSkin((int)currentType, currentIndex);
-        }
-        DataPlayerController.SetCurrentSkin((int)currentType, currentIndex);
-        SpawnSaveItem();
+        // }
+        // DataPlayerController.SetCurrentSkin((int)currentType, currentIndex);
+        // SpawnSaveItem();
     }
 
 
@@ -64,16 +65,18 @@ public class PresentSkin : Singleton<PresentSkin>
         int first = num%100;
         int second = (num- first *100)%10;
         int last = num -first*100- second*10;
-        Debug.Log("first: "+ ConvertIntToBool(first));
-        Debug.Log("second: "+ ConvertIntToBool(second));
-        Debug.Log("last: "+ ConvertIntToBool(last));
-        EquippedBtn.SetActive(ConvertIntToBool(first));
-        SelectBtn.SetActive(ConvertIntToBool(second));
-        MoneyBtn.SetActive(ConvertIntToBool(last));
+        isCurrent= ConvertIntToBool(last);
+        isOwned= ConvertIntToBool(second);
+        noHave= ConvertIntToBool(first);
     }
 
     bool ConvertIntToBool(int i)
     {
         return i!=0;
+    }
+
+    public int GetCostItem()
+    {
+        return ((int)currentType+1) *100 + currentIndex*10;
     }
 }

@@ -10,19 +10,27 @@ public class SkinItemShop : MonoBehaviour
     [SerializeField] private ESkinType indexType;
     [SerializeField] private int indexItem;
     [SerializeField] private GameObject lockObj;
-    
-    
+    [SerializeField] private SkinShop skinShop;
+    public int cost;
+     int num;
     void Awake()
     {
+        skinShop = FindObjectOfType<SkinShop>();
         button = GetComponent<Button>();
         button.onClick.AddListener(Select);
+
+    }
+    void Start()
+    {
+        cost = ((int)indexType+1)*100 + indexItem*10;
     }
     void Select() // Chon tung item
     {
         PresentSkin.Instance.currentIndex = indexItem;
         PresentSkin.Instance.currentType = indexType;
-        UpdateBtn();
         PresentSkin.Instance.SpawnItem();
+        skinShop.moneyTxt.text = "$ " + cost;
+        UpdatePresent();
     }
     void Update()
     {
@@ -36,22 +44,22 @@ public class SkinItemShop : MonoBehaviour
         }
     }
 
-    void UpdateBtn()
+    void UpdatePresent()
     {
-        int num;
+       
         if(PresentSkin.Instance.isUsed((int) indexType,  indexItem)) // Dang mang skin nay
         {
-            num = 100;
+            skinShop.EquippedActivate();
         }
-        else if(DataPlayerController.IsOwnedSkin((int) indexType,  indexItem)) // Dang so huu
+        
+        else if(DataPlayerController.IsOwnedSkin((int) indexType,  indexItem) && !PresentSkin.Instance.isUsed((int) indexType,  indexItem) ) // Dang so huu
         {
-            num = 10;
+           skinShop.SelectActivate();
         }
         else
         {
-            num =1;
+            skinShop.MoneyActivate();
         }
-        // PresentSkin.Instance.ActivateBtn(num);
     }
 
    
