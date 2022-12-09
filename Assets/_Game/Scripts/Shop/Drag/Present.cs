@@ -19,6 +19,8 @@ private List<ShopWeaponElement> listWeaponPrefab = new List<ShopWeaponElement>()
 private Dictionary<ShopWeaponElement, ShopWeaponElement> dictItems = new Dictionary<ShopWeaponElement, ShopWeaponElement>();
 private List<ShopItemSelect> listSelectedItem = new List<ShopItemSelect>();
 
+private Dictionary<Weapon, Weapon> dictWeaponInPlayer = new Dictionary<Weapon, Weapon>();
+
 //UI
 
  public Button SelectBtn;
@@ -201,29 +203,19 @@ void SpawnListItem(int currentWeaponType, ShopWeaponElement shopWeaponElementPre
   }
   
   
-  public void SelectItem()
-  {
-         if(DataPlayerController.IsOwnedWeapon( Present.Instance.currentWeaponType, indexSelect))
-        {
-            player.currentWeaponType = (EWeaponType) Present.Instance.currentWeaponType;
-            player.DespawnCurrentWeapon();
-            player.weapon = player.SpawnWeapon(indexSelect);
-            // player.weapon.OnDespawn();
-            // player.SpawnWeapon(indexSelect);
-            player.weapon.InitData(Present.Instance.currentWeaponType, Present.Instance.indexSelect);
-        }
-        else 
-        {
-            DataPlayerController.AddWeapon(Present.Instance.currentWeaponType, Present.Instance.indexSelect);
-        }
+  public void SelectItem()  // Chon de dung 
+  {     
+      player.DespawnCurrentWeapon();
+      player.currentWeaponType = (EWeaponType) Present.Instance.currentWeaponType;
+      player.weapon = player.SpawnWeapon(indexSelect);
+      player.weapon.InitData(Present.Instance.currentWeaponType, Present.Instance.indexSelect);
       DataPlayerController.SetCurrentWeapon(Present.Instance.currentWeaponType,  Present.Instance.indexSelect);
-      ItemModel item = DataPlayerController.GetCurrentWeapon();
       UpdateBtn(Present.Instance.currentWeaponType, indexSelect);
   }
 
-  public void MoneyItem()
+  public void MoneyItem() // Buttom mua
   {
-    if(!DataPlayerController.IsOwnedWeapon( Present.Instance.currentWeaponType, indexSelect))
+    if(!DataPlayerController.IsOwnedWeapon( Present.Instance.currentWeaponType, indexSelect)) // Chua so huu thi lay gia tien va mua 
     {
       int cost = GetCost(Present.Instance.currentWeaponType,  0);
       DataPlayerController.SubCoin(cost);

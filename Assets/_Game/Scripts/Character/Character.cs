@@ -60,11 +60,11 @@ public class Character : GameUnit, IHit
     {
         IsDead = false;
         TF.localScale = Vector3.one;
+        UnderObj.SetActive(false);
         AssignAttackArea();
         SetSkin();
         SetWeapon();
         SetIndicator();
-        UnderObj.SetActive(false);
         ChangeAnim(Constant.ANIM_IDLE);
 
     }
@@ -122,6 +122,7 @@ public class Character : GameUnit, IHit
     public virtual void OnDeath() //khi bi tieu dieu, goi ham OnDeath
     {
         StopMoving();
+        UnderObj.SetActive(false);
         listCharInAttact.Clear();
         ChangeAnim(Constant.ANIM_DEAD);
         Invoke(nameof(OnDespawn), Constant.TIMER_DEATH);

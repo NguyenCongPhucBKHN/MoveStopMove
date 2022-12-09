@@ -85,6 +85,7 @@ public class Player : Character
 
     public override void SetSkin()
     {
+        DespawnCurrentWeapon();
         PresentSkin.Instance.SelectItem();
     }
 
@@ -120,7 +121,11 @@ public class Player : Character
     }
     public void DespawnCurrentWeapon()
     {
-        Destroy(weapon.gameObject);
+        Weapon[] listWeapon = weaponGenTF.GetComponentsInChildren<Weapon>();
+        for(int i =0; i< listWeapon.Length; i++)
+        {
+            Destroy(listWeapon[i].gameObject);
+        }
     }
 
 
