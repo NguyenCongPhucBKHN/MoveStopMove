@@ -6,14 +6,21 @@ using UnityEngine.UI;
 public class Win : UICanvas
 {
     public Text level;
+    public Text coinTxt;
+    public Text bonusTxt;
+    
+    
+    private int bonus = 2;
+    private void Start() {
+        
+    }
 
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    // private void Update()
-    // {
-    //     level.text="Level: "+ Data.Instance.GetLevel().ToString();
-    // }
+    private void OnEnable() {
+        Debug.Log("Win DataPlayerController.coinInLevel: "+ DataPlayerController.coinInLevel);
+        coinTxt.text = DataPlayerController.coinInLevel.ToString();
+        bonusTxt.text = "x" + bonus;
+    }
+   
     public void MainMenuButton()
     {
         UIManager.Instance.OpenUI<MainMenu>();
@@ -30,11 +37,17 @@ public class Win : UICanvas
 
     }
 
+     public void MultCoin()
+    {
+        DataPlayerController.coinInLevel *= bonus;
+    }
     public void LoadNextLevel()
     {
         UIManager.Instance.OpenUI<MainMenu>();
         GameManagerr.Instance.ChangeState(EGameState.MainMenu);
+        DataPlayerController.AddCoin(DataPlayerController.coinInLevel);
         LevelManager.Instance.LoadLevel(Data.Instance.GetNextLevel());
+        // DataPlayerController.coinInLevel =0;
         Close();
     }
 

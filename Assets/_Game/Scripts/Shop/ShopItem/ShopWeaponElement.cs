@@ -9,9 +9,9 @@ public class ShopWeaponElement : Item
     public MeshRenderer meshRenderer;
     private EWeaponType eWeaponType;
     private int indexMaterial;
-    protected bool isOwned ;
+    public  bool isOwned ;
     private Player player;
-
+    public bool isUsed;
     
 
     
@@ -36,13 +36,11 @@ public class ShopWeaponElement : Item
 
 
     public void OnSelect()
-    {
+    {   
         Present.Instance.indexSelect= indexMaterial; 
         Present.Instance.UpdateSelect();
         Present.Instance.UpdateBtn((int)eWeaponType, (int)indexMaterial);
         Present.Instance.MoneyTxt.text = "Buy with " + Present.Instance.GetCost((int)eWeaponType, (int)indexMaterial);
-        // ActivateClock();
-        
     }
     public void ActivateClock()
     {
@@ -55,4 +53,11 @@ public class ShopWeaponElement : Item
             ClockObj.SetActive(false);
         }
     }
+
+    public void  IsUsed(int itype, int index)
+    {
+        isOwned = (itype == (int)eWeaponType && index ==indexMaterial);
+    }
+
+    
 }

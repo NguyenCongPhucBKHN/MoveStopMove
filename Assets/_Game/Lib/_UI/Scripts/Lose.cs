@@ -6,12 +6,19 @@ using UnityEngine.UI;
 public class Lose : UICanvas
 {
     public Text level;
+    public Text coinInLevel;
+    public Text bonusTxt;
+    private Player player;
+    private int bonus= 2;
+    private void Start() {
+        player = LevelManager.Instance.player;
+    }
 
-    // private void Update()
-    // {
-    //     level.text="Level: "+ Data.Instance.GetLevel().ToString();
-    // }
-
+    private void OnEnable() {
+        Debug.Log("lose DataPlayerController.coinInLevel: "+ DataPlayerController.coinInLevel);
+        coinInLevel.text = DataPlayerController.coinInLevel.ToString();
+        bonusTxt.text = "x" + bonus;
+    }
     public void MainMenuButton()
     {
         UIManager.Instance.OpenUI<MainMenu>();
@@ -25,14 +32,23 @@ public class Lose : UICanvas
         LevelManager.Instance.LoadLevel(Data.Instance.GetLevel());
         Close();
     }
+    public void MultCoin()
+    {
+        DataPlayerController.coinInLevel *= bonus;
+    }
 
     public void RePlayButton()
     {
         UIManager.Instance.OpenUI<MainMenu>();
         GameManagerr.Instance.ChangeState(EGameState.MainMenu);
+        DataPlayerController.AddCoin(DataPlayerController.coinInLevel);
         Data.Instance.SetLevel(1);
         LevelManager.Instance.LoadLevel(2);
+        // DataPlayerController.coinInLevel =0;
         Close();
 
     }
+
+   
+
 }

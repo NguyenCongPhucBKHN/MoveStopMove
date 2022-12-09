@@ -8,21 +8,17 @@ public class ShopWeapon : UICanvas
     [SerializeField] GameObject selectBtn;
     [SerializeField] Text MoneyTxt;
 
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
     private void Update()
     {
         
     }
     
-    public void SelectBtn()
+    public void SelectBtn() // Nut chon
     {
         Present.Instance.SelectItem();
-        Present.Instance.Equipped.gameObject.SetActive(true);
+        // Present.Instance.UpdateBtn();
+    
+        // Present.Instance.Equipped.gameObject.SetActive(true);
     }
     public void MoneyBtn()
     {

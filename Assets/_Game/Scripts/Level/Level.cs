@@ -104,7 +104,7 @@ public class Level : MonoBehaviour
     
 
     public void Despawn()
-    {
+    {   
         for(int i =0; i<listCharacters.Count; i++)
         {
             listCharacters[i].OnDespawn();

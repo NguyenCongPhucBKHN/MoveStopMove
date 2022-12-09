@@ -51,7 +51,7 @@ public  UnityEvent MoneyEven = new UnityEvent();
    {
       
       currentWeaponType++;
-       MoneyTxt.text = "Buy with " + GetCost(currentWeaponType, 0) +"$";
+      MoneyTxt.text = "Buy with " + GetCost(currentWeaponType, 0) +"$";
       Present.Instance.UpdateBtn(currentWeaponType, 0);
       
    }
@@ -216,9 +216,9 @@ void SpawnListItem(int currentWeaponType, ShopWeaponElement shopWeaponElementPre
         {
             DataPlayerController.AddWeapon(Present.Instance.currentWeaponType, Present.Instance.indexSelect);
         }
-       DataPlayerController.SetCurrentWeapon(Present.Instance.currentWeaponType,  Present.Instance.indexSelect);
+      DataPlayerController.SetCurrentWeapon(Present.Instance.currentWeaponType,  Present.Instance.indexSelect);
       ItemModel item = DataPlayerController.GetCurrentWeapon();
-      Debug.Log("current item: "+ item.indexType +" "+ item.indexItem);
+      UpdateBtn(Present.Instance.currentWeaponType, indexSelect);
   }
 
   public void MoneyItem()
@@ -255,20 +255,31 @@ void SpawnListItem(int currentWeaponType, ShopWeaponElement shopWeaponElementPre
  
  public void UpdateBtn(int idType, int idIndex)
  {
-    if(DataPlayerController.IsOwnedWeapon(idType, idIndex))
+
+    if(DataPlayerController.IsCurrentWeapon(idType, idIndex))
     {
+      Equipped.gameObject.SetActive(true);
+      SelectBtn.gameObject.SetActive(false);
+      UnClockBtn.SetActive(false);
+      MoneyBtn.SetActive(false);
+    }
+    else if (DataPlayerController.IsOwnedWeapon(idType, idIndex))
+    {
+      Equipped.gameObject.SetActive(false);
       SelectBtn.gameObject.SetActive(true);
       UnClockBtn.SetActive(false);
       MoneyBtn.SetActive(false);
     }
-    // else if(DataPlayerController.IsOwnedWeaponType(idType))
-    // {
-    //   SelectBtn.SetActive(false);
-    //   UnClockBtn.SetActive(true);
-    //   MoneyBtn.SetActive(false);
-    // }
+    else if(DataPlayerController.IsOwnedWeaponType(idType))
+    {
+      Equipped.gameObject.SetActive(false);
+      SelectBtn.gameObject.SetActive(false);
+      UnClockBtn.SetActive(true);
+      MoneyBtn.SetActive(false);
+    }
     else
     {
+      Equipped.gameObject.SetActive(false);
       SelectBtn.gameObject.SetActive(false);
       UnClockBtn.SetActive(false);
       MoneyBtn.SetActive(true);

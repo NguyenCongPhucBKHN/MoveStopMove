@@ -48,7 +48,8 @@ public class Character : GameUnit, IHit
     
     private Dictionary<Weapon, Weapon> dictWeapon = new Dictionary<Weapon, Weapon>();
     private List<Weapon> listWeapon = new List<Weapon>();
-
+    public float score = 0;
+    public int coinInLevel=0;
     void Start()
     {
         tf= transform;
@@ -58,6 +59,7 @@ public class Character : GameUnit, IHit
      public override void OnInit()
     {
         IsDead = false;
+        TF.localScale = Vector3.one;
         AssignAttackArea();
         SetSkin();
         SetWeapon();
@@ -76,7 +78,6 @@ public class Character : GameUnit, IHit
     {
         int index = Random.Range(0, BotDatasIns.BotName.Count);
         string name = BotDatasIns.BotName[index];
-        float score = Random.Range(0,5);
         EBodyMaterialType body = RandomBodyMat();
         data?.SetBodyMaterial(body);
         skinnedMeshRenderer.material = data?.GetBodyMaterial();
@@ -138,10 +139,14 @@ public class Character : GameUnit, IHit
             {
                 this.IsDead = true;
                 level.DespawnChar(this);
+                AddScore(character);
                 character.Scale();
+                // DataPlayerController.coinInLevel+= Constant.COIN_INCR;
+                // character.coinInLevel+= Constant.COIN_INCR;
                 if(character.GetType() == typeof(Player)) 
                 {
-                    DataPlayerController.AddCoin(10);
+                    DataPlayerController.coinInLevel+= Constant.COIN_INCR;
+                    // DataPlayerController.AddCoin(Constant.COIN_INCR);
                 }
                 level.UpdateListChar();
                 level.CheckCountChar();
@@ -155,8 +160,6 @@ public class Character : GameUnit, IHit
     {
         
     }
-
-    
     public void ChangeAnim(string animName)
     {
         if(currentAnimName != animName)
@@ -310,5 +313,11 @@ public class Character : GameUnit, IHit
         return false;
     }
     
+    public void AddScore(Character character)
+    {
+        character.score++;
+        data.SetScore(score);
+        indicator.SetScore();
+    }
    
 }

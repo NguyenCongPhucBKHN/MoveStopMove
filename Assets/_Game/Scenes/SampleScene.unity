@@ -182,6 +182,7 @@ Transform:
   m_Children:
   - {fileID: 593488941}
   - {fileID: 159304392}
+  - {fileID: 2144651641}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -460,7 +461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b5ddfdcd98272841b4a42c22942b52d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 0}
+  button: {fileID: 6764453048203517868}
   shieldData: {fileID: 11400000, guid: 37413943daff0fe40bff6a2402175d51, type: 2}
 --- !u!1 &705507993
 GameObject:
@@ -567,7 +568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27d0df60df9564a40932b4d737a2b964, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 0}
+  button: {fileID: 223449914951747128}
   data: {fileID: 11400000, guid: ab30af19c10ff8d4bb8f37bebe39df2a, type: 2}
 --- !u!114 &749405549
 MonoBehaviour:
@@ -581,7 +582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ba6786a418a29e46aeb1f4723cbaeb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 0}
+  button: {fileID: 2278772480249483686}
   skinData: {fileID: 11400000, guid: 6e3c183fbb13f1a4c888c62ac89892b8, type: 2}
 --- !u!1 &963194225
 GameObject:
@@ -1000,6 +1001,8 @@ MonoBehaviour:
   currentWeaponType: 0
   indicator: {fileID: 0}
   IsDead: 0
+  score: 0
+  coinInLevel: 0
   HatTF: {fileID: 147441705}
   ShieldTF: {fileID: 259090552}
   WingTF: {fileID: 348671073}
@@ -1281,7 +1284,7 @@ GameObject:
   - component: {fileID: 2144651641}
   - component: {fileID: 2144651640}
   m_Layer: 0
-  m_Name: Pool
+  m_Name: PoolManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1302,7 +1305,7 @@ MonoBehaviour:
   Pool:
   - root: {fileID: 1690565542}
     prefab: {fileID: 8099917930150353548, guid: c44a46056211c6f43aed3ac9cbf8dfd5, type: 3}
-    amount: 10
+    amount: 20
     collect: 1
     clamp: 0
   - root: {fileID: 32472223}
@@ -1333,7 +1336,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2144651639}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1342,8 +1345,8 @@ Transform:
   - {fileID: 1602318600}
   - {fileID: 1049491842}
   - {fileID: 1134110005}
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 36490963}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2145935102
 GameObject:
@@ -3016,7 +3019,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5c7c2e073aa28749b4c68ffb1143f73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 0}
+  button: {fileID: 2824313329260328319}
   hatDatas: {fileID: 11400000, guid: 21dc254834c31da42807683ea14f0383, type: 2}
 --- !u!1 &3204151537641518416
 GameObject:

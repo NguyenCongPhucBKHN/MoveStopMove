@@ -29,5 +29,6 @@ public class Constant
     public static int SHOP_WEAPON_MAX_ITEM = 9;
 
     public static int SHOP_SKIN_MAX_ITEM =9;
-   
+    
+    public static int COIN_INCR= 10;
 }

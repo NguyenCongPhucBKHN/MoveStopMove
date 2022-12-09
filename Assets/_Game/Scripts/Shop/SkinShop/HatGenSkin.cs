@@ -20,6 +20,7 @@ public class HatGenSkin : GenSkin
     }
     private void Start() {
         indexType = (int) ESkinType.Hat;
+        PresentSkin.Instance.currentSkin = this;
         
     }
    public override void SpawnSkin(ESkinType iType, int indexItem)

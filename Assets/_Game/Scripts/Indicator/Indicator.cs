@@ -28,6 +28,13 @@ public class Indicator : GameUnit
 
     void Update()
     {
+        if(GameManagerr.Instance.IsState(EGameState.GamePlay))
+        {
+            followImage.gameObject.SetActive(true);
+        } else
+        {
+            followImage.gameObject.SetActive(false);
+        }
         if(target!=null)
         {
             viewPoint = Camera.main.WorldToViewportPoint(target.position);
@@ -69,22 +76,14 @@ public class Indicator : GameUnit
             {
                 Arrow.gameObject.SetActive(true);
                 nameTxtObj.SetActive(false);
-                
             }
-            
-
-            
-            // Vector3 posFollowWorld = Camera.main.ViewportToWorldPoint(viewPoint);
              Vector3 posFollowScreen = Camera.main.ViewportToScreenPoint(viewPoint);
-
             if(!nameActivate)
             {
                 
                  followImage.transform.position = new Vector2(posFollowScreen.x, posFollowScreen.y);
-                // Vector3 arrowViewPoint = Camera.main.WorldToViewportPoint(ArrowTF.position);
                 Vector3 dir = (viewPoint - new Vector3(0.5f, 0.5f,0));
                 dir.z =0;
-                // Vector2 dirr = Camera.main.ViewportToWorldPoint(dir);
                 dir.Normalize();
                 if(viewPoint.y>0.945f)
                 {
@@ -99,7 +98,7 @@ public class Indicator : GameUnit
             }
             else
             {
-                Vector3 pos2 = viewPoint + new Vector3(0, 0.1f, 0);
+                Vector3 pos2 = viewPoint  + new Vector3(0, 0.1f, 0);
                 Vector3 posFollowWorld2 = Camera.main.ViewportToWorldPoint(pos2);
                 Vector3 posFollowScreen2 = Camera.main.WorldToScreenPoint(posFollowWorld2);
                 followImage.transform.position = new Vector2(posFollowScreen2.x, posFollowScreen2.y);

@@ -51,6 +51,7 @@ public class LevelManager : Singleton<LevelManager>
         if(currentLevel!= null)
         {  
             player.gameObject.SetActive(true);
+            player.TF.localScale = Vector3.one;
             currentLevel.OnInit();
             
         }

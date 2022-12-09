@@ -8,6 +8,7 @@ public class MainMenu : UICanvas
     {
         LevelManager.Instance.OnStart();
         GameManagerr.Instance.ChangeState(EGameState.GamePlay);
+        DataPlayerController.coinInLevel =0;
         UIManager.Instance.OpenUI<GamePlayUI>();
         Close();
     }

@@ -17,10 +17,11 @@ public class SkinItemShop : MonoBehaviour
         button = GetComponent<Button>();
         button.onClick.AddListener(Select);
     }
-    void Select()
+    void Select() // Chon tung item
     {
         PresentSkin.Instance.currentIndex = indexItem;
         PresentSkin.Instance.currentType = indexType;
+        UpdateBtn();
         PresentSkin.Instance.SpawnItem();
     }
     void Update()
@@ -34,4 +35,24 @@ public class SkinItemShop : MonoBehaviour
             lockObj.SetActive(true);
         }
     }
+
+    void UpdateBtn()
+    {
+        int num;
+        if(PresentSkin.Instance.isUsed((int) indexType,  indexItem)) // Dang mang skin nay
+        {
+            num = 100;
+        }
+        else if(DataPlayerController.IsOwnedSkin((int) indexType,  indexItem)) // Dang so huu
+        {
+            num = 10;
+        }
+        else
+        {
+            num =1;
+        }
+        // PresentSkin.Instance.ActivateBtn(num);
+    }
+
+   
 }

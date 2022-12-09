@@ -14,6 +14,7 @@ public static class DataPlayerController
     private static string KEY_COIN ="Coin";
     
     public static int initCoin=1000;
+    public static int coinInLevel =0;
     public static ItemModel weaponInit = new ItemModel(0, 0);
     public static ItemModel hatInit =new ItemModel(0, -1);
     public static ItemModel pantInit =new ItemModel(1, -1);
@@ -54,14 +55,6 @@ public static class DataPlayerController
         return weaponData.IsOwnedItem(type, index);
     }
     
-
-    
-    
-
-
-
-
-
     public static bool IsOwnedWeaponType(int type)
     {
         return weaponData.IsOwnedType(type);
@@ -84,7 +77,11 @@ public static class DataPlayerController
         SaveData();
     }
 
-    
+    public static bool IsCurrentWeapon(int iType, int index)
+    {
+        ItemModel item = DataPlayerController.GetCurrentWeapon();
+        return (item.indexType == iType && item.indexItem == index);
+    }
 
     public static void SetCurrentWeapon(int type, int index)
     {

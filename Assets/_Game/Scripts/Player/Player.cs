@@ -6,8 +6,8 @@ public class Player : Character
 {
 
     
-    private bool isStop => !JoystickInput.Instance.isControl;
-    private bool canAttack => !JoystickInput.Instance.isMouse && weapon.isActiveAndEnabled;
+    // private bool isStop => !JoystickInput.Instance.isControl;
+    private bool canAttack => /*!JoystickInput.Instance.isMouse && */ weapon.isActiveAndEnabled;
 
     [Header("Transform for Skins")]
     public Transform HatTF;
@@ -28,11 +28,11 @@ public class Player : Character
         {
             if(GameManagerr.Instance.IsState(EGameState.GamePlay))
             { 
-               if(isStop && !isAttack()) // Dung va co bot trong vung tan cong
+               if(!JoystickInput.Instance.isControl && !isAttack()) // Dung va co bot trong vung tan cong
                 {
                     ChangeAnim(Constant.ANIM_IDLE);
                 }
-                else if(isStop && canAttack && isAttack() &&  level.IsExistChar(FindCharacterClosed())) // Dung va co the tan cong, co bot trong vung tan cong
+                else if(!JoystickInput.Instance.isControl && canAttack && isAttack() &&  level.IsExistChar(FindCharacterClosed())) // Dung va co the tan cong, co bot trong vung tan cong
                 {
                     StopMoving();
                     Throw();
@@ -74,7 +74,7 @@ public class Player : Character
     void SetData()
     {
         string name = "You";
-        float score = 0;
+        // float score = 0;
         EBodyMaterialType body = EBodyMaterialType.YELLOW;
         data?.SetBodyMaterial(body);
         skinnedMeshRenderer.material = data?.GetBodyMaterial();

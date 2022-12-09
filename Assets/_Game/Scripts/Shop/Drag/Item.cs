@@ -6,6 +6,7 @@ public class Item : MonoBehaviour
 {
     
     public bool IsDestroyOnDespawn = false;
+    
 
     public virtual void Activate()
     {
