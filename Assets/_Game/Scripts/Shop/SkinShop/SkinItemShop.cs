@@ -28,9 +28,13 @@ public class SkinItemShop : MonoBehaviour
     {
         PresentSkin.Instance.currentIndex = indexItem;
         PresentSkin.Instance.currentType = indexType;
-        PresentSkin.Instance.SpawnItem();
         skinShop.moneyTxt.text = "$ " + cost;
-        UpdatePresent();
+        // if(DataPlayerController.IsOwnedSkin((int)indexType, indexItem))
+        // {
+        //     PresentSkin.Instance.SpawnItem();
+        // }
+
+        PresentSkin.Instance.UpdatePresent((int)indexType, indexItem);
     }
     void Update()
     {
@@ -45,13 +49,11 @@ public class SkinItemShop : MonoBehaviour
     }
 
     void UpdatePresent()
-    {
-       
+    { 
         if(PresentSkin.Instance.isUsed((int) indexType,  indexItem)) // Dang mang skin nay
         {
             skinShop.EquippedActivate();
         }
-        
         else if(DataPlayerController.IsOwnedSkin((int) indexType,  indexItem) && !PresentSkin.Instance.isUsed((int) indexType,  indexItem) ) // Dang so huu
         {
            skinShop.SelectActivate();

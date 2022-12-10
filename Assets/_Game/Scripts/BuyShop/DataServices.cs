@@ -40,7 +40,6 @@ public class DataServices
     {
         string data = JsonUtility.ToJson(dataRepository);
         PlayerPrefs.SetString(KEY_DATA, data);
-        Debug.Log("data string: "+ data);
     }
 
     public bool IsOwnedItem(int type, int index, int factor =10)

@@ -15,6 +15,7 @@ public class SkinShop : UICanvas
    
     private void Start() {
         UpdateSelect((int) ESkinType.Hat);
+        PresentSkin.Instance.UpdatePresent((int)ESkinType.Hat , 0);
     }
 
     
@@ -29,6 +30,7 @@ public class SkinShop : UICanvas
         selectType = ESkinType.Hat;
         UpdateSelect((int) ESkinType.Hat);
         PresentSkin.Instance.currentType = ESkinType.Hat;
+        PresentSkin.Instance.UpdatePresent((int)ESkinType.Hat , 0);
         
     }
 
@@ -37,6 +39,7 @@ public class SkinShop : UICanvas
         selectType = ESkinType.Pant;
         UpdateSelect((int) ESkinType.Pant);
         PresentSkin.Instance.currentType =  ESkinType.Pant;
+        PresentSkin.Instance.UpdatePresent((int)ESkinType.Pant , 0);
     }
 
     public void ShieldBtn()
@@ -44,6 +47,7 @@ public class SkinShop : UICanvas
         selectType = ESkinType.Shield;
         UpdateSelect((int) ESkinType.Shield);
         PresentSkin.Instance.currentType =  ESkinType.Shield;
+        PresentSkin.Instance.UpdatePresent((int)ESkinType.Shield , 0);
     }
 
      public void SetBtn()
@@ -51,6 +55,7 @@ public class SkinShop : UICanvas
         selectType = ESkinType.Skin;
         UpdateSelect((int) ESkinType.Skin);
         PresentSkin.Instance.currentType =  ESkinType.Skin;
+        PresentSkin.Instance.UpdatePresent((int)ESkinType.Skin , 0);
     }
 
     public void SelectBtn()
@@ -58,11 +63,31 @@ public class SkinShop : UICanvas
         // PresentSkin.Instance.SpawnItem();
 
         PresentSkin.Instance.SelectItem();
-        int cost = PresentSkin.Instance.GetCostItem();
-        DataPlayerController.SubCoin(cost);
+        EquippedActivate();
+
+        // int cost = PresentSkin.Instance.GetCostItem();
+        // DataPlayerController.SubCoin(cost);
+
+        // GameManagerr.Instance.ChangeState(EGameState.MainMenu);
+        // UIManager.Instance.OpenUI<MainMenu>();
+        // Close();
+    }
+
+    public void MoneyButton()
+    {
+        int cost  = ((int) PresentSkin.Instance.currentType+1) *100 + PresentSkin.Instance.currentIndex*10;
+        if(DataPlayerController.IsEnoughMoney(cost))
+        {
+            PresentSkin.Instance.MoneyItem();
+            SelectActivate();
+        }
+    }
+    public void EquippedButton()
+    {
+        PresentSkin.Instance.EquippedItem();
         GameManagerr.Instance.ChangeState(EGameState.MainMenu);
         UIManager.Instance.OpenUI<MainMenu>();
-        // Close();
+        Close();
     }
     void UpdateSelect(int j)
     {

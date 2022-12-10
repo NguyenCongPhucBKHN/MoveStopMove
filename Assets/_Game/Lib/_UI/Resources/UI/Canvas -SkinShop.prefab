@@ -396,7 +396,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1596738013829605773
 RectTransform:
   m_ObjectHideFlags: 0
@@ -602,7 +602,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 9202925995011661580}
         m_TargetAssemblyTypeName: SkinShop, Assembly-CSharp
-        m_MethodName: SelectBtn
+        m_MethodName: MoneyButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -735,7 +735,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 9202925995011661580}
         m_TargetAssemblyTypeName: SkinShop, Assembly-CSharp
-        m_MethodName: SelectBtn
+        m_MethodName: EquippedButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1043,6 +1043,7 @@ MonoBehaviour:
   indexItem: 1
   lockObj: {fileID: 371860209780964323}
   skinShop: {fileID: 0}
+  cost: 0
 --- !u!1 &1726172765825528175
 GameObject:
   m_ObjectHideFlags: 0
@@ -1183,6 +1184,7 @@ MonoBehaviour:
   indexItem: 0
   lockObj: {fileID: 371860209509136612}
   skinShop: {fileID: 0}
+  cost: 0
 --- !u!1 &2169685158813354538
 GameObject:
   m_ObjectHideFlags: 0
@@ -2242,6 +2244,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  skinShop: {fileID: 0}
 --- !u!1 &3567401839531523175
 GameObject:
   m_ObjectHideFlags: 0
@@ -2606,6 +2609,7 @@ MonoBehaviour:
   indexItem: 5
   lockObj: {fileID: 5461512550060145463}
   skinShop: {fileID: 0}
+  cost: 0
 --- !u!1 &4711879808572014986
 GameObject:
   m_ObjectHideFlags: 0
@@ -2879,6 +2883,7 @@ MonoBehaviour:
   indexItem: 2
   lockObj: {fileID: 5461512550296012408}
   skinShop: {fileID: 0}
+  cost: 0
 --- !u!1 &4711879809293585497
 GameObject:
   m_ObjectHideFlags: 0
@@ -3152,6 +3157,7 @@ MonoBehaviour:
   indexItem: 4
   lockObj: {fileID: 5461512548586376808}
   skinShop: {fileID: 0}
+  cost: 0
 --- !u!1 &4711879809639390197
 GameObject:
   m_ObjectHideFlags: 0
@@ -3292,6 +3298,7 @@ MonoBehaviour:
   indexItem: 3
   lockObj: {fileID: 3613806319438004028}
   skinShop: {fileID: 0}
+  cost: 0
 --- !u!1 &4744210803476529783
 GameObject:
   m_ObjectHideFlags: 0
@@ -3547,7 +3554,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4744210804424885886
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4786,10 +4793,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 0}
-  indexType: 0
+  indexType: 3
   indexItem: 1
   lockObj: {fileID: 5461512549590577758}
   skinShop: {fileID: 0}
+  cost: 0
 --- !u!1 &5335888216007768915
 GameObject:
   m_ObjectHideFlags: 0
@@ -4930,6 +4938,7 @@ MonoBehaviour:
   indexItem: 1
   lockObj: {fileID: 6727045615350382220}
   skinShop: {fileID: 0}
+  cost: 0
 --- !u!1 &5335888216473175731
 GameObject:
   m_ObjectHideFlags: 0
@@ -5066,10 +5075,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 0}
-  indexType: 0
+  indexType: 3
   indexItem: 0
   lockObj: {fileID: 5461512550619304344}
   skinShop: {fileID: 0}
+  cost: 0
 --- !u!1 &5335888216483097896
 GameObject:
   m_ObjectHideFlags: 0
@@ -5291,6 +5301,7 @@ MonoBehaviour:
   indexItem: 1
   lockObj: {fileID: 6727045616761580758}
   skinShop: {fileID: 0}
+  cost: 0
 --- !u!1 &5335888216626937665
 GameObject:
   m_ObjectHideFlags: 0
@@ -5431,6 +5442,7 @@ MonoBehaviour:
   indexItem: 0
   lockObj: {fileID: 6727045615811813984}
   skinShop: {fileID: 0}
+  cost: 0
 --- !u!1 &5335888216781190533
 GameObject:
   m_ObjectHideFlags: 0
@@ -5571,6 +5583,7 @@ MonoBehaviour:
   indexItem: 0
   lockObj: {fileID: 6727045617265361265}
   skinShop: {fileID: 0}
+  cost: 0
 --- !u!1 &5335888216848659167
 GameObject:
   m_ObjectHideFlags: 0
@@ -5711,6 +5724,7 @@ MonoBehaviour:
   indexItem: 2
   lockObj: {fileID: 6727045615591800203}
   skinShop: {fileID: 0}
+  cost: 0
 --- !u!1 &5461512548586376808
 GameObject:
   m_ObjectHideFlags: 0

@@ -85,12 +85,14 @@ public class Player : Character
 
     public override void SetSkin()
     {
-        DespawnCurrentWeapon();
-        PresentSkin.Instance.SelectItem();
+        // DespawnCurrentWeapon();
+        PresentSkin.Instance.EquippedItem();
+        // PresentSkin.Instance.SelectItem();
     }
 
     public override void SetWeapon()
     {
+        DespawnCurrentWeapon();
         currentWeaponType= (EWeaponType) DataPlayerController.GetCurrentWeapon().indexType;
         int idmaterial =  DataPlayerController.GetCurrentWeapon().indexItem;
         SpawnWeapon(idmaterial);

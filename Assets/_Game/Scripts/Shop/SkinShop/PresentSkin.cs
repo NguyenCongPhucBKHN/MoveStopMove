@@ -14,7 +14,10 @@ public class PresentSkin : Singleton<PresentSkin>
     public GenSkin currentSkin ;
     public bool isCurrent, isOwned, noHave;
     public GenSkin[] listGenSkin = new GenSkin[4];
+    [SerializeField] private SkinShop skinShop;
+    // public bool[] isReSelect = new bool[3];
     private void Start() {
+        
         currentType = ESkinType.Hat;
        
     }
@@ -25,33 +28,82 @@ public class PresentSkin : Singleton<PresentSkin>
 
     public void MoneyItem() //Button money
     {
-        int cost = (int)currentType+1 *100 + currentIndex*10;
-        if(DataPlayerController.IsEnoughMoney(cost))
-        {
-            DataPlayerController.SubCoin(cost);
-            DataPlayerController.AddSkin((int)currentType, currentIndex);
-        }
+        int cost = ((int)currentType+1) *100 + currentIndex*10;
+        DataPlayerController.SubCoin(cost);
+        DataPlayerController.AddSkin((int)currentType, currentIndex);
+        
     }
 
     public void SelectItem() //Button select/equip
     {
+        if(DataPlayerController.IsOwnedSkin((int)currentType, currentIndex)) //Da su huu thi spawn
+        {
+            PresentSkin.Instance.SpawnItem();
+        }
+
+        DataPlayerController.SetCurrentSkin((int)currentType, currentIndex); //Set hien tai
+        
+        if((int)currentType ==3) //neu chon set
+        {
+            for(int i =0; i<3; i++)
+            {
+                DataPlayerController.SetCurrentSkin((int)i, -1); //Bo nhung cai hien tai cua tap truoc di
+                // isReSelect[i] = false; // set no ve false
+            }
+
+        }
+        // else
+        // {
+        //     isReSelect[(int)currentType] = true; // con ko thi de la true
+        // }
+
+
+
+
+
+
+        // DataPlayerController.SetCurrentSkin((int)currentType, currentIndex);
+        // SpawnSaveItem();
+        
+
         // if(!DataPlayerController.IsOwnedSkin((int)currentType, currentIndex))
         // {
-            DataPlayerController.AddSkin((int)currentType, currentIndex);
+            // DataPlayerController.AddSkin((int)currentType, currentIndex);
         // }
         // DataPlayerController.SetCurrentSkin((int)currentType, currentIndex);
         // SpawnSaveItem();
     }
 
-
+    public void EquippedItem()
+    {
+        
+        SpawnSaveItem();
+    }
 
     public void SpawnSaveItem()
     {
-        for(int i =0; i <4; i++)
+        ItemModel itemSet = DataPlayerController.GetCurrentSkin(3);
+        if(itemSet.indexItem<0) // Ko chon ca set
         {
-            ItemModel item = DataPlayerController.GetCurrentSkin(i);
-            listGenSkin[i]?.SpawnSkin((ESkinType)item.indexType, item.indexItem);
+            for(int i =0; i <3; i++)
+            {
+                ItemModel item = DataPlayerController.GetCurrentSkin(i);
+                Debug.Log("current item: "+ item.indexType+ " index: "+ item.indexItem);
+                listGenSkin[i]?.SpawnSkin((ESkinType)item.indexType, item.indexItem);
+            }
         }
+        else // chon ca set
+        {
+              listGenSkin[3]?.SpawnSkin((ESkinType)itemSet.indexType, itemSet.indexItem);
+              for(int i =0; i <3; i++)
+            {
+                    ItemModel item = DataPlayerController.GetCurrentSkin(i);
+                    listGenSkin[i]?.SpawnSkin((ESkinType)item.indexType, item.indexItem);
+            }
+              
+        }
+        
+
     }
 
     public bool isUsed(int itype, int index)
@@ -78,5 +130,28 @@ public class PresentSkin : Singleton<PresentSkin>
     public int GetCostItem()
     {
         return ((int)currentType+1) *100 + currentIndex*10;
+    }
+
+
+    public void UpdatePresent(int iType, int index)
+    {
+        if(skinShop==null)
+        {
+            skinShop = FindObjectOfType<SkinShop>();
+        }
+       
+        if(PresentSkin.Instance.isUsed( iType,  index)) // Dang mang skin nay
+        {
+            skinShop.EquippedActivate();
+        }
+        
+        else if(DataPlayerController.IsOwnedSkin((int) iType,  index) && !PresentSkin.Instance.isUsed((int) iType,  index) ) // Dang so huu
+        {
+           skinShop.SelectActivate();
+        }
+        else
+        {
+            skinShop.MoneyActivate();
+        }
     }
 }

@@ -19,7 +19,7 @@ public class Character : GameUnit, IHit
     
     public Indicator indicatorprefab;
     
-    // [HideInInspector] //TODO
+    [HideInInspector] 
     public List<Character> listCharInAttact = new List<Character>();
     [HideInInspector]
     public Weapon weapon;
@@ -30,7 +30,7 @@ public class Character : GameUnit, IHit
      [HideInInspector]
     public EWeaponType currentWeaponType;
     
-    // [HideInInspector] //TODO
+    [HideInInspector]
     public Indicator indicator;
     [HideInInspector]
     public bool IsDead;
@@ -80,10 +80,10 @@ public class Character : GameUnit, IHit
         int index = Random.Range(0, BotDatasIns.BotName.Count);
         string name = BotDatasIns.BotName[index];
         EBodyMaterialType body = RandomBodyMat();
-        data?.SetBodyMaterial(body);
-        skinnedMeshRenderer.material = data?.GetBodyMaterial();
-        data?.SetName(name);
-        data?.SetScore(score);
+        data.SetBodyMaterial(body);
+        skinnedMeshRenderer.material = data.GetBodyMaterial();
+        data.SetName(name);
+        data.SetScore(score);
     }
 
     public void SetIndicator()
@@ -133,22 +133,18 @@ public class Character : GameUnit, IHit
     {
         if(bullet.character!= this)
         {
-            character.listCharInAttact.Remove(this);
             bullet.OnDespawn();
-            
+            character.listCharInAttact.Remove(this);
+            character.UnderObj.SetActive(false);
             if(!this.IsDead)
             {
                 this.IsDead = true;
                 level.DespawnChar(this);
                 AddScore(character);
                 character.Scale();
-                character.UnderObj.SetActive(false);
-                // DataPlayerController.coinInLevel+= Constant.COIN_INCR;
-                // character.coinInLevel+= Constant.COIN_INCR;
                 if(character.GetType() == typeof(Player)) 
                 {
                     DataPlayerController.coinInLevel+= Constant.COIN_INCR;
-                    // DataPlayerController.AddCoin(Constant.COIN_INCR);
                 }
                 level.UpdateListChar();
                 level.CheckCountChar();

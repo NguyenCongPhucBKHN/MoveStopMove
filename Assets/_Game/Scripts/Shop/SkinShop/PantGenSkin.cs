@@ -11,21 +11,24 @@ public class PantGenSkin : GenSkin
      private void Awake() {
          PresentSkin.Instance.listGenSkin[1]=this;
          button.onClick.AddListener(Select);
-         player= FindObjectOfType<Player>();
+         player = LevelManager.Instance.player;
+         meshRenderer = player.pantRender;
+        
     }
      private void Start() 
      {
-
+        
         indexType = (int) ESkinType.Pant;
-        meshRenderer = player.pantRender;
         
     }
      public override void SpawnSkin(ESkinType indexType, int indexItem)
     {   
         material = data.GetMaterial(indexItem);
-        if(material!=null && meshRenderer!=null)
+        Debug.Log("material: "+ material);
+        
+        if(material!=null)
         {
-            meshRenderer.material = material;
+            player.pantRender.material = material;
         }
         
     }
