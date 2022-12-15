@@ -44,7 +44,10 @@ public class Bot : Character
         }
         else if(GameManagerr.Instance.IsState(EGameState.MainMenu)|| GameManagerr.Instance.IsState(EGameState.Pause))
         {
-            ChangeState(new IdleState());
+            ChangeAnim(Constant.ANIM_IDLE);
+            StopMoving();
+            
+            // ChangeState(new IdleState());
         }
     }
 
@@ -138,6 +141,8 @@ public class Bot : Character
     public override void StopMoving()
     {
         agent.SetDestination(TF.position);
+        // agent.enabled = false;
+        //TODO: stop move
     }
     
    

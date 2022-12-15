@@ -12,7 +12,7 @@ public class Knife : Bullet
     public override void OnInit()
     {
         base.OnInit();
-        speedBullet= 6;
+        // speedBullet= 6;
     }
 
      public override void OnDespawn()

@@ -2180,7 +2180,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1042623501872899815}
         m_TargetAssemblyTypeName: Lose, Assembly-CSharp
-        m_MethodName: RePlayButton
+        m_MethodName: ReLoadLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

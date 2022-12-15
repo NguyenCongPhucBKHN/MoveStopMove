@@ -41,7 +41,7 @@ public class CameraFollow : MonoBehaviour
     {
         Vector3 pos = TF.position;
         Vector3 targetPos = player.TF.position + offset;
-        pos = Vector3.Lerp(pos, targetPos, lerpRate*Time.deltaTime);
+        pos = Vector3.Lerp(pos, targetPos, lerpRate*Time.fixedDeltaTime);
         TF.position = pos;
     }
     

@@ -16,7 +16,7 @@ public class Hammer : Bullet //Bua
     public override void OnInit()
     {
         base.OnInit();
-        speedBullet= 5;
+        // speedBullet= 5;
     }
      public override void OnDespawn()
     {

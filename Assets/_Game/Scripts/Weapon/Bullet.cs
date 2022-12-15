@@ -12,7 +12,8 @@ public class Bullet : GameUnit
     [SerializeField] public Vector3 offsetQuaternion;
     [SerializeField] public MeshRenderer meshRenderer;
     protected Quaternion bulletOffsetQuaternion;
-    public float speedBullet=10 ;
+    [SerializeField]
+    public float speedBullet=5 ;
     public bool IsDead;
     public Character character; 
    

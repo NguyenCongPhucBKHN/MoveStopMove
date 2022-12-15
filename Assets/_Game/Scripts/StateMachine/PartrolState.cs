@@ -17,16 +17,9 @@ public class PartrolState : IState<Bot>
     public void OnExecute(Bot bot)
     {
         timer += Time.deltaTime;
-    
-        // if(bot.isAttack() && timer > waitTime)
-        //     {
-        //         bot.ChangeState(new AttackState());
-        //     }
-        
-
-         if(bot.Target!= null)
-         {
-            if(bot.isAttack() && timer > waitTime)
+        if(bot.Target!= null)
+        {
+            if(bot.isAttack() /*&& timer > waitTime*/)
             {
                 bot.ChangeState(new AttackState());
             }

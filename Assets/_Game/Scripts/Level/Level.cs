@@ -15,15 +15,12 @@ public class Level : MonoBehaviour
     public Vector3 sizeGround;
     float sizeObstacle;
     float targetAmount=5; // So luong bot tren man hinh
-    public float totalAmount= 6; // So luong bot trong 1 level
-
-   
-
+    public float totalAmount; // So luong bot trong 1 level
+    
     void Awake()
     {
         if(sizeGround!=null)
         {
-            
             sizeGround = groudTF.localScale;
             sizeObstacle = obstacleTF.localScale.x > obstacleTF.localScale.z? obstacleTF.localScale.x : obstacleTF.localScale.z; 
             listCharacters = new List<Character>();
@@ -37,14 +34,9 @@ public class Level : MonoBehaviour
     }
    
 
-    public void OnStart()
-    {
-        OnInit();
-    }
-
     public void OnInit()
     {   
-        DataPlayerController.coinInLevel =0;
+        DataPlayerController.coinInLevel = 0;
         InitDataSO();
         SpawnPlayer();
         SpawnAmountBot();
@@ -98,7 +90,7 @@ public class Level : MonoBehaviour
         listCharacters.Remove(character);
         character.OnDeath();
         UpdateListChar();
-        --totalAmount;
+        totalAmount--;
     }
 
     
@@ -177,20 +169,17 @@ public class Level : MonoBehaviour
 
     public void CheckCountChar()
     {
-        if(totalAmount> 0) // So luong bot con lai lon hon so bot tren man hinh 
+        if(totalAmount> targetAmount-2) // So luong bot con lai lon hon so bot tren man hinh 
         {
             SpawnABot();
         }
         else // So luong bot con lai nho hon hoac bang so bot tren man hinh
         {
-            if(listCharacters.Contains(player) && totalAmount<2 )
+            if(listCharacters.Contains(player) && listCharacters.Count ==1 )
                 {
                     isWin= true;
                     LevelManager.Instance.OnFinish();
                 }
-            
         }        
-    }
-    
-
+    }    
 }

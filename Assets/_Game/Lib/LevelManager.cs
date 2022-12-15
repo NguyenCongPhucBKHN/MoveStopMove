@@ -11,14 +11,13 @@ public class LevelManager : Singleton<LevelManager>
     
     private void Start() 
     {
+        UIManager.Instance.OpenUI<MainMenu>();
         Data.Instance.SetLevel(1);
         LoadLevel(Data.Instance.GetLevel());
     }
 
     public void OnStart()
    {
-        // currentLevel.OnStart();
-        player.gameObject.SetActive(true);
         GameManagerr.Instance.currentState = EGameState.GamePlay;
    }
 
@@ -30,10 +29,14 @@ public class LevelManager : Singleton<LevelManager>
         if(currentLevel.isWin)
         {
             UIManager.Instance.OpenUI<Win>();
+            player.gameObject.SetActive(true);
+            player.ChangeAnim(Constant.ANIM_WIN);
         }
         else
         {
             UIManager.Instance.OpenUI<Lose>();
+            player.gameObject.SetActive(true);
+            player.ChangeAnim(Constant.ANIM_DEAD);
         }  
         
         currentLevel.Despawn();
@@ -41,7 +44,6 @@ public class LevelManager : Singleton<LevelManager>
 
     public void LoadLevel(int index)
     {
-        
         if(currentLevel !=levels[index-1] &&  currentLevel != null)
         {
             currentLevel.Despawn();
@@ -50,10 +52,8 @@ public class LevelManager : Singleton<LevelManager>
         currentLevel = Instantiate(levels[index-1]);
         if(currentLevel!= null)
         {  
-            player.gameObject.SetActive(true);
-            player.TF.localScale = Vector3.one;
-            currentLevel.OnInit();
-            
+            player.OnStart();
+            currentLevel.OnInit();            
         }
         Data.Instance.SetLevel(index);
     }

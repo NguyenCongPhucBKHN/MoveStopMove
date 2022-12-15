@@ -19,7 +19,7 @@ public class Character : GameUnit, IHit
     
     public Indicator indicatorprefab;
     
-    [HideInInspector] 
+    //[HideInInspector] 
     public List<Character> listCharInAttact = new List<Character>();
     [HideInInspector]
     public Weapon weapon;
@@ -50,6 +50,7 @@ public class Character : GameUnit, IHit
     private List<Weapon> listWeapon = new List<Weapon>();
     public float score = 0;
     public int coinInLevel=0;
+    public float timerWait=0;
     void Start()
     {
         tf= transform;
@@ -61,7 +62,7 @@ public class Character : GameUnit, IHit
         IsDead = false;
         TF.localScale = Vector3.one;
         UnderObj.SetActive(false);
-
+        score = 0;
         AssignAttackArea();
         SetSkin();
         SetWeapon();
@@ -112,8 +113,10 @@ public class Character : GameUnit, IHit
     public void DespawnWeapon()
     {   
         Weapon weaponPrefab = weaponDatas.GetWeaponPrefab(currentWeaponType);
+        // SimplePool.Despawn(this.bullet);
         foreach(KeyValuePair<Weapon, Weapon> weapon in dictWeapon)
         {
+            Destroy(weapon.Value.bullet);
             weapon.Value.gameObject.SetActive(false);
         }
     }
@@ -263,15 +266,25 @@ public class Character : GameUnit, IHit
 
     public void Throw()
     {
+       
         Character closed = FindCharacterClosed();
         if( listCharInAttact.Count>0 && level.IsExistChar(closed))
         {
             FaceTarget(closed);
             ChangeAnim(Constant.ANIM_ATTACK);
-            weapon.gameObject.SetActive(false);
-            weapon.Attack();
+            // weapon.gameObject.SetActive(false);
+            // weapon.Attack();
+            // timerWait=0;
+            
 
         }
+    }
+
+    public void Attack()
+    {
+        weapon.gameObject.SetActive(false);
+        weapon.Attack();
+        timerWait=0;
     }
 
     public EBodyMaterialType RandomBodyMat()
@@ -312,8 +325,8 @@ public class Character : GameUnit, IHit
     public void AddScore(Character character)
     {
         character.score++;
-        data.SetScore(score);
-        indicator.SetScore();
+        character.data.SetScore(character.score);
+        character.indicator.SetScore();
     }
    
 }

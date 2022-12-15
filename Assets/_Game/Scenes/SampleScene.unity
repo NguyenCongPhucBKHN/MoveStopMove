@@ -183,6 +183,7 @@ Transform:
   - {fileID: 593488941}
   - {fileID: 159304392}
   - {fileID: 2144651641}
+  - {fileID: 2824313328788071525}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1009,6 +1010,7 @@ MonoBehaviour:
   TailTF: {fileID: 1590504914}
   pantRender: {fileID: 8694194341253377585}
   skinRender: {fileID: 524359564596407122}
+  playerName: You
 --- !u!1 &1489036063
 GameObject:
   m_ObjectHideFlags: 0
@@ -2732,8 +2734,8 @@ RectTransform:
   - {fileID: 2721248854310466141}
   - {fileID: 993178355711243044}
   - {fileID: 2278772480249483685}
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 36490963}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

@@ -27,6 +27,7 @@ public class Lose : UICanvas
     public void ReLoadLevel()
     {
         UIManager.Instance.OpenUI<MainMenu>();
+        DataPlayerController.AddCoin(DataPlayerController.coinInLevel);
         GameManagerr.Instance.ChangeState(EGameState.MainMenu);
         LevelManager.Instance.LoadLevel(Data.Instance.GetLevel());
         Close();
@@ -47,6 +48,8 @@ public class Lose : UICanvas
         Close();
 
     }
+
+   
 
    
 

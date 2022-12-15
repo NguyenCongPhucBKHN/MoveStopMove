@@ -133,7 +133,7 @@ MonoBehaviour:
   offsetRotation: {x: 0, y: 0, z: 0}
   offsetQuaternion: {x: 0, y: 0, z: 0}
   meshRenderer: {fileID: 4468597034019295184}
-  speedBullet: 10
+  speedBullet: 5
   IsDead: 0
   character: {fileID: 0}
   BoomerangImgTF: {fileID: 1181115765664860447}

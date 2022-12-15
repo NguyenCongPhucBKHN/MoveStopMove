@@ -8,9 +8,9 @@ public class WeaponShop : UICanvas
     private void Start() {
         player = FindObjectOfType<Player>();
     }
-    private void OnEnable() {
-        player.gameObject.SetActive(false);
-    }
+    // private void OnEnable() {
+    //      player.gameObject.SetActive(false);
+    // }
 
     public void ExitBtn()
     {

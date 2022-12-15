@@ -17,7 +17,7 @@ public class Player : Character
 
     public SkinnedMeshRenderer pantRender;
     public SkinnedMeshRenderer skinRender;
-
+    public string playerName;
     private void Start() {
         // OnInit();
         DataPlayerController.AddWeapon(0, 0);
@@ -35,7 +35,13 @@ public class Player : Character
                 else if(!JoystickInput.Instance.isControl && canAttack && isAttack() &&  level.IsExistChar(FindCharacterClosed())) // Dung va co the tan cong, co bot trong vung tan cong
                 {
                     StopMoving();
+                    ChangeAnim(Constant.ANIM_ATTACK);
+                    timerWait+=Time.deltaTime;
                     Throw();
+                    if(timerWait>0.25)
+                    {
+                        Attack();
+                    }
                 }
                 
                 else if(JoystickInput.Instance.isControl)
@@ -70,24 +76,28 @@ public class Player : Character
         SetIndicator();
         ChangeAnim(Constant.ANIM_IDLE);
     }
+    public void OnStart()
+    {
+        score =0;
+        gameObject.SetActive(true);
+        TF.localScale = Vector3.one;
+    }
 
     void SetData()
     {
-        string name = "You";
+        
         // float score = 0;
         EBodyMaterialType body = EBodyMaterialType.YELLOW;
         data?.SetBodyMaterial(body);
         skinnedMeshRenderer.material = data?.GetBodyMaterial();
-        data?.SetName(name);
+        data?.SetName(playerName);
         data?.SetScore(score);
         
     }
 
     public override void SetSkin()
     {
-        // DespawnCurrentWeapon();
         PresentSkin.Instance.EquippedItem();
-        // PresentSkin.Instance.SelectItem();
     }
 
     public override void SetWeapon()

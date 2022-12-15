@@ -130,7 +130,7 @@ MonoBehaviour:
   listBodyMaterialType: 
   isWin: 0
   sizeGround: {x: 0, y: 0, z: 0}
-  totalAmount: 6
+  totalAmount: 10
 --- !u!1 &9214241799009333307
 GameObject:
   m_ObjectHideFlags: 0

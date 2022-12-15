@@ -10,7 +10,7 @@ public class Boomerang : Bullet
     public override void OnInit()
     {
         base.OnInit();
-        speedBullet= 6;
+        // speedBullet= 6;
     }
     private void Update()
     {
@@ -22,7 +22,7 @@ public class Boomerang : Bullet
             tf.position= Vector3.MoveTowards(tf.position, character.weaponGenTF.position, speed);
         }
 
-        if(isHit  && Vector3.Distance(tf.position, character.weaponGenTF.position)<0.0001)
+        if(isHit  && Vector3.Distance(tf.position, character.weaponGenTF.position)<0.01)
         {
             IsDead= true;
             

@@ -15,6 +15,7 @@ public class Weapon : MonoBehaviour
     public Character character;
     protected bool isActivate = true;
     public int indexMat ;
+    public Bullet bullet;
    
     void Start()
     {
@@ -48,7 +49,7 @@ public class Weapon : MonoBehaviour
     {   
             bulletPrefab = weaponDatas.GetBulletPrefab(eWeaponType);
             character.dirAttact.y=0;
-            Bullet bullet = Instantiate(bulletPrefab, TF.position,Quaternion.identity);
+            bullet = Instantiate(bulletPrefab, TF.position,Quaternion.identity);
             bullet.meshRenderer.materials = weaponDataa.GetMaterial().ToArray();
             // bullet.TF.localScale = character.TF.localScale;
             bullet.TF.localScale= character.TF.localScale;
