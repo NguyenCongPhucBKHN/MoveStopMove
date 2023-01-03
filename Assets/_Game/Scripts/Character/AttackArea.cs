@@ -9,7 +9,7 @@ public class AttackArea : MonoBehaviour, IHit
     public float chaseRange => transform.lossyScale.x;
     void OnTriggerEnter(Collider other)
     {
-        Character charInArea = other.GetComponent<Character>();
+        Character charInArea = Cache.GetCharacter(other);
         if(charInArea != null  && character?.gameObject!=null && charInArea?.gameObject != character?.gameObject )
         {
             character?.listCharInAttact.Add(charInArea);
@@ -19,7 +19,7 @@ public class AttackArea : MonoBehaviour, IHit
     }
     void OnTriggerExit(Collider other)
     {
-        Character charInArea = other.GetComponent<Character>();
+        Character charInArea = Cache.GetCharacter(other);
         if(charInArea != null /* && character?.gameObject!=null &&  charInArea?.gameObject != character?.gameObject */)
         {
             character?.listCharInAttact.Remove(charInArea);
