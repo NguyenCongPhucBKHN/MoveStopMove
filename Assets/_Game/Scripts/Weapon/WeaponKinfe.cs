@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WeaponKinfe : Weapon
 {
+    [SerializeField] Transform[] bulletpoints;
+
     public override void Attack()
     {
         eWeaponType = character.currentWeaponType;
@@ -20,4 +22,6 @@ public class WeaponKinfe : Weapon
         }
         isActivate= (!bullets[0].IsDead && !bullets[1].IsDead && !bullets[2].IsDead);
     }
+
+   
 }

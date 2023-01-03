@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class IdleState : IState<Bot>
 {
+    Vector2 delayTime = new Vector2(1,2);
     float randomTime;
     float timer;
     float waitTime ;

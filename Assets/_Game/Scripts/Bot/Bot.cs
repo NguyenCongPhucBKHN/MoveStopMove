@@ -34,11 +34,13 @@ public class Bot : Character
         rd.velocity =Vector3.zero;
     }
 
+    bool IsBotActive =>(GameManagerr.Instance.IsState(EGameState.GamePlay)||GameManagerr.Instance.IsState(EGameState.Finish)) ;
+
     // Update is called once per frame
     void Update()
     {
 
-        if ((GameManagerr.Instance.IsState(EGameState.GamePlay)||GameManagerr.Instance.IsState(EGameState.Finish)) && currentState != null && !IsDead) 
+        if (IsBotActive && currentState != null && !IsDead) 
         {
             currentState.OnExecute(this);
         }
@@ -46,7 +48,6 @@ public class Bot : Character
         {
             ChangeAnim(Constant.ANIM_IDLE);
             StopMoving();
-            
             // ChangeState(new IdleState());
         }
     }
@@ -135,6 +136,10 @@ public class Bot : Character
                 destination.y = TF.position.y;
             }
         }
+        
+    }
+
+    public void SetDestination (Vector3 point) {
         
     }
 

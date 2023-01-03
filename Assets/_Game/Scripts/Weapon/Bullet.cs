@@ -43,7 +43,7 @@ public class Bullet : GameUnit
 
     void OnTriggerExit(Collider other)
     {
-        
+        //TODO: cache
         IHit hit = other.GetComponent<IHit>();
         if(hit != null)
         {
@@ -53,6 +53,7 @@ public class Bullet : GameUnit
 
     void OnTriggerEnter(Collider other)
     {   
+        //TODO: cache
         IHit hit = other.GetComponent<IHit>();
       
         if(hit != null && character!=null)
@@ -63,6 +64,7 @@ public class Bullet : GameUnit
 
     public override void OnInit()
     {
+        //TODO: dua ve awake
         tf= transform;
         rb = GetComponent<Rigidbody>();
         rb.useGravity= false;
@@ -77,4 +79,5 @@ public class Bullet : GameUnit
 
         // throw new System.NotImplementedException();
     }
+
 }

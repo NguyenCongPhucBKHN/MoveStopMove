@@ -36,13 +36,13 @@ public class Character : GameUnit, IHit
     public bool IsDead;
      
     [HideInInspector]
-    public bool IsAttack 
-    {
-        get 
-        {
-            return listCharInAttact.Count>0;
-        }
-    }
+    public bool IsAttack => listCharInAttact.Count>0;
+    // {
+    //     get 
+    //     {
+    //         return listCharInAttact.Count>0;
+    //     }
+    // }
    
     private string currentAnimName;
     
@@ -145,7 +145,7 @@ public class Character : GameUnit, IHit
                 level.DespawnChar(this);
                 AddScore(character);
                 character.Scale();
-                if(character.GetType() == typeof(Player)) 
+                if(character is Player) 
                 {
                     DataPlayerController.coinInLevel+= Constant.COIN_INCR;
                 }
@@ -196,6 +196,8 @@ public class Character : GameUnit, IHit
         Vector3 postion = weaponGenTF.position;
         postion.y = weaponGenTF.position.y;
         weapon.InitData( (int) currentWeaponType ,weapon.indexMat);
+
+        //TODO: cache transform
         weapon.transform.position= postion; 
         weapon.character = this;
         weapon.gameObject.SetActive(true);
@@ -215,7 +217,6 @@ public class Character : GameUnit, IHit
         return weapon;
     }
 
-
     public void Scale()
     {
         Vector3 scale = TF.localScale;
@@ -234,6 +235,7 @@ public class Character : GameUnit, IHit
             Vector3 direction = (position - TF.position).normalized;
             TF.forward = direction;
             dirAttact= direction;
+            tf.LookAt(target.tf.position + Vector3.up *( tf.position.y - target.tf.position.y));
         }      
         else
         {
@@ -259,10 +261,6 @@ public class Character : GameUnit, IHit
         return closedChar;
     }
 
-    public bool AnimatorIsPlaying(){
-     return anim.GetCurrentAnimatorStateInfo(0).length >
-            anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
-  }
 
     public void Throw()
     {

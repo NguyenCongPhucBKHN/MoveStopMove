@@ -13,6 +13,9 @@ public class PartrolState : IState<Bot>
        randomTime = Random.Range(Constant.TIMER_MIN_MOVE, Constant.TIMER_MAX_MOVE);
        waitTime = Random.Range(Constant.TIMER_MIN_WAIT, Constant.TIMER_MAX_WAIT);
 
+       //
+       bot.SetDestination(LevelManager.Instance.RandomPoint());
+
     }
     public void OnExecute(Bot bot)
     {
@@ -39,7 +42,13 @@ public class PartrolState : IState<Bot>
                 bot.ChangeState(new IdleState());
             }
         }
-         
+        //
+         //neu co character trong tam tan cong
+         //-> 50% change attack state
+        //  if(bot.IsDestination){
+        //     bot.ChangeState(new IdleState());
+        //  }
+
     }
     public void OnExit(Bot bot)
     {

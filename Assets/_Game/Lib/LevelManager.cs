@@ -59,7 +59,7 @@ public class LevelManager : Singleton<LevelManager>
     }
 
    
-
+    public Vector3 RandomPoint() => currentLevel.RandomPos();
    
    
 }
