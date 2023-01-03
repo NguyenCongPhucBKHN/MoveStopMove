@@ -44,7 +44,7 @@ public class Bullet : GameUnit
     void OnTriggerExit(Collider other)
     {
         //TODO: cache
-        IHit hit = other.GetComponent<IHit>();
+        IHit hit = Cache.GetIHit(other);
         if(hit != null)
         {
             hit.OnHitExit(this, character);
@@ -54,7 +54,7 @@ public class Bullet : GameUnit
     void OnTriggerEnter(Collider other)
     {   
         //TODO: cache
-        IHit hit = other.GetComponent<IHit>();
+        IHit hit = Cache.GetIHit(other);
       
         if(hit != null && character!=null)
         {
